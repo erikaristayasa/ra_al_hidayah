@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../features/forgot_password/presentation/bloc/forgot_password_bloc.dart';
 import '../../features/login/presentation/bloc/login_bloc.dart';
 import '../../features/registration/presentation/bloc/registration_bloc.dart';
 import '../errors/failure.dart';

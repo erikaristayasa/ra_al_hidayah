@@ -6,6 +6,7 @@ Future<void> locatorSetup() async {
   // blocs & cubits
   locator.registerFactory<LoginBloc>(() => LoginBloc());
   locator.registerFactory<RegistrationBloc>(() => RegistrationBloc());
+  locator.registerFactory<ForgotPasswordBloc>(() => ForgotPasswordBloc());
   // core
   locator.registerLazySingleton<Dio>(() => DioClient().dio);
   locator.registerLazySingleton<ConnectivityInfo>(() => ConnectivityInfoImplementation(connectivity: Connectivity()));
