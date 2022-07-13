@@ -39,7 +39,7 @@ class PageInfo extends StatelessWidget {
           // title
           Text(
             title,
-            style: const TextStyle(color: Colors.black, fontWeight: FontWeight.w800, fontSize: 20.0),
+            style: const TextStyle(color: Colors.black, fontWeight: FontWeight.w700, fontSize: 20.0),
           ),
 
           // description

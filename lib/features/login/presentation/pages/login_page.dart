@@ -138,7 +138,7 @@ class _LoginPageState extends State<LoginPage> {
                 height: 80.0,
               ),
               const PageInfo(
-                title: '',
+                title: 'Login',
                 description: 'Silahkan Login  jika sudah memiliki akun.',
               ),
               const LoginForm()

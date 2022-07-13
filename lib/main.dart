@@ -2,10 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ra_al_hidayah/core/statics/statics.dart';
-import 'package:ra_al_hidayah/core/utilities/utilities.dart';
 
 import 'core/routes/routes.dart';
+import 'core/statics/statics.dart';
+import 'core/utilities/utilities.dart';
 
 Future<void> main() async {
   LicenseRegistry.addLicense(() async* {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../features/login/presentation/pages/login_page.dart';
+import '../../features/registration/presentation/pages/registration_page.dart';
 import '../shared/presentation/pages/main_page.dart';
 import '../shared/presentation/pages/not_found_page.dart';
 import '../shared/presentation/pages/splash_screen_page.dart';
@@ -17,6 +18,8 @@ class AppRoutes {
         return jumpTo(page: const MainPage());
       case AppPaths.login:
         return jumpTo(page: const LoginPage());
+      case AppPaths.register:
+        return jumpTo(page: const RegistrationPage());
       case AppPaths.forgotPassword:
 
       case AppPaths.otp:
@@ -24,8 +27,6 @@ class AppRoutes {
       case AppPaths.changePassword:
 
       case AppPaths.verificationSuccess:
-
-      case AppPaths.register:
 
       default:
         return jumpTo(page: const NotFoundPage());

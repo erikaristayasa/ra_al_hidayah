@@ -8,6 +8,7 @@ import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../features/login/presentation/bloc/login_bloc.dart';
+import '../../features/registration/presentation/bloc/registration_bloc.dart';
 import '../errors/failure.dart';
 import '../networks/networks.dart';
 import '../shared/domain/entities/user_entity.dart';
