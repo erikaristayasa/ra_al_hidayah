@@ -9,6 +9,7 @@ class AppAssets {
   static const String iconChildrenBG = 'assets/icons/children_bg.svg';
   static const String iconWarning = 'assets/icons/warning.svg';
   static const String iconClose = 'assets/icons/close.svg';
+  static const String iconFormIndicatorArrow = 'assets/icons/form_indicator_arrow.svg';
   
   static const String iconQuestion = 'assets/icons/question.svg';
   static const String iconSearch = 'assets/icons/search.svg';

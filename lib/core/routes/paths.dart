@@ -8,5 +8,6 @@ class AppPaths {
   static const String otp = '/otp';
   static const String changePassword = '/change_password';
   static const String main = '/main';
+  static const String studentRegistrationForm = '/student_registration_form';
   
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../../core/routes/routes.dart';
 import '../../../../core/shared/presentation/widgets/rounded_container.dart';
 import '../../../../core/statics/statics.dart';
 import '../../../../core/utilities/utilities.dart';
@@ -61,7 +62,7 @@ class StudentRegistrationWarningDIalog extends StatelessWidget {
             AppHelpers.mediumVerticalSpacing(),
             TextButton(
               onPressed: () {
-                // Navigator.popAndPushNamed(context, routeName)
+                Navigator.popAndPushNamed(context, AppPaths.studentRegistrationForm);
               },
               child: const Text(
                 'ISI DATA BARU SISWA',
