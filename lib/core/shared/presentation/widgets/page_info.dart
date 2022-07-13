@@ -5,12 +5,13 @@ import '../../../statics/statics.dart';
 import '../../../utilities/utilities.dart';
 
 class PageInfo extends StatelessWidget {
-  final String title, description, asset;
+  final String title, description;
+  final String? asset;
   const PageInfo({
     Key? key,
     required this.title,
     required this.description,
-    required this.asset,
+    this.asset,
   }) : super(key: key);
 
   @override
@@ -20,34 +21,20 @@ class PageInfo extends StatelessWidget {
       child: Column(
         children: [
           // app name
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: const [
-              Text.rich(
-                TextSpan(
-                  children: [
-                    TextSpan(
-                      text: 'Anatomi dan Fisiologi  ',
-                      style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.w800, fontSize: 16.0),
-                    ),
-                    TextSpan(
-                      text: 'Manusia.',
-                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 16.0),
-                    )
-                  ],
-                ),
-              ),
-            ],
-          ),
-          AppHelpers.mediumVerticalSpacing(),
 
           // image
-          SvgPicture.asset(
-            asset,
-            fit: BoxFit.fitWidth,
-            height: 200.0,
-          ),
-          AppHelpers.largeVerticalSpacing(),
+          asset != null
+              ? Column(
+                  children: [
+                    SvgPicture.asset(
+                      asset!,
+                      fit: BoxFit.fitWidth,
+                      height: 200.0,
+                    ),
+                    AppHelpers.largeVerticalSpacing(),
+                  ],
+                )
+              : const SizedBox.shrink(),
 
           // title
           Text(

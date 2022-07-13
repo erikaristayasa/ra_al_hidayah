@@ -4,7 +4,7 @@ final locator = GetIt.instance;
 
 Future<void> locatorSetup() async {
   // blocs & cubits
-
+  locator.registerFactory<LoginBloc>(() => LoginBloc());
   // core
   locator.registerLazySingleton<Dio>(() => DioClient().dio);
   locator.registerLazySingleton<ConnectivityInfo>(() => ConnectivityInfoImplementation(connectivity: Connectivity()));

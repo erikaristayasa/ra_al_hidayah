@@ -16,14 +16,14 @@ class _SplashScreenPageState extends State<SplashScreenPage> with SingleTickerPr
   @override
   void initState() {
     super.initState();
-    // Future.delayed(const Duration(milliseconds: 800), () async {
-    //   final session = await locator.getAsync<SharedPreferencesHelper>();
-    //   if (session.isLoggedIn()) {
-    //     Navigator.pushReplacementNamed(context, AppPaths.main);
-    //   } else {
-    //     Navigator.pushReplacementNamed(context, AppPaths.login);
-    //   }
-    // });
+    Future.delayed(const Duration(milliseconds: 800), () async {
+      final session = await locator.getAsync<SharedPreferencesHelper>();
+      if (session.isLoggedIn()) {
+        Navigator.pushReplacementNamed(context, AppPaths.main);
+      } else {
+        Navigator.pushReplacementNamed(context, AppPaths.login);
+      }
+    });
   }
 
   @override

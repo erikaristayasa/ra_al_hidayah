@@ -46,11 +46,16 @@ dependencies:
   dartz: ^0.10.1
   connectivity_plus: ^2.3.4
   get_it: ^7.2.0
+  loader_overlay: ^2.0.6
+  carousel_slider: ^4.1.1
   file_picker: ^4.6.1
   path_provider: ^2.0.11
   permission_handler: ^9.2.0
   image_picker: ^0.8.5+3
   fluttertoast: ^8.0.9
+
+dependency_overrides:
+  back_button_interceptor: ^5.0.2
 
 dev_dependencies:
   flutter_test:
