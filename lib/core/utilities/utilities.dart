@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../features/forgot_password/presentation/bloc/forgot_password_bloc.dart';
 import '../../features/login/presentation/bloc/login_bloc.dart';
+import '../../features/otp/presentation/bloc/otp_bloc.dart';
 import '../../features/registration/presentation/bloc/registration_bloc.dart';
 import '../errors/failure.dart';
 import '../networks/networks.dart';

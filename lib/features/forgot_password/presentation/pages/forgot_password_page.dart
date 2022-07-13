@@ -75,7 +75,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       RoundedButton(
                         title: 'Selanjutnya',
                         onTap: () {
-                          if (_formKey.currentState!.validate()) {}
+                          if (_formKey.currentState!.validate()) {
+                            Navigator.pushNamed(context, AppPaths.otp);
+                          }
                         },
                       )
                     ],
