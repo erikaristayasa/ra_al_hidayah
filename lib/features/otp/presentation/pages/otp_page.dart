@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:pinput/pinput.dart';
 
+import '../../../../core/routes/routes.dart';
 import '../../../../core/shared/presentation/widgets/page_info.dart';
 import '../../../../core/shared/presentation/widgets/rounded_button.dart';
 import '../../../../core/statics/statics.dart';
@@ -71,6 +72,7 @@ class _OtpPageState extends State<OtpPage> {
                 context.loaderOverlay.hide();
                 if (state is OtpValid) {
                   Fluttertoast.showToast(msg: 'Verified');
+                  Navigator.pushReplacementNamed(context, AppPaths.changePassword);
                   // Navigator.popAndPushNamed(
                   //   context,
                   //   AppPaths.changePassword,
@@ -190,7 +192,9 @@ class _OtpPageState extends State<OtpPage> {
                     child: RoundedButton(
                       radius: 15.0,
                       title: 'Verifikasi',
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushReplacementNamed(context, AppPaths.changePassword);
+                      },
                     ),
                   )
                 ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ra_al_hidayah/features/change_password/presentation/pages/change_password_page.dart';
 import 'package:ra_al_hidayah/features/otp/presentation/pages/otp_page.dart';
 
 import '../../features/forgot_password/presentation/pages/forgot_password_page.dart';
@@ -26,7 +27,7 @@ class AppRoutes {
       case AppPaths.otp:
         return jumpTo(page: const OtpPage());
       case AppPaths.changePassword:
-
+        return jumpTo(page: const ChangePasswordPage());
       case AppPaths.verificationSuccess:
 
       default:

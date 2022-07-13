@@ -8,6 +8,7 @@ Future<void> locatorSetup() async {
   locator.registerFactory<RegistrationBloc>(() => RegistrationBloc());
   locator.registerFactory<ForgotPasswordBloc>(() => ForgotPasswordBloc());
   locator.registerFactory<OtpBloc>(() => OtpBloc());
+  locator.registerFactory<ChangePasswordBloc>(() => ChangePasswordBloc());
   
   // core
   locator.registerLazySingleton<Dio>(() => DioClient().dio);
