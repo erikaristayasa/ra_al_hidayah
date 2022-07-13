@@ -106,10 +106,11 @@ class _LoginFormState extends State<LoginForm> {
                 title: 'Login',
                 onTap: () {
                   if (_formKey.currentState!.validate()) {
-                    context.read<LoginBloc>().add(Submit(
-                          phone: _phoneController.text,
-                          password: _passwordController.text,
-                        ));
+                    Navigator.pushReplacementNamed(context, AppPaths.main);
+                    // context.read<LoginBloc>().add(Submit(
+                    //       phone: _phoneController.text,
+                    //       password: _passwordController.text,
+                    //     ));
                   }
                 },
               ),

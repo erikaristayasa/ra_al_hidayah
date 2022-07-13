@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ra_al_hidayah/features/student_registration/presentation/pages/student_registration_page.dart';
 
 
 import '../cubits/navbar_cubit.dart';
@@ -19,10 +20,7 @@ class MainPage extends StatelessWidget {
           child: BlocBuilder<NavbarCubit, int>(
             builder: (context, state) {
               if (state == 0) {
-                return const ColoredBox(
-                  color: Colors.blue,
-                  child: SizedBox.expand(),
-                );
+                return const StudentRegistrationPage();
               } else if (state == 1) {
                 return const ColoredBox(
                   color: Colors.red,

@@ -4,9 +4,14 @@ class AppAssets {
   static const String logo = 'assets/icons/logo.png';
 
   // svg icon
+  static const String iconLogout = 'assets/icons/logout.svg';
+  static const String iconChildren = 'assets/images/children.png';
+  static const String iconChildrenBG = 'assets/icons/children_bg.svg';
+  static const String iconWarning = 'assets/icons/warning.svg';
+  static const String iconClose = 'assets/icons/close.svg';
+  
   static const String iconQuestion = 'assets/icons/question.svg';
   static const String iconSearch = 'assets/icons/search.svg';
-  static const String iconLogout = 'assets/icons/logout.svg';
   static const String iconCopy = 'assets/icons/copy.svg';
   static const String iconDelete = 'assets/icons/delete.svg';
   static const String iconPDF = 'assets/icons/pdf.svg';
@@ -19,6 +24,8 @@ class AppAssets {
 
   static const String camera = 'assets/icons/camera.png';
   static const String gallery = 'assets/icons/gallery.png';
+  static const String polygon1 = 'assets/icons/polygon_1.svg';
+  static const String polygon2 = 'assets/icons/polygon_2.svg';
 
   // illustration
   static const String illustrationLogin = 'assets/images/illustration/login_illustration.svg';

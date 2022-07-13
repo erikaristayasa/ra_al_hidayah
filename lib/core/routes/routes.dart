@@ -28,7 +28,6 @@ class AppRoutes {
         return jumpTo(page: const OtpPage());
       case AppPaths.changePassword:
         return jumpTo(page: const ChangePasswordPage());
-      case AppPaths.verificationSuccess:
 
       default:
         return jumpTo(page: const NotFoundPage());
