@@ -39,6 +39,8 @@ extension StringTransformation on String {
   AccountType get getAccountType {
     if (this == 'MAHASISWA') {
       return AccountType.student;
+    } else if (this == 'ORANG_TUA') {
+      return AccountType.parent;
     } else {
       return AccountType.lecturer;
     }
@@ -57,6 +59,8 @@ extension AccountTypeTransformation on AccountType {
   String get text {
     if (this == AccountType.student) {
       return 'MAHASISWA';
+    } else if (this == AccountType.parent) {
+      return 'ORANG_TUA';
     } else {
       return 'DOSEN';
     }

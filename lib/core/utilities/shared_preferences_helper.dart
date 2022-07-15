@@ -51,26 +51,26 @@ class SharedPreferencesHelper {
   }
 
   // set user session
-  // Future<bool> setUserSession(Login data) async {
-  //   try {
-  //     await logIn();
-  //     await prefs.setString(USER_TOKEN, data.token);
-  //     await prefs.setString(USER_PHOTO, data.user.photo);
-  //     await prefs.setString(USER_EMAIL, data.user.email);
-  //     await prefs.setString(USER_NAME, data.user.email);
-  //     await prefs.setInt(USER_ID, data.user.id);
-  //     await prefs.setString(USER_ACCOUNT_TYPE, data.user.accountType.text);
-  //     return true;
-  //   } catch (e) {
-  //     AppHelpers.logMe(e);
-  //     return false;
-  //   }
-  // }
+  Future<bool> setUserSession(Login data) async {
+    try {
+      await logIn();
+      await prefs.setString(USER_TOKEN, data.token);
+      // await prefs.setString(USER_PHOTO, data.user.photo);
+      await prefs.setString(USER_EMAIL, data.user.email);
+      await prefs.setString(USER_NAME, data.user.email);
+      await prefs.setInt(USER_ID, data.user.id);
+      await prefs.setString(USER_ACCOUNT_TYPE, data.user.accountType.text);
+      return true;
+    } catch (e) {
+      AppHelpers.logMe(e);
+      return false;
+    }
+  }
 
   Future<bool> updateUserSession(User user) async {
     try {
       await logIn();
-      await prefs.setString(USER_PHOTO, user.photo);
+      // await prefs.setString(USER_PHOTO, user.photo);
       await prefs.setString(USER_EMAIL, user.email);
       await prefs.setString(USER_NAME, user.email);
       await prefs.setInt(USER_ID, user.id);

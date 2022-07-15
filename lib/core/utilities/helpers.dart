@@ -40,10 +40,10 @@ class AppHelpers {
     return sharedPrefHelper.userPhoto;
   }
 
-  // static Future<void> savingSession(Login data) async {
-  //   final session = await locator.getAsync<SharedPreferencesHelper>();
-  //   await session.setUserSession(data);
-  // }
+  static Future<void> savingSession(Login data) async {
+    final session = await locator.getAsync<SharedPreferencesHelper>();
+    await session.setUserSession(data);
+  }
 
   static Future<void> updateSession(User user) async {
     final session = await locator.getAsync<SharedPreferencesHelper>();

@@ -3,6 +3,7 @@ part of 'statics.dart';
 enum AccountType {
   student,
   lecturer,
+  parent,
 }
 
 enum TeachingMaterialStatus {
