@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ra_al_hidayah/features/student_registration/presentation/pages/student_registration_form_page.dart';
 
 import '../../features/change_password/presentation/pages/change_password_page.dart';
 import '../../features/forgot_password/presentation/pages/forgot_password_page.dart';
 import '../../features/login/presentation/pages/login_page.dart';
 import '../../features/otp/presentation/pages/otp_page.dart';
 import '../../features/registration/presentation/pages/registration_page.dart';
-import '../../features/student_registration/presentation/pages/student_registration_page.dart';
 import '../shared/presentation/pages/main_page.dart';
 import '../shared/presentation/pages/not_found_page.dart';
 import '../shared/presentation/pages/splash_screen_page.dart';
@@ -27,7 +25,10 @@ class AppRoutes {
       case AppPaths.forgotPassword:
         return jumpTo(page: const ForgotPasswordPage());
       case AppPaths.otp:
-        return jumpTo(page: const OtpPage());
+        final args = settings.arguments as OtpPageRouteArguments;
+        return jumpTo(
+          page: OtpPage(token: args.token, prevPhone: args.prevPhone),
+        );
       case AppPaths.changePassword:
         return jumpTo(page: const ChangePasswordPage());
       case AppPaths.studentRegistrationForm:

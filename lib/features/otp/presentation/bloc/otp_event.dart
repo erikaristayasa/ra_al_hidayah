@@ -6,3 +6,12 @@ abstract class OtpEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class Validate extends OtpEvent {
+  final String token, code;
+
+  const Validate({required this.token, required this.code});
+
+  @override
+  List<Object> get props => [token, code];
+}

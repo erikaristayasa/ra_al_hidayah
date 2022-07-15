@@ -14,8 +14,17 @@ import '../../../../core/utilities/utilities.dart';
 import '../../../forgot_password/presentation/bloc/forgot_password_bloc.dart';
 import '../bloc/otp_bloc.dart';
 
+class OtpPageRouteArguments {
+  final String token;
+  final String prevPhone;
+
+  OtpPageRouteArguments({required this.token, required this.prevPhone});
+}
+
 class OtpPage extends StatefulWidget {
-  const OtpPage({Key? key}) : super(key: key);
+  final String token;
+  final String prevPhone;
+  const OtpPage({Key? key, required this.token, required this.prevPhone}) : super(key: key);
 
   @override
   State<OtpPage> createState() => _OtpPageState();
@@ -28,6 +37,18 @@ class _OtpPageState extends State<OtpPage> {
   final _pinController = TextEditingController();
   bool _resent = false;
   CountdownTimerController? _timerController;
+
+  @override
+  void initState() {
+    _token = widget.token;
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _timerController?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +172,7 @@ class _OtpPageState extends State<OtpPage> {
                     onCompleted: (code) {
                       AppHelpers.logMe('TOKEN: $_token');
                       AppHelpers.logMe('CODE: $code');
-                      // _otpBloc.add(otp.Submit(token: _data.token, code: code));
+                      _otpBloc.add(Validate(token: _token, code: code));
                     },
                   ),
                   Padding(
@@ -169,10 +190,9 @@ class _OtpPageState extends State<OtpPage> {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  // _forgotBloc.add(Submit(
-                                  //   nim: widget.prevNim,
-                                  //   type: widget.prevType,
-                                  // ));
+                                  _forgotBloc.add(Submit(
+                                    phone: widget.prevPhone,
+                                  ));
                                 },
                                 child: const Text(
                                   ' Kirim Ulang',

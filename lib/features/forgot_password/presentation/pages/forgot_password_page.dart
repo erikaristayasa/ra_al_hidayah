@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import '../../../otp/presentation/pages/otp_page.dart';
 
 import '../../../../core/routes/routes.dart';
 import '../../../../core/shared/presentation/widgets/custom_text_field.dart';
@@ -49,7 +50,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     } else {
                       context.loaderOverlay.hide();
                       if (state is ForgotPasswordSuccess) {
-                        Navigator.pushNamed(context, AppPaths.otp);
+                        Navigator.pushNamed(context, AppPaths.otp,
+                            arguments: OtpPageRouteArguments(
+                              token: state.token,
+                              prevPhone: _phoneController.text,
+                            ));
                       }
                     }
                   },
