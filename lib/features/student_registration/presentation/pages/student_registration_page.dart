@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../../core/routes/routes.dart';
 import '../../../../core/shared/presentation/widgets/custom_app_bar.dart';
 import '../../../../core/shared/presentation/widgets/rounded_container.dart';
 import '../../../../core/statics/statics.dart';
@@ -79,7 +80,38 @@ class _StudentRegistrationPageState extends State<StudentRegistrationPage> {
         title: 'Pendaftaran Siswa',
         trailing: IconButton(
           padding: const EdgeInsets.all(0.0),
-          onPressed: () {},
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text('Keluar'),
+                content: const Text(
+                  'Yakin untuk keluar dari Aplikasi?',
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text('Batal'),
+                  ),
+                  TextButton(
+                    onPressed: () async {
+                      final session = await locator.getAsync<SharedPreferencesHelper>();
+                      await session.logOut().then(
+                            (_) => Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              AppPaths.login,
+                              (route) => false,
+                            ),
+                          );
+                    },
+                    child: const Text('Iya'),
+                  )
+                ],
+              ),
+            );
+          },
           icon: SvgPicture.asset(
             AppAssets.iconLogout,
           ),
