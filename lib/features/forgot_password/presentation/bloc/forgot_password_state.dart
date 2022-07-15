@@ -11,7 +11,14 @@ class ForgotPasswordInitial extends ForgotPasswordState {}
 
 class ForgotPasswordLoading extends ForgotPasswordState {}
 
-class ForgotPasswordSuccess extends ForgotPasswordState {}
+class ForgotPasswordSuccess extends ForgotPasswordState {
+  final String token;
+
+  const ForgotPasswordSuccess({required this.token});
+
+  @override
+  List<Object> get props => [token];
+}
 
 class ForgotPasswordFailure extends ForgotPasswordState {
   final Failure failure;

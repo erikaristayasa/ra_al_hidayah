@@ -22,7 +22,7 @@ class OtpPage extends StatefulWidget {
 }
 
 class _OtpPageState extends State<OtpPage> {
-  late dynamic _data;
+  late String _token;
   final _otpBloc = locator<OtpBloc>();
   final _forgotBloc = locator<ForgotPasswordBloc>();
   final _pinController = TextEditingController();
@@ -50,7 +50,7 @@ class _OtpPageState extends State<OtpPage> {
               if (state is ForgotPasswordSuccess) {
                 _pinController.clear();
                 setState(() {
-                  // _data = state.data;
+                  _token = state.token;
                   _resent = true;
                   _timerController = CountdownTimerController(
                       endTime: DateTime.now().add(const Duration(seconds: 30)).millisecondsSinceEpoch,
@@ -149,7 +149,7 @@ class _OtpPageState extends State<OtpPage> {
                       ),
                     ),
                     onCompleted: (code) {
-                      AppHelpers.logMe('TOKEN: ${_data.token}');
+                      AppHelpers.logMe('TOKEN: $_token');
                       AppHelpers.logMe('CODE: $code');
                       // _otpBloc.add(otp.Submit(token: _data.token, code: code));
                     },

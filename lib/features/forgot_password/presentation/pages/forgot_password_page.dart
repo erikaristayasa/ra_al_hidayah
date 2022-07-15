@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'package:ra_al_hidayah/core/shared/presentation/widgets/custom_text_field.dart';
-import 'package:ra_al_hidayah/core/shared/presentation/widgets/rounded_button.dart';
 
 import '../../../../core/routes/routes.dart';
+import '../../../../core/shared/presentation/widgets/custom_text_field.dart';
 import '../../../../core/shared/presentation/widgets/notification_label.dart';
 import '../../../../core/shared/presentation/widgets/page_info.dart';
+import '../../../../core/shared/presentation/widgets/rounded_button.dart';
 import '../../../../core/statics/statics.dart';
 import '../../../../core/utilities/utilities.dart';
 import '../bloc/forgot_password_bloc.dart';
@@ -21,12 +21,13 @@ class ForgotPasswordPage extends StatefulWidget {
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _phoneController = TextEditingController();
+  final _bloc = locator<ForgotPasswordBloc>();
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => locator<ForgotPasswordBloc>(),
+          create: (context) => _bloc,
         ),
       ],
       child: LoaderOverlay(
@@ -47,7 +48,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       context.loaderOverlay.show();
                     } else {
                       context.loaderOverlay.hide();
-                      if (state is ForgotPasswordSuccess) {}
+                      if (state is ForgotPasswordSuccess) {
+                        Navigator.pushNamed(context, AppPaths.otp);
+                      }
                     }
                   },
                   builder: (context, state) {
@@ -76,7 +79,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         title: 'Selanjutnya',
                         onTap: () {
                           if (_formKey.currentState!.validate()) {
-                            Navigator.pushNamed(context, AppPaths.otp);
+                            _bloc.add(Submit(phone: _phoneController.text));
                           }
                         },
                       )

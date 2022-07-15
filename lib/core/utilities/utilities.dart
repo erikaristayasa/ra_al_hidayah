@@ -8,6 +8,10 @@ import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../features/change_password/presentation/bloc/change_password_bloc.dart';
+import '../../features/forgot_password/data/datasources/forgot_password_data_source.dart';
+import '../../features/forgot_password/data/repositories/forgot_password_repository_implementation.dart';
+import '../../features/forgot_password/domain/repositories/forgot_password_repository.dart';
+import '../../features/forgot_password/domain/usecases/do_forgot_password.dart';
 import '../../features/forgot_password/presentation/bloc/forgot_password_bloc.dart';
 import '../../features/login/data/datasources/login_data_source.dart';
 import '../../features/login/data/repositories/login_repository_implementation.dart';
