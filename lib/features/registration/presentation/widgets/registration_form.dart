@@ -77,7 +77,11 @@ class _RegistrationFormState extends State<RegistrationForm> {
                   }
                 },
               ),
-              CustomTextField(controller: _parentNameController, placeholder: 'Nama Orang Tua', inputType: TextInputType.name),
+              CustomTextField(
+                controller: _parentNameController,
+                placeholder: 'Nama Orang Tua',
+                inputType: TextInputType.name,
+              ),
               AppHelpers.smallVerticalSpacing(),
               CustomTextField(
                 controller: _addressController,
@@ -102,7 +106,15 @@ class _RegistrationFormState extends State<RegistrationForm> {
               RoundedButton(
                 title: 'Registrasi',
                 onTap: () {
-                  if (_formKey.currentState!.validate()) {}
+                  if (_formKey.currentState!.validate()) {
+                    context.read<RegistrationBloc>().add(Submit(
+                          name: _parentNameController.text,
+                          address: _addressController.text,
+                          phone: _phoneController.text,
+                          password: _passwordController.text,
+                          passwordConfirmation: _passwordConfirmationController.text,
+                        ));
+                  }
                 },
               ),
               Row(
