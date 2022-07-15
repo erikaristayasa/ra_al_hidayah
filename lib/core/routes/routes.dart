@@ -31,7 +31,7 @@ class AppRoutes {
       case AppPaths.changePassword:
         return jumpTo(page: const ChangePasswordPage());
       case AppPaths.studentRegistrationForm:
-        return jumpTo(page: const StudentRegistrationFormPage());
+      // return jumpTo(page: const StudentRegistrationFormPage());
       default:
         return jumpTo(page: const NotFoundPage());
     }

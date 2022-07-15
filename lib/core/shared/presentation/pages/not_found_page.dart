@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../statics/statics.dart';
@@ -9,6 +10,7 @@ class NotFoundPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Fluttertoast.showToast(msg: 'Unexpected Error');
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
