@@ -6,12 +6,7 @@ enum AccountType {
   parent,
 }
 
-enum TeachingMaterialStatus {
-  active,
-  inactive,
-}
-
-enum EvaluationDetailType {
-  questions,
-  results,
+enum BannerType {
+  homepage,
+  login,
 }

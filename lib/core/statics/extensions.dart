@@ -46,11 +46,11 @@ extension StringTransformation on String {
     }
   }
 
-  TeachingMaterialStatus get getTeachingMaterialStatus {
-    if (this == 'AKTIF') {
-      return TeachingMaterialStatus.active;
+  BannerType get bannerType {
+    if (this == 'HOMEPAGE') {
+      return BannerType.homepage;
     } else {
-      return TeachingMaterialStatus.inactive;
+      return BannerType.login;
     }
   }
 }
@@ -67,20 +67,12 @@ extension AccountTypeTransformation on AccountType {
   }
 }
 
-extension TeachingMaterialStatusTransformation on TeachingMaterialStatus {
+extension BannerTypeTransformation on BannerType {
   String get text {
-    if (this == TeachingMaterialStatus.active) {
-      return 'Aktif';
+    if (this == BannerType.homepage) {
+      return 'HOMEPAGE';
     } else {
-      return 'Tidak aktif';
-    }
-  }
-
-  Color get color {
-    if (this == TeachingMaterialStatus.active) {
-      return AppColors.success;
-    } else {
-      return AppColors.error;
+      return 'LOGIN';
     }
   }
 }
