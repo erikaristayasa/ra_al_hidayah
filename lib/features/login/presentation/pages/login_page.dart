@@ -5,7 +5,6 @@ import 'package:loader_overlay/loader_overlay.dart';
 
 import '../../../../core/shared/presentation/blocs/banner/banner_bloc.dart';
 import '../../../../core/shared/presentation/widgets/page_info.dart';
-import '../../../../core/shared/presentation/widgets/rounded_container.dart';
 import '../../../../core/statics/statics.dart';
 import '../../../../core/utilities/utilities.dart';
 import '../bloc/login_bloc.dart';

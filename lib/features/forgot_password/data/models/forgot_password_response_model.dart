@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 
 class ForgotPasswordResponseModel extends Equatable {
   final String message;
-  final ForgotResultModel data;
+  final ForgotResultModel? data;
 
   const ForgotPasswordResponseModel({required this.message, required this.data});
 
@@ -12,6 +12,6 @@ class ForgotPasswordResponseModel extends Equatable {
 
   factory ForgotPasswordResponseModel.fromJson(Map<String, dynamic> json) => ForgotPasswordResponseModel(
         message: json['message'],
-        data: ForgotResultModel.fromJson(json['data']),
+        data: json['data'] != null ? ForgotResultModel.fromJson(json['data']) : null,
       );
 }

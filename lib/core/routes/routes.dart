@@ -30,7 +30,8 @@ class AppRoutes {
           page: OtpPage(token: args.token, prevPhone: args.prevPhone),
         );
       case AppPaths.changePassword:
-        return jumpTo(page: const ChangePasswordPage());
+        final args = settings.arguments as ChangePasswordPageRouteArguments;
+        return jumpTo(page: ChangePasswordPage(token: args.token));
       case AppPaths.studentRegistrationForm:
       // return jumpTo(page: const StudentRegistrationFormPage());
       default:

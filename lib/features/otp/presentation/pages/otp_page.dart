@@ -11,6 +11,7 @@ import '../../../../core/shared/presentation/widgets/page_info.dart';
 import '../../../../core/shared/presentation/widgets/rounded_button.dart';
 import '../../../../core/statics/statics.dart';
 import '../../../../core/utilities/utilities.dart';
+import '../../../change_password/presentation/pages/change_password_page.dart';
 import '../../../forgot_password/presentation/bloc/forgot_password_bloc.dart';
 import '../bloc/otp_bloc.dart';
 
@@ -93,15 +94,14 @@ class _OtpPageState extends State<OtpPage> {
                 context.loaderOverlay.hide();
                 if (state is OtpValid) {
                   Fluttertoast.showToast(msg: 'Verified');
-                  Navigator.pushReplacementNamed(context, AppPaths.changePassword);
-                  // Navigator.popAndPushNamed(
-                  //   context,
-                  //   AppPaths.changePassword,
-                  //   arguments: ChangePasswordPageRouteArguments(
-                  //     token: _data.token,
-                  //     type: widget.prevType,
-                  //   ),
-                  // );
+                  
+                  Navigator.popAndPushNamed(
+                    context,
+                    AppPaths.changePassword,
+                    arguments: ChangePasswordPageRouteArguments(
+                      token: _token,
+                    ),
+                  );
                 } else if (state is OtpInvalid) {
                   _pinController.clear();
                   Fluttertoast.showToast(msg: AppHelpers.getErrorMessage(state.failure));

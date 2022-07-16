@@ -13,13 +13,13 @@ import '../bloc/change_password_bloc.dart';
 
 class ChangePasswordPageRouteArguments {
   final String token;
-  final AccountType type;
 
-  ChangePasswordPageRouteArguments({required this.token, required this.type});
+  ChangePasswordPageRouteArguments({required this.token});
 }
 
 class ChangePasswordPage extends StatefulWidget {
-  const ChangePasswordPage({Key? key}) : super(key: key);
+  final String token;
+  const ChangePasswordPage({Key? key, required this.token}) : super(key: key);
 
   @override
   State<ChangePasswordPage> createState() => _ChangePasswordPageState();
@@ -44,7 +44,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                 description: 'Silahkan ubah kata sandi baru sesuai keinginan Anda.',
                 asset: AppAssets.illustrationChangePassword,
               ),
-              BlocListener<ChangePasswordBloc, ChangePasswordState>(
+              BlocConsumer<ChangePasswordBloc, ChangePasswordState>(
                 listener: (context, state) {
                   if (state is ChangePasswordLoading) {
                     context.loaderOverlay.show();
@@ -58,37 +58,36 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                     }
                   }
                 },
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: AppDimensions.large),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        CustomPasswordContainer(
-                          showDescriptionText: false,
-                          passwordController: _passwordController,
-                          passwordConfirmationController: _passwordConfirmationController,
-                        ),
-                        AppHelpers.largeVerticalSpacing(),
-                        RoundedButton(
-                          title: 'Ubah',
-                          onTap: () {
-                            if (_formKey.currentState!.validate()) {
-                              Navigator.pushReplacementNamed(context, AppPaths.login);
-                              // Navigator.pushReplacementNamed(context, AppPaths.verificationSuccess);
-                              // context.read<ChangePasswordBloc>().add(Submit(
-                              //       password: _passwordController.text,
-                              //       passwordConfirmation: _passwordConfirmationController.text,
-                              //       type: widget.type,
-                              //       token: widget.token,
-                              //     ));
-                            }
-                          },
-                        ),
-                      ],
+                builder: (context, state) {
+                  return Container(
+                    padding: const EdgeInsets.symmetric(horizontal: AppDimensions.large),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          CustomPasswordContainer(
+                            showDescriptionText: false,
+                            passwordController: _passwordController,
+                            passwordConfirmationController: _passwordConfirmationController,
+                          ),
+                          AppHelpers.largeVerticalSpacing(),
+                          RoundedButton(
+                            title: 'Ubah',
+                            onTap: () {
+                              if (_formKey.currentState!.validate()) {
+                                context.read<ChangePasswordBloc>().add(Submit(
+                                      password: _passwordController.text,
+                                      passwordConfirmation: _passwordConfirmationController.text,
+                                      token: widget.token,
+                                    ));
+                              }
+                            },
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ),
+                  );
+                },
               )
             ],
           ),
