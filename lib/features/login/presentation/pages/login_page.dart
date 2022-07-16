@@ -43,47 +43,7 @@ class _LoginPageState extends State<LoginPage> {
                 listener: (context, state) {},
                 builder: (context, state) {
                   if (state is BannerLoaded) {
-                    _images = List<Widget>.from(
-                      state.data.map(
-                        (e) => Stack(
-                          children: [
-                            RoundedContainer(
-                              radius: 5.0,
-                              width: double.maxFinite,
-                              height: double.maxFinite,
-                              padding: const EdgeInsets.all(0.0),
-                              color: Colors.transparent,
-                              clipBerhaviour: Clip.antiAlias,
-                              child: InkWell(
-                                onTap: () {},
-                                child: Image.network(
-                                  e.photo,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5.0),
-                                gradient: LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  colors: <Color>[
-                                    Colors.transparent,
-                                    Colors.transparent,
-                                    Colors.transparent,
-                                    Colors.black.withOpacity(0.5),
-                                  ], // Gradient from https://learnui.design/tools/gradient-generator.html
-                                  tileMode: TileMode.clamp,
-                                ),
-                              ),
-                              child: const SizedBox.expand(),
-                              // color: Colors.transparent,
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
+                    _images = AppHelpers.getImageBanner(state.data);
 
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: AppDimensions.large, vertical: AppDimensions.medium),

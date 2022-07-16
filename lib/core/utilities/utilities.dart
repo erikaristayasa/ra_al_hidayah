@@ -33,10 +33,12 @@ import '../errors/failure.dart';
 import '../networks/networks.dart';
 import '../shared/data/datasources/banner_data_source.dart';
 import '../shared/data/repositories/banner_repository_implementation.dart';
+import '../shared/domain/entities/banner_entity.dart' as en;
 import '../shared/domain/entities/user_entity.dart';
 import '../shared/domain/repositories/banner_repository.dart';
 import '../shared/domain/usecases/get_banners.dart';
 import '../shared/presentation/blocs/banner/banner_bloc.dart';
+import '../shared/presentation/widgets/rounded_container.dart';
 import '../statics/statics.dart';
 
 part 'helpers.dart';

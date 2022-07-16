@@ -55,4 +55,52 @@ class AppHelpers {
     Random _rnd = Random();
     return String.fromCharCodes(Iterable.generate(length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
   }
+
+  static List<Widget> getImageBanner(List<en.Banner> banners) {
+    return List<Widget>.from(
+      banners.map(
+        (e) => Stack(
+          children: [
+            RoundedContainer(
+              radius: 5.0,
+              width: double.maxFinite,
+              height: double.maxFinite,
+              padding: const EdgeInsets.all(0.0),
+              color: Colors.transparent,
+              clipBerhaviour: Clip.antiAlias,
+              child: InkWell(
+                onTap: () {},
+                child: Image.network(
+                  e.photo,
+                  fit: BoxFit.cover,
+                  errorBuilder: (_, __, ___) => ColoredBox(
+                    color: Colors.grey[200]!,
+                    child: const SizedBox.expand(),
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5.0),
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: <Color>[
+                    Colors.transparent,
+                    Colors.transparent,
+                    Colors.transparent,
+                    Colors.black.withOpacity(0.5),
+                  ], // Gradient from https://learnui.design/tools/gradient-generator.html
+                  tileMode: TileMode.clamp,
+                ),
+              ),
+              child: const SizedBox.expand(),
+              // color: Colors.transparent,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
