@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ra_al_hidayah/core/routes/routes.dart';
 import 'package:ra_al_hidayah/core/shared/presentation/blocs/student/student_list_bloc.dart';
 import 'package:ra_al_hidayah/core/shared/presentation/pages/empty_page.dart';
 import 'package:ra_al_hidayah/core/shared/presentation/pages/loading_page.dart';
@@ -7,6 +8,7 @@ import 'package:ra_al_hidayah/core/shared/presentation/widgets/custom_app_bar.da
 import 'package:ra_al_hidayah/core/shared/presentation/widgets/custom_search_bar.dart';
 import 'package:ra_al_hidayah/core/statics/statics.dart';
 import 'package:ra_al_hidayah/core/utilities/utilities.dart';
+import 'package:ra_al_hidayah/features/student_payment/presentation/pages/payment_detail_page.dart';
 import 'package:ra_al_hidayah/features/student_payment/presentation/widgets/empty_students_bottom_sheet.dart';
 import 'package:ra_al_hidayah/features/student_payment/presentation/widgets/student_item.dart';
 
@@ -86,7 +88,9 @@ class _StudentPaymentPageState extends State<StudentPaymentPage> {
                             final _student = _data[index];
                             return StudentItem(
                               data: _student,
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.pushNamed(context, AppPaths.paymentDetail, arguments: PaymentDetailPageRouteArguments(student: _student));
+                              },
                             );
                           },
                           separatorBuilder: (_, __) => AppHelpers.mediumVerticalSpacing(),

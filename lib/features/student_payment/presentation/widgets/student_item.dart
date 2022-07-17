@@ -147,7 +147,7 @@ class ActionButton extends StatelessWidget {
             ),
           ),
           color: const Color(0xFFF39A1A),
-          onTap: () {},
+          onTap: onTap,
         );
       case PaymentStatus.accept:
         return RoundedButton(

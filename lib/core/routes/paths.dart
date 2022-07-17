@@ -9,5 +9,5 @@ class AppPaths {
   static const String changePassword = '/change_password';
   static const String main = '/main';
   static const String studentRegistrationForm = '/student_registration_form';
-  
+  static const String paymentDetail = '/payment_detail';
 }
