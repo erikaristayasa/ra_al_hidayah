@@ -196,10 +196,12 @@ class _FormFieldState extends State<FormField> {
           ),
           AppHelpers.smallVerticalSpacing(),
           CustomTextField(
+            enabled: false,
             outlineStyle: true,
             placeholder: 'Tanggal Lahir',
             controller: widget.birthDateController,
             inputType: TextInputType.datetime,
+            isDatePicker: true,
             bottomDescription: 'Contoh Penulisan: 2022-12-31',
           ),
           AppHelpers.smallVerticalSpacing(),

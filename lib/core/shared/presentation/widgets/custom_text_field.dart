@@ -73,17 +73,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
       borderRadius: const BorderRadius.all(
         Radius.circular(10.0),
       ),
-      borderSide: BorderSide(
-        color: AppColors.bgGrey, width: widget.outlineStyle ? 2 : 0
-      ),
+      borderSide: BorderSide(color: AppColors.bgGrey, width: widget.outlineStyle ? 2 : 0),
     );
     errorBorder = OutlineInputBorder(
       borderRadius: const BorderRadius.all(
         Radius.circular(10.0),
       ),
-      borderSide: BorderSide(
-        color: AppColors.error, width: widget.outlineStyle ? 2 : 0
-      ),
+      borderSide: BorderSide(color: AppColors.error, width: widget.outlineStyle ? 2 : 0),
     );
     super.initState();
   }
@@ -227,15 +223,15 @@ class _CustomTextFieldState extends State<CustomTextField> {
                         child: GestureDetector(
                           onTap: () {
                             final _now = DateTime.now();
-                            final _initialDate = widget.controller.text.toDate(format: 'dd/MM/yyyy');
+                            final _initialDate = widget.controller.text.toDate(format: 'yyyy-MM-dd');
                             showDatePicker(
                               context: context,
                               initialDate: _initialDate ?? _now,
-                              firstDate: _now,
-                              lastDate: _now.add(const Duration(days: 90)),
+                              firstDate: _now.subtract(const Duration(days: 3650)),
+                              lastDate: _now,
                             ).then((value) {
                               if (value != null) {
-                                final _dateString = value.toText(format: 'dd/MM/yyyy');
+                                final _dateString = value.toText(format: 'yyyy-MM-dd');
                                 widget.controller.text = _dateString;
                               }
                             });
