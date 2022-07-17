@@ -16,6 +16,7 @@ class SharedPreferencesHelper {
   static const String IS_LOGGED_IN = 'isLoggedIn';
   static const String USER_EMAIL = 'userEmail';
   static const String USER_PHOTO = 'userPhoto';
+  static const String USER_ADDRESS = 'userAddress';
   static const String USER_NAME = 'userName';
   static const String USER_ID = 'userId';
   static const String USER_TOKEN = 'userToken';
@@ -39,6 +40,8 @@ class SharedPreferencesHelper {
     try {
       await prefs.remove(IS_LOGGED_IN);
       await prefs.remove(USER_EMAIL);
+      await prefs.remove(USER_ADDRESS);
+      await prefs.remove(USER_PHOTO);
       await prefs.remove(USER_NAME);
       await prefs.remove(USER_ID);
       await prefs.remove(USER_TOKEN);
@@ -56,8 +59,9 @@ class SharedPreferencesHelper {
       await logIn();
       await prefs.setString(USER_TOKEN, data.token);
       // await prefs.setString(USER_PHOTO, data.user.photo);
+      await prefs.setString(USER_ADDRESS, data.user.address);
       await prefs.setString(USER_EMAIL, data.user.email);
-      await prefs.setString(USER_NAME, data.user.email);
+      await prefs.setString(USER_NAME, data.user.name);
       await prefs.setInt(USER_ID, data.user.id);
       await prefs.setString(USER_ACCOUNT_TYPE, data.user.accountType.text);
       return true;
@@ -71,8 +75,9 @@ class SharedPreferencesHelper {
     try {
       await logIn();
       // await prefs.setString(USER_PHOTO, user.photo);
+      await prefs.setString(USER_ADDRESS, user.address);
       await prefs.setString(USER_EMAIL, user.email);
-      await prefs.setString(USER_NAME, user.email);
+      await prefs.setString(USER_NAME, user.name);
       await prefs.setInt(USER_ID, user.id);
       await prefs.setString(USER_ACCOUNT_TYPE, user.accountType.text);
       return true;
@@ -97,6 +102,7 @@ class SharedPreferencesHelper {
   String get userToken => prefs.getString(USER_TOKEN) ?? '';
   String get userPhoto => prefs.getString(USER_PHOTO) ?? '';
   String get userName => prefs.getString(USER_NAME) ?? '';
+  String get userAddress => prefs.getString(USER_ADDRESS) ?? '';
   String get userEmail => prefs.getString(USER_EMAIL) ?? '';
   String get userAccountType => prefs.getString(USER_ACCOUNT_TYPE) ?? '';
 }

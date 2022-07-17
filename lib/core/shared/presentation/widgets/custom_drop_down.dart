@@ -7,12 +7,14 @@ class CustomDropDown extends StatefulWidget {
   final String? hint;
   final Function(dynamic value) onChanged;
   final dynamic initialValue;
+  final bool outlineStyle;
   const CustomDropDown({
     Key? key,
     required this.items,
     required this.onChanged,
     this.initialValue,
     this.hint,
+    this.outlineStyle = false,
   }) : super(key: key);
 
   @override
@@ -21,16 +23,18 @@ class CustomDropDown extends StatefulWidget {
 
 class _CustomDropDownState extends State<CustomDropDown> {
   dynamic _selectedValue;
-  final InputBorder inputBorder = const OutlineInputBorder(
-    borderRadius: BorderRadius.all(
-      Radius.circular(10.0),
-    ),
-    borderSide: BorderSide(color: Colors.white),
-  );
+  late InputBorder inputBorder;
 
   @override
   void initState() {
     _selectedValue = widget.initialValue;
+    inputBorder = OutlineInputBorder(
+      borderRadius: const BorderRadius.all(
+        Radius.circular(10.0),
+      ),
+      borderSide: BorderSide(color: AppColors.bgGrey, width: widget.outlineStyle ? 2 : 0),
+    );
+
     super.initState();
   }
 
@@ -56,7 +60,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
           focusedBorder: inputBorder,
           enabledBorder: inputBorder,
           filled: true,
-          fillColor: AppColors.textFieldGrey,
+          fillColor: widget.outlineStyle ? Colors.white : AppColors.textFieldGrey,
         ),
         value: _selectedValue,
         items: List<DropdownMenuItem<dynamic>>.from(

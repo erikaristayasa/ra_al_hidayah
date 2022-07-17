@@ -4,8 +4,9 @@ import 'package:flutter_svg/svg.dart';
 import '../../../statics/statics.dart';
 
 class CustomSearchBar extends StatefulWidget {
+  final String? hint;
   final Function(String? keyword) onSubmit;
-  const CustomSearchBar({Key? key, required this.onSubmit}) : super(key: key);
+  const CustomSearchBar({Key? key, required this.onSubmit, this.hint = 'Cari'}) : super(key: key);
 
   @override
   State<CustomSearchBar> createState() => _CustomSearchBarState();
@@ -26,7 +27,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
       padding: const EdgeInsets.only(left: AppDimensions.medium),
       decoration: BoxDecoration(
         color: AppColors.textFieldGrey,
-        borderRadius: BorderRadius.circular(5.0),
+        borderRadius: BorderRadius.circular(10),
       ),
       child: TextField(
         controller: _controller,
@@ -39,7 +40,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.only(bottom: 11.0),
           border: InputBorder.none,
-          hintText: 'Cari',
+          hintText: widget.hint,
           hintStyle: const TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 12.0,

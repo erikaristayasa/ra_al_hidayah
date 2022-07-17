@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ra_al_hidayah/features/student_registration/presentation/pages/student_registration_form_page.dart';
 
 import '../../../../core/routes/routes.dart';
 import '../../../../core/shared/presentation/widgets/rounded_container.dart';
@@ -7,7 +8,8 @@ import '../../../../core/statics/statics.dart';
 import '../../../../core/utilities/utilities.dart';
 
 class StudentRegistrationWarningDIalog extends StatelessWidget {
-  const StudentRegistrationWarningDIalog({Key? key}) : super(key: key);
+  final GradeType gradeType;
+  const StudentRegistrationWarningDIalog({Key? key, required this.gradeType}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +64,11 @@ class StudentRegistrationWarningDIalog extends StatelessWidget {
             AppHelpers.mediumVerticalSpacing(),
             TextButton(
               onPressed: () {
-                Navigator.popAndPushNamed(context, AppPaths.studentRegistrationForm);
+                Navigator.popAndPushNamed(
+                  context,
+                  AppPaths.studentRegistrationForm,
+                  arguments: StudentRegistrationFormPageRouteArguments(gradeType: gradeType),
+                );
               },
               child: const Text(
                 'ISI DATA BARU SISWA',

@@ -53,6 +53,14 @@ extension StringTransformation on String {
       return BannerType.login;
     }
   }
+
+  Gender get gender {
+    if (this == 'Laki-laki') {
+      return Gender.male;
+    } else {
+      return Gender.female;
+    }
+  }
 }
 
 extension AccountTypeTransformation on AccountType {
@@ -73,6 +81,30 @@ extension BannerTypeTransformation on BannerType {
       return 'HOMEPAGE';
     } else {
       return 'LOGIN';
+    }
+  }
+}
+
+extension GradeTypeTransformation on GradeType {
+  String get text {
+    switch (this) {
+      case GradeType.playgroup:
+        return 'Playgroup';
+      case GradeType.tkA:
+        return 'TK A';
+      case GradeType.tkB:
+        return 'TK B';
+    }
+  }
+}
+
+extension GenderTransformation on Gender {
+  String get text {
+    switch (this) {
+      case Gender.male:
+        return 'Laki-laki';
+      case Gender.female:
+        return 'Perempuan';
     }
   }
 }

@@ -10,3 +10,14 @@ enum BannerType {
   homepage,
   login,
 }
+
+enum GradeType {
+  playgroup,
+  tkA,
+  tkB,
+}
+
+enum Gender {
+  male,
+  female,
+}

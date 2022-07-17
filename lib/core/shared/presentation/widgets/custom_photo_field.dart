@@ -14,11 +14,13 @@ class CustomPhotoField extends StatefulWidget {
   final String bottomDescription;
   final Function(XFile? file) onPicked;
   final bool showDeleteButton;
+  final bool outlineStyle;
   const CustomPhotoField({
     Key? key,
     required this.bottomDescription,
     required this.onPicked,
     this.showDeleteButton = false,
+    this.outlineStyle = false,
   }) : super(key: key);
 
   @override
@@ -37,19 +39,26 @@ class _CustomPhotoFieldState extends State<CustomPhotoField> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
-          RoundedContainer(
+          Container(
             height: 46,
-            color: AppColors.textFieldGrey,
             padding: const EdgeInsets.symmetric(vertical: AppDimensions.small),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              border: Border.all(
+                color: AppColors.textFieldGrey,
+                width: widget.outlineStyle ? 2.0 : 0.0,
+              ),
+              color: widget.outlineStyle ? Colors.white : AppColors.textFieldGrey,
+            ),
             child: Row(
               children: [
                 AppHelpers.mediumHorizontalSpacing(),
                 RoundedButton(
                   width: 90.0,
                   radius: 5.0,
-                  color: Colors.white,
+                  color: widget.outlineStyle ? AppColors.textFieldGrey : Colors.white,
                   title: const Text(
-                    'Pilih  Gambar',
+                    'Pilih  File',
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 10.0,
@@ -96,7 +105,7 @@ class _CustomPhotoFieldState extends State<CustomPhotoField> {
                         _fileName = state.file?.name;
                       }
                       return Text(
-                        _fileName ?? 'Tidak ada gambar yang dipilih',
+                        _fileName ?? 'Belum ada file yang dipilih',
                         style: const TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 10.0,

@@ -5,6 +5,7 @@ import '../../features/forgot_password/presentation/pages/forgot_password_page.d
 import '../../features/login/presentation/pages/login_page.dart';
 import '../../features/otp/presentation/pages/otp_page.dart';
 import '../../features/registration/presentation/pages/registration_page.dart';
+import '../../features/student_registration/presentation/pages/student_registration_form_page.dart';
 import '../shared/presentation/pages/main_page.dart';
 import '../shared/presentation/pages/not_found_page.dart';
 import '../shared/presentation/pages/splash_screen_page.dart';
@@ -33,7 +34,8 @@ class AppRoutes {
         final args = settings.arguments as ChangePasswordPageRouteArguments;
         return jumpTo(page: ChangePasswordPage(token: args.token));
       case AppPaths.studentRegistrationForm:
-      // return jumpTo(page: const StudentRegistrationFormPage());
+        final args = settings.arguments as StudentRegistrationFormPageRouteArguments;
+        return jumpTo(page: StudentRegistrationFormPage(gradeType: args.gradeType));
       default:
         return jumpTo(page: const NotFoundPage());
     }

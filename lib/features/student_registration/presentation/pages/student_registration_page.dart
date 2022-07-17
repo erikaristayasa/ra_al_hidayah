@@ -2,11 +2,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ra_al_hidayah/core/shared/presentation/blocs/banner/banner_bloc.dart';
 
 import '../../../../core/routes/routes.dart';
+import '../../../../core/shared/presentation/blocs/banner/banner_bloc.dart';
 import '../../../../core/shared/presentation/widgets/custom_app_bar.dart';
-import '../../../../core/shared/presentation/widgets/rounded_container.dart';
 import '../../../../core/statics/statics.dart';
 import '../../../../core/utilities/utilities.dart';
 import '../widgets/grade_button.dart';
@@ -168,7 +167,11 @@ class _StudentRegistrationPageState extends State<StudentRegistrationPage> {
               AppHelpers.largeVerticalSpacing(),
               GradeButton(
                 onTap: () {
-                  showDialog(context: context, builder: (context) => const StudentRegistrationWarningDIalog());
+                  showDialog(
+                      context: context,
+                      builder: (context) => const StudentRegistrationWarningDIalog(
+                            gradeType: GradeType.tkA,
+                          ));
                 },
                 quota: 10,
                 title: 'TK A',
@@ -177,7 +180,11 @@ class _StudentRegistrationPageState extends State<StudentRegistrationPage> {
               AppHelpers.mediumVerticalSpacing(),
               GradeButton(
                 onTap: () {
-                  showDialog(context: context, builder: (context) => const StudentRegistrationWarningDIalog());
+                  showDialog(
+                      context: context,
+                      builder: (context) => const StudentRegistrationWarningDIalog(
+                            gradeType: GradeType.tkB,
+                          ));
                 },
                 quota: 10,
                 title: 'TK B',
@@ -186,7 +193,11 @@ class _StudentRegistrationPageState extends State<StudentRegistrationPage> {
               AppHelpers.mediumVerticalSpacing(),
               GradeButton(
                 onTap: () {
-                  showDialog(context: context, builder: (context) => const StudentRegistrationWarningDIalog());
+                  showDialog(
+                      context: context,
+                      builder: (context) => const StudentRegistrationWarningDIalog(
+                            gradeType: GradeType.playgroup,
+                          ));
                 },
                 quota: 10,
                 title: 'Playgroup',

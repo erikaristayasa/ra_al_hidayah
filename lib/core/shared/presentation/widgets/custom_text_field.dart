@@ -20,7 +20,6 @@ class CustomTextField extends StatefulWidget {
   final Function? onTap;
   final String? suffixText;
   final String? prefixText;
-  final bool border;
   final bool enabled;
   final bool showDeleteButton;
   final TypeField typeField;
@@ -30,6 +29,7 @@ class CustomTextField extends StatefulWidget {
   final bool validating;
   final int? maxlines;
   final bool isDatePicker;
+  final bool outlineStyle;
   const CustomTextField({
     Key? key,
     this.placeholder = '',
@@ -41,7 +41,6 @@ class CustomTextField extends StatefulWidget {
     this.refresh = false,
     this.onTap,
     this.suffixText,
-    this.border = false,
     this.enabled = true,
     this.showDeleteButton = false,
     this.typeField = TypeField.none,
@@ -53,6 +52,7 @@ class CustomTextField extends StatefulWidget {
     this.validating = true,
     this.maxlines,
     this.isDatePicker = false,
+    this.outlineStyle = false,
   }) : super(key: key);
 
   @override
@@ -74,15 +74,15 @@ class _CustomTextFieldState extends State<CustomTextField> {
         Radius.circular(10.0),
       ),
       borderSide: BorderSide(
-        color: widget.border ? Colors.grey : Colors.white,
+        color: AppColors.bgGrey, width: widget.outlineStyle ? 2 : 0
       ),
     );
-    errorBorder = const OutlineInputBorder(
-      borderRadius: BorderRadius.all(
+    errorBorder = OutlineInputBorder(
+      borderRadius: const BorderRadius.all(
         Radius.circular(10.0),
       ),
       borderSide: BorderSide(
-        color: AppColors.error,
+        color: AppColors.error, width: widget.outlineStyle ? 2 : 0
       ),
     );
     super.initState();
@@ -136,7 +136,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                         keyboardType: widget.inputType,
                         maxLines: widget.maxlines ?? 1,
                         style: TextStyle(
-                          color: state.error ? Colors.white : Colors.black,
+                          color: state.error && !widget.outlineStyle ? Colors.white : Colors.black,
                           fontWeight: FontWeight.w400,
                           fontSize: 12.0,
                         ),
@@ -155,7 +155,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                           focusedBorder: normalBorder,
                           errorBorder: errorBorder,
                           focusedErrorBorder: errorBorder,
-                          filled: true,
+                          filled: !widget.outlineStyle,
                           fillColor: state.error
                               ? Colors.red
                               : widget.enabled
