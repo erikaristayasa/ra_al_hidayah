@@ -2,15 +2,14 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:ra_al_hidayah/core/shared/presentation/pages/loading_page.dart';
-import 'package:ra_al_hidayah/features/registration/presentation/bloc/registration_bloc.dart';
 
 import '../../../../core/routes/routes.dart';
 import '../../../../core/shared/presentation/blocs/banner/banner_bloc.dart';
+import '../../../../core/shared/presentation/pages/loading_page.dart';
 import '../../../../core/shared/presentation/widgets/custom_app_bar.dart';
 import '../../../../core/statics/statics.dart';
 import '../../../../core/utilities/utilities.dart';
+import '../../../registration/presentation/bloc/registration_bloc.dart';
 import '../bloc/period/registration_period_bloc.dart';
 import '../widgets/grade_button.dart';
 import '../widgets/student_registration_warning_dialog.dart';
@@ -199,8 +198,9 @@ class _StudentRegistrationPageState extends State<StudentRegistrationPage> {
                               if (_data.quotaTkA > 0) {
                                 showDialog(
                                   context: context,
-                                  builder: (context) => const StudentRegistrationWarningDIalog(
+                                  builder: (context) => StudentRegistrationWarningDIalog(
                                     gradeType: GradeType.tkA,
+                                    period: _data,
                                   ),
                                 );
                               } else {
@@ -222,8 +222,9 @@ class _StudentRegistrationPageState extends State<StudentRegistrationPage> {
                               if (_data.quotaTkB > 0) {
                                 showDialog(
                                   context: context,
-                                  builder: (context) => const StudentRegistrationWarningDIalog(
+                                  builder: (context) => StudentRegistrationWarningDIalog(
                                     gradeType: GradeType.tkB,
+                                    period: _data,
                                   ),
                                 );
                               } else {
@@ -245,8 +246,9 @@ class _StudentRegistrationPageState extends State<StudentRegistrationPage> {
                               if (_data.quotaPlaygroup > 0) {
                                 showDialog(
                                   context: context,
-                                  builder: (context) => const StudentRegistrationWarningDIalog(
+                                  builder: (context) => StudentRegistrationWarningDIalog(
                                     gradeType: GradeType.playgroup,
+                                    period: _data,
                                   ),
                                 );
                               } else {

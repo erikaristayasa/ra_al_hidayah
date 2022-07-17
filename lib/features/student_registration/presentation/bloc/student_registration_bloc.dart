@@ -14,6 +14,10 @@ class StudentRegistrationBloc extends Bloc<StudentRegistrationEvent, StudentRegi
     on<Submit>((event, emit) async {
       emit(StudentRegistrationLoading());
 
+      // await Future.delayed(const Duration(seconds: 2));
+      // emit(StudentRegistrationSuccess());
+      // return;
+
       final result = await doStudentRegistration(
         registrationPeriodId: event.registrationPeriodId,
         studentId: event.studentId,
@@ -29,6 +33,7 @@ class StudentRegistrationBloc extends Bloc<StudentRegistrationEvent, StudentRegi
         motherName: event.motherName,
         parentJob: event.parentJob,
         address: event.address,
+        phone: event.phone,
         birthDocumentFile: event.birthDocumentFile,
         registrationFormFile: event.registrationFormFile,
         availabilityFile: event.availabilityFile,

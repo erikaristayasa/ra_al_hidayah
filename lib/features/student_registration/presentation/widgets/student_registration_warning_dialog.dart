@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ra_al_hidayah/features/student_registration/domain/entities/registration_period_entity.dart';
 import 'package:ra_al_hidayah/features/student_registration/presentation/pages/student_registration_form_page.dart';
 
 import '../../../../core/routes/routes.dart';
@@ -9,7 +10,8 @@ import '../../../../core/utilities/utilities.dart';
 
 class StudentRegistrationWarningDIalog extends StatelessWidget {
   final GradeType gradeType;
-  const StudentRegistrationWarningDIalog({Key? key, required this.gradeType}) : super(key: key);
+  final RegistrationPeriod period;
+  const StudentRegistrationWarningDIalog({Key? key, required this.gradeType, required this.period}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +69,10 @@ class StudentRegistrationWarningDIalog extends StatelessWidget {
                 Navigator.popAndPushNamed(
                   context,
                   AppPaths.studentRegistrationForm,
-                  arguments: StudentRegistrationFormPageRouteArguments(gradeType: gradeType),
+                  arguments: StudentRegistrationFormPageRouteArguments(
+                    gradeType: gradeType,
+                    period: period,
+                  ),
                 );
               },
               child: const Text(

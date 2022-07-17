@@ -12,7 +12,34 @@ import '../../cubit/student_registration_page_cubit.dart';
 
 class FirstForm extends StatefulWidget {
   final bool isPlaygroup;
-  const FirstForm({Key? key, required this.isPlaygroup}) : super(key: key);
+  final TextEditingController studentNameController;
+  final TextEditingController birthPlaceController;
+  final TextEditingController birthDateController;
+  final TextEditingController nikController;
+  final TextEditingController religionController;
+  final TextEditingController childNumberController;
+  final TextEditingController fatherNameController;
+  final TextEditingController motherNameController;
+  final TextEditingController parentJobController;
+  final TextEditingController addressController;
+  final TextEditingController phoneController;
+  final Function(Gender gender) onGenderSelected;
+  const FirstForm({
+    Key? key,
+    required this.isPlaygroup,
+    required this.studentNameController,
+    required this.birthPlaceController,
+    required this.birthDateController,
+    required this.nikController,
+    required this.religionController,
+    required this.childNumberController,
+    required this.fatherNameController,
+    required this.motherNameController,
+    required this.parentJobController,
+    required this.addressController,
+    required this.phoneController,
+    required this.onGenderSelected,
+  }) : super(key: key);
 
   @override
   State<FirstForm> createState() => _FirstFormState();
@@ -26,8 +53,21 @@ class _FirstFormState extends State<FirstForm> with AutomaticKeepAliveClientMixi
     if (widget.isPlaygroup) {
       return ListView(
         shrinkWrap: true,
-        children: const [
-          FormField(),
+        children: [
+          FormField(
+            studentNameController: widget.studentNameController,
+            birthPlaceController: widget.birthPlaceController,
+            birthDateController: widget.birthDateController,
+            nikController: widget.nikController,
+            religionController: widget.religionController,
+            childNumberController: widget.childNumberController,
+            fatherNameController: widget.fatherNameController,
+            motherNameController: widget.motherNameController,
+            parentJobController: widget.parentJobController,
+            addressController: widget.addressController,
+            phoneController: widget.phoneController,
+            onGenderSelected: widget.onGenderSelected,
+          ),
         ],
       );
     } else {
@@ -62,9 +102,22 @@ class _FirstFormState extends State<FirstForm> with AutomaticKeepAliveClientMixi
             isExtend != null
                 ? Visibility(
                     visible: !isExtend!,
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(vertical: AppDimensions.medium),
-                      child: FormField(),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: AppDimensions.medium),
+                      child: FormField(
+                        studentNameController: widget.studentNameController,
+                        birthPlaceController: widget.birthPlaceController,
+                        birthDateController: widget.birthDateController,
+                        nikController: widget.nikController,
+                        religionController: widget.religionController,
+                        childNumberController: widget.childNumberController,
+                        fatherNameController: widget.fatherNameController,
+                        motherNameController: widget.motherNameController,
+                        parentJobController: widget.parentJobController,
+                        addressController: widget.addressController,
+                        phoneController: widget.phoneController,
+                        onGenderSelected: widget.onGenderSelected,
+                      ),
                     ),
                   )
                 : const SizedBox.shrink()
@@ -79,7 +132,33 @@ class _FirstFormState extends State<FirstForm> with AutomaticKeepAliveClientMixi
 }
 
 class FormField extends StatefulWidget {
-  const FormField({Key? key}) : super(key: key);
+  final TextEditingController studentNameController;
+  final TextEditingController birthPlaceController;
+  final TextEditingController birthDateController;
+  final TextEditingController nikController;
+  final TextEditingController religionController;
+  final TextEditingController childNumberController;
+  final TextEditingController fatherNameController;
+  final TextEditingController motherNameController;
+  final TextEditingController parentJobController;
+  final TextEditingController addressController;
+  final TextEditingController phoneController;
+  final Function(Gender gender) onGenderSelected;
+  const FormField({
+    Key? key,
+    required this.studentNameController,
+    required this.birthPlaceController,
+    required this.birthDateController,
+    required this.nikController,
+    required this.religionController,
+    required this.childNumberController,
+    required this.fatherNameController,
+    required this.motherNameController,
+    required this.parentJobController,
+    required this.addressController,
+    required this.phoneController,
+    required this.onGenderSelected,
+  }) : super(key: key);
 
   @override
   State<FormField> createState() => _FormFieldState();
@@ -87,18 +166,7 @@ class FormField extends StatefulWidget {
 
 class _FormFieldState extends State<FormField> {
   final _formKey = GlobalKey<FormState>();
-  final _studentNameController = TextEditingController();
   Gender? _gender;
-  final _birthPlaceController = TextEditingController();
-  final _birthDateController = TextEditingController();
-  final _nikController = TextEditingController();
-  final _religionController = TextEditingController();
-  final _childNumberController = TextEditingController();
-  final _fatherNameController = TextEditingController();
-  final _motherNameController = TextEditingController();
-  final _parentJobController = TextEditingController();
-  final _addressController = TextEditingController();
-  final _phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +177,7 @@ class _FormFieldState extends State<FormField> {
           CustomTextField(
             outlineStyle: true,
             placeholder: 'Nama Lengkap Siswa',
-            controller: _studentNameController,
+            controller: widget.studentNameController,
           ),
           AppHelpers.smallVerticalSpacing(),
           CustomDropDown(
@@ -118,18 +186,19 @@ class _FormFieldState extends State<FormField> {
               items: Gender.values.map((e) => e.text).toList(),
               onChanged: (value) {
                 _gender = (value as String).gender;
+                widget.onGenderSelected(_gender!);
               }),
           AppHelpers.smallVerticalSpacing(),
           CustomTextField(
             outlineStyle: true,
             placeholder: 'Tempat Lahir',
-            controller: _birthPlaceController,
+            controller: widget.birthPlaceController,
           ),
           AppHelpers.smallVerticalSpacing(),
           CustomTextField(
             outlineStyle: true,
             placeholder: 'Tanggal Lahir',
-            controller: _birthDateController,
+            controller: widget.birthDateController,
             inputType: TextInputType.datetime,
             bottomDescription: 'Contoh Penulisan: 2022-12-31',
           ),
@@ -137,7 +206,7 @@ class _FormFieldState extends State<FormField> {
           CustomTextField(
             outlineStyle: true,
             placeholder: 'NIK',
-            controller: _nikController,
+            controller: widget.nikController,
             inputType: TextInputType.number,
           ),
           AppHelpers.smallVerticalSpacing(),
@@ -146,14 +215,14 @@ class _FormFieldState extends State<FormField> {
             hint: 'Agama',
             items: ["Islam", "Protestan", "Katolik", "Hindu", "Buddha", "Khonghucu"],
             onChanged: (value) {
-              _religionController.text = value;
+              widget.religionController.text = value;
             },
           ),
           AppHelpers.smallVerticalSpacing(),
           CustomTextField(
             outlineStyle: true,
             placeholder: 'Anak ke-',
-            controller: _childNumberController,
+            controller: widget.childNumberController,
             inputType: TextInputType.number,
             bottomDescription: 'Contoh Penulisan: 1',
           ),
@@ -161,32 +230,32 @@ class _FormFieldState extends State<FormField> {
           CustomTextField(
             outlineStyle: true,
             placeholder: 'Nama Ayah',
-            controller: _fatherNameController,
+            controller: widget.fatherNameController,
           ),
           AppHelpers.smallVerticalSpacing(),
           CustomTextField(
             outlineStyle: true,
             placeholder: 'Nama Ibu',
-            controller: _motherNameController,
+            controller: widget.motherNameController,
           ),
           AppHelpers.smallVerticalSpacing(),
           CustomTextField(
             outlineStyle: true,
             placeholder: 'Pekerjaan Ayah/Ibu',
-            controller: _parentJobController,
+            controller: widget.parentJobController,
           ),
           AppHelpers.smallVerticalSpacing(),
           CustomTextField(
             outlineStyle: true,
             placeholder: 'Alamat',
             maxlines: 5,
-            controller: _addressController,
+            controller: widget.addressController,
           ),
           AppHelpers.smallVerticalSpacing(),
           CustomTextField(
             outlineStyle: true,
             placeholder: 'Nomor Telepon WA',
-            controller: _phoneController,
+            controller: widget.phoneController,
             prefixText: '+62',
             inputType: TextInputType.phone,
             typeField: TypeField.phone,

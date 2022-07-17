@@ -96,6 +96,16 @@ extension GradeTypeTransformation on GradeType {
         return 'TK B';
     }
   }
+  String get postValue {
+    switch (this) {
+      case GradeType.playgroup:
+        return 'PLAYGROUP';
+      case GradeType.tkA:
+        return 'TK_A';
+      case GradeType.tkB:
+        return 'TK_B';
+    }
+  }
 }
 
 extension GenderTransformation on Gender {

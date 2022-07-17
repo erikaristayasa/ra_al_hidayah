@@ -35,7 +35,12 @@ class AppRoutes {
         return jumpTo(page: ChangePasswordPage(token: args.token));
       case AppPaths.studentRegistrationForm:
         final args = settings.arguments as StudentRegistrationFormPageRouteArguments;
-        return jumpTo(page: StudentRegistrationFormPage(gradeType: args.gradeType));
+        return jumpTo(
+          page: StudentRegistrationFormPage(
+            gradeType: args.gradeType,
+            period: args.period,
+          ),
+        );
       default:
         return jumpTo(page: const NotFoundPage());
     }

@@ -2,17 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ra_al_hidayah/core/shared/presentation/widgets/button_loading.dart';
 import 'package:ra_al_hidayah/core/shared/presentation/widgets/rounded_container.dart';
 import 'package:ra_al_hidayah/features/student_registration/presentation/pages/form/second_form.dart';
 
 import '../../../../../core/shared/presentation/widgets/custom_photo_field.dart';
+import '../../../../../core/shared/presentation/widgets/notification_label.dart';
 import '../../../../../core/shared/presentation/widgets/rounded_button.dart';
 import '../../../../../core/statics/statics.dart';
 import '../../../../../core/utilities/utilities.dart';
+import '../../bloc/student_registration_bloc.dart';
 import '../../cubit/student_registration_page_cubit.dart';
 
 class ThirdForm extends StatefulWidget {
-  const ThirdForm({Key? key}) : super(key: key);
+  final Function(XFile? file) onFileSelected;
+  final VoidCallback onSubmit;
+  const ThirdForm({Key? key, required this.onFileSelected, required this.onSubmit}) : super(key: key);
 
   @override
   State<ThirdForm> createState() => _ThirdFormState();
@@ -34,6 +39,7 @@ class _ThirdFormState extends State<ThirdForm> with AutomaticKeepAliveClientMixi
                 bottomDescription: 'Format file: jpg/jpeg/pdf',
                 onPicked: (file) {
                   _profPayment = file;
+                  widget.onFileSelected(file);
                 }),
             AppHelpers.mediumVerticalSpacing(),
             Row(
@@ -184,15 +190,37 @@ class _ThirdFormState extends State<ThirdForm> with AutomaticKeepAliveClientMixi
               ),
             ),
             AppHelpers.largeVerticalSpacing(),
-            RoundedButton(
-              title: 'Selanjutnya',
-              onTap: () {
-                if (_profPayment == null) {
-                  Fluttertoast.showToast(msg: 'Bukti Bayar belum dipilih');
-                  return;
+            BlocBuilder<StudentRegistrationBloc, StudentRegistrationState>(
+              builder: (context, state) {
+                if (state is StudentRegistrationSuccess) {
+                  return const NotificationLabel(isSuccess: true, message: 'Data Berhasil Ditambahkan');
+                } else if (state is StudentRegistrationFailure) {
+                  return NotificationLabel(isSuccess: false, message: AppHelpers.getErrorMessage(state.failure));
                 }
+                return const SizedBox.shrink();
               },
             ),
+            BlocBuilder<StudentRegistrationBloc, StudentRegistrationState>(builder: (context, state) {
+              return RoundedButton(
+                title: state is StudentRegistrationLoading
+                    ? const SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 2,
+                        ),
+                      )
+                    : "Kirim",
+                onTap: () {
+                  if (_profPayment == null) {
+                    Fluttertoast.showToast(msg: 'Bukti Bayar belum dipilih');
+                    return;
+                  }
+                  widget.onSubmit();
+                },
+              );
+            }),
             AppHelpers.smallVerticalSpacing(),
             RoundedButton(
               outline: true,

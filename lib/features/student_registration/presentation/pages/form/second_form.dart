@@ -10,7 +10,15 @@ import '../../../../../core/utilities/utilities.dart';
 import '../../cubit/student_registration_page_cubit.dart';
 
 class SecondForm extends StatefulWidget {
-  const SecondForm({Key? key}) : super(key: key);
+  final Function(XFile? file) onBirthDocSelected;
+  final Function(XFile? file) onRegisterFormSelected;
+  final Function(XFile? file) onAvailabilitySelected;
+  const SecondForm({
+    Key? key,
+    required this.onBirthDocSelected,
+    required this.onRegisterFormSelected,
+    required this.onAvailabilitySelected,
+  }) : super(key: key);
 
   @override
   State<SecondForm> createState() => _SecondFormState();
@@ -31,6 +39,7 @@ class _SecondFormState extends State<SecondForm> with AutomaticKeepAliveClientMi
                 bottomDescription: 'Format file: jpg/jpeg/pdf',
                 onPicked: (file) {
                   _birthDoc = file;
+                  widget.onBirthDocSelected(file);
                 }),
             AppHelpers.mediumVerticalSpacing(),
             LabelInfo(
@@ -43,6 +52,7 @@ class _SecondFormState extends State<SecondForm> with AutomaticKeepAliveClientMi
                 bottomDescription: 'Format file: jpg/jpeg/pdf',
                 onPicked: (file) {
                   _registerFormDoc = file;
+                  widget.onRegisterFormSelected(file);
                 }),
             AppHelpers.mediumVerticalSpacing(),
             LabelInfo(
@@ -55,6 +65,7 @@ class _SecondFormState extends State<SecondForm> with AutomaticKeepAliveClientMi
                 bottomDescription: 'Format file: jpg/jpeg/pdf',
                 onPicked: (file) {
                   _availabilityDoc = file;
+                  widget.onAvailabilitySelected(file);
                 }),
             AppHelpers.mediumVerticalSpacing(),
             RoundedButton(

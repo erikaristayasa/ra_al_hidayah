@@ -22,30 +22,34 @@ class Submit extends StudentRegistrationEvent {
   final String? motherName;
   final String? parentJob;
   final String? address;
+  final String? phone;
   final XFile? birthDocumentFile;
   final XFile? registrationFormFile;
   final XFile? availabilityFile;
   final XFile? profOfPaymentFile;
 
   const Submit(
-    this.registrationPeriodId,
-    this.studentId,
-    this.type,
-    this.name,
-    this.gender,
-    this.birthPlace,
-    this.birthDate,
-    this.nik,
-    this.religion,
-    this.childNumber,
-    this.fatherName,
-    this.motherName,
-    this.parentJob,
-    this.address,
-    this.birthDocumentFile,
-    this.registrationFormFile,
-    this.availabilityFile,
-    this.profOfPaymentFile,
+  {
+    required this.registrationPeriodId,
+    required this.studentId,
+    required this.type,
+    required this.name,
+    required this.gender,
+    required this.birthPlace,
+    required this.birthDate,
+    required this.nik,
+    required this.religion,
+    required this.childNumber,
+    required this.fatherName,
+    required this.motherName,
+    required this.parentJob,
+    required this.address,
+    required this.phone,
+    required this.birthDocumentFile,
+    required this.registrationFormFile,
+    required this.availabilityFile,
+    required this.profOfPaymentFile,
+  }
   );
 
   @override
@@ -64,6 +68,7 @@ class Submit extends StudentRegistrationEvent {
         motherName,
         parentJob,
         address,
+        phone,
         birthDocumentFile,
         registrationFormFile,
         availabilityFile,

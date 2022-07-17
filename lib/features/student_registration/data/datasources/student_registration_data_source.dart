@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ra_al_hidayah/core/utilities/utilities.dart';
 
 import '../../../../core/statics/statics.dart';
 import '../models/registration_period_response_model.dart';
@@ -22,6 +23,7 @@ abstract class StudentRegistrationDataSource {
     required String? motherName,
     required String? parentJob,
     required String? address,
+    required String? phone,
     required XFile? birthDocumentFile,
     required XFile? registrationFormFile,
     required XFile? availabilityFile,
@@ -62,6 +64,7 @@ class StudentRegistrationDataSourceImplementation implements StudentRegistration
     required String? motherName,
     required String? parentJob,
     required String? address,
+    required String? phone,
     required XFile? birthDocumentFile,
     required XFile? registrationFormFile,
     required XFile? availabilityFile,
@@ -83,11 +86,14 @@ class StudentRegistrationDataSourceImplementation implements StudentRegistration
       if (motherName != null) 'nama_ibu': motherName,
       if (parentJob != null) 'pekerjaan_ayah_ibu': parentJob,
       if (address != null) 'alamat': address,
+      if (phone != null) 'telepon': phone,
       if (birthDocumentFile != null) 'file_akta_kelahiran': await MultipartFile.fromFile(birthDocumentFile.path),
       if (registrationFormFile != null) 'file_berkas_form_pendaftaran': await MultipartFile.fromFile(registrationFormFile.path),
       if (availabilityFile != null) 'file_berkas_lembar_kesediaan': await MultipartFile.fromFile(availabilityFile.path),
       if (profOfPaymentFile != null) 'file_bukti_pembayaran': await MultipartFile.fromFile(profOfPaymentFile.path),
     };
+
+    AppHelpers.logMe(body);
 
     final data = FormData.fromMap(body);
 

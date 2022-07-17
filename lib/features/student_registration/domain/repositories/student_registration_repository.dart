@@ -22,6 +22,7 @@ abstract class StudentRegistrationRepository {
     required String? motherName,
     required String? parentJob,
     required String? address,
+    required String? phone,
     required XFile? birthDocumentFile,
     required XFile? registrationFormFile,
     required XFile? availabilityFile,
