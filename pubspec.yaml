@@ -55,6 +55,7 @@ dependencies:
   fluttertoast: ^8.0.9
   flutter_countdown_timer: ^4.1.0
   pinput: ^2.2.11
+  flutter_downloader: ^1.7.4
 
 dependency_overrides:
   back_button_interceptor: ^5.0.2

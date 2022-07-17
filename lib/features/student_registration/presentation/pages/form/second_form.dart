@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../../core/shared/data/datasources/download_data_source.dart';
 import '../../../../../core/shared/presentation/widgets/custom_photo_field.dart';
 import '../../../../../core/shared/presentation/widgets/rounded_button.dart';
 import '../../../../../core/statics/statics.dart';
@@ -13,11 +14,15 @@ class SecondForm extends StatefulWidget {
   final Function(XFile? file) onBirthDocSelected;
   final Function(XFile? file) onRegisterFormSelected;
   final Function(XFile? file) onAvailabilitySelected;
+  final String registerFormDownloadUrl;
+  final String availabilityDocDownloadUrl;
   const SecondForm({
     Key? key,
     required this.onBirthDocSelected,
     required this.onRegisterFormSelected,
     required this.onAvailabilitySelected,
+    required this.registerFormDownloadUrl,
+    required this.availabilityDocDownloadUrl,
   }) : super(key: key);
 
   @override
@@ -45,7 +50,9 @@ class _SecondFormState extends State<SecondForm> with AutomaticKeepAliveClientMi
             LabelInfo(
               title: 'Upload Berkas Form Pendaftaran',
               downloadUrl: "",
-              onDownload: () {},
+              onDownload: () {
+                locator<DownloadDataSource>().downloadFile(widget.registerFormDownloadUrl, name: "Berkas Form Pendaftaran");
+              },
             ),
             CustomPhotoField(
                 outlineStyle: true,
@@ -58,7 +65,9 @@ class _SecondFormState extends State<SecondForm> with AutomaticKeepAliveClientMi
             LabelInfo(
               title: 'Upload Berkas Lembar Kesediaan',
               downloadUrl: "",
-              onDownload: () {},
+              onDownload: () {
+                locator<DownloadDataSource>().downloadFile(widget.availabilityDocDownloadUrl, name: "Berkas Lembar Kesediaan");
+              },
             ),
             CustomPhotoField(
                 outlineStyle: true,

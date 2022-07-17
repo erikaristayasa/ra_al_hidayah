@@ -43,6 +43,7 @@ import '../../features/student_registration/presentation/bloc/student_registrati
 import '../errors/failure.dart';
 import '../networks/networks.dart';
 import '../shared/data/datasources/banner_data_source.dart';
+import '../shared/data/datasources/download_data_source.dart';
 import '../shared/data/repositories/banner_repository_implementation.dart';
 import '../shared/domain/entities/banner_entity.dart' as en;
 import '../shared/domain/entities/user_entity.dart';

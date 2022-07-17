@@ -1,7 +1,10 @@
+import 'dart:isolate';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:loader_overlay/loader_overlay.dart';
 
 import '../../../../core/shared/presentation/widgets/bottom_sheet_confirmation.dart';
 import '../../../../core/shared/presentation/widgets/custom_app_bar.dart';
@@ -36,6 +39,7 @@ class _StudentRegistrationFormPageState extends State<StudentRegistrationFormPag
   final _createBloc = locator<StudentRegistrationBloc>();
   final _pageCubit = StudentRegistrationPageCubit();
   final _pageController = PageController();
+  final ReceivePort _port = ReceivePort();
 
   Gender? _gender;
   final _studentNameController = TextEditingController();
@@ -64,6 +68,38 @@ class _StudentRegistrationFormPageState extends State<StudentRegistrationFormPag
         },
       ),
     );
+  }
+
+  void _bindBackgroundIsolate() {
+    bool isSuccess = IsolateNameServer.registerPortWithName(_port.sendPort, 'downloader_send_port');
+    if (!isSuccess) {
+      _unbindBackgroundIsolate();
+      _bindBackgroundIsolate();
+      return;
+    }
+    _port.listen((dynamic data) {
+      String? id = data[0];
+      DownloadTaskStatus? status = data[1];
+      int? progress = data[2];
+
+      AppHelpers.logMe('TaskId:$id Status:$status Progress:$progress');
+    });
+  }
+
+  void _unbindBackgroundIsolate() {
+    IsolateNameServer.removePortNameMapping('downloader_send_port');
+  }
+
+  @override
+  void initState() {
+    _bindBackgroundIsolate();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _unbindBackgroundIsolate();
+    super.dispose();
   }
 
   @override
@@ -142,6 +178,8 @@ class _StudentRegistrationFormPageState extends State<StudentRegistrationFormPag
                           onRegisterFormSelected: (XFile? file) {
                             _registerFormDoc = file;
                           },
+                          registerFormDownloadUrl: widget.period.fileRegistrationForm,
+                          availabilityDocDownloadUrl: widget.period.fileAvailability,
                         ),
                         ThirdForm(
                           onFileSelected: (XFile? file) {

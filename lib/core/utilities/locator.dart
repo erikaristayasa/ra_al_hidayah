@@ -44,6 +44,7 @@ Future<void> locatorSetup() async {
   locator.registerLazySingleton<ChangePasswordDataSource>(() => ChangePasswordDataSourceImplementation(dio: locator()));
   locator.registerLazySingleton<BannerDataSource>(() => BannerDataSourceImplementation(dio: locator()));
   locator.registerLazySingleton<StudentRegistrationDataSource>(() => StudentRegistrationDataSourceImplementation(dio: locator()));
+  locator.registerLazySingleton<DownloadDataSource>(() => DownloadDataSourceImplementation());
 
   // core
   locator.registerLazySingleton<Dio>(() => DioClient().dio);
