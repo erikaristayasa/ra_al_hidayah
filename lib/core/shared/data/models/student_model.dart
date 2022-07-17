@@ -66,7 +66,7 @@ class StudentModel extends Student {
         birthDate: DateTime.parse(json['tanggal_lahir']),
         nik: json['nik'],
         religion: json['agama'],
-        childNumber: json['anak_ke'],
+        childNumber: json['anak_ke'].toString(),
         fatherName: json['nama_ayah'],
         motherName: json['nama_ibu'],
         parentJob: json['pekerjaan_ayah_ibu'],

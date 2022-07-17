@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:ra_al_hidayah/core/utilities/utilities.dart';
 
 import '../../../errors/failure.dart';
 import '../../../networks/networks.dart';
@@ -18,6 +19,7 @@ class StudentRepositoryImplementation implements StudentRepository {
     if (await connectivityInfo.isConnected) {
       try {
         final result = await dataSource.list(status: status, name: name);
+        AppHelpers.logMe(result);
         if (type != null) {
           final _filtered = result.data.takeWhile((value) => value.type == type);
           return Right(_filtered.toList());
@@ -25,6 +27,7 @@ class StudentRepositoryImplementation implements StudentRepository {
           return Right(result.data);
         }
       } catch (e) {
+        AppHelpers.logMe(e.toString());
         return const Left(ServerFailure());
       }
     } else {
