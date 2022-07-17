@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:ra_al_hidayah/core/shared/presentation/pages/empty_page.dart';
+import 'package:ra_al_hidayah/core/shared/presentation/pages/loading_page.dart';
 import 'package:ra_al_hidayah/core/shared/presentation/widgets/custom_text_field.dart';
 import 'package:ra_al_hidayah/core/shared/presentation/widgets/rounded_button.dart';
 import 'package:ra_al_hidayah/core/utilities/utilities.dart';
 
+import '../../../../../core/shared/presentation/blocs/student/student_list_bloc.dart';
 import '../../../../../core/shared/presentation/widgets/custom_drop_down.dart';
 import '../../../../../core/shared/presentation/widgets/custom_search_bar.dart';
 import '../../../../../core/statics/statics.dart';
@@ -12,6 +15,7 @@ import '../../cubit/student_registration_page_cubit.dart';
 
 class FirstForm extends StatefulWidget {
   final bool isPlaygroup;
+  final GradeType gradeType;
   final TextEditingController studentNameController;
   final TextEditingController birthPlaceController;
   final TextEditingController birthDateController;
@@ -26,6 +30,7 @@ class FirstForm extends StatefulWidget {
   final Function(Gender gender) onGenderSelected;
   const FirstForm({
     Key? key,
+    required this.gradeType,
     required this.isPlaygroup,
     required this.studentNameController,
     required this.birthPlaceController,
@@ -47,6 +52,22 @@ class FirstForm extends StatefulWidget {
 
 class _FirstFormState extends State<FirstForm> with AutomaticKeepAliveClientMixin {
   bool? isExtend;
+  late GradeType targetGrade;
+
+  @override
+  void initState() {
+    switch (widget.gradeType) {
+      case GradeType.tkA:
+        targetGrade = GradeType.tkB;
+        break;
+      case GradeType.playgroup:
+      case GradeType.tkB:
+        targetGrade = GradeType.playgroup;
+        break;
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     AppHelpers.logMe('rebuild');
@@ -91,14 +112,55 @@ class _FirstFormState extends State<FirstForm> with AutomaticKeepAliveClientMixi
                 }
               },
             ),
-            Visibility(
-              visible: isExtend ?? false,
-              child: Container(
-                margin: const EdgeInsets.symmetric(vertical: AppDimensions.medium),
-                height: 40.0,
-                child: CustomSearchBar(hint: 'Cari Siswa', onSubmit: (keyword) {}),
-              ),
-            ),
+            (isExtend ?? false)
+                ? Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      BlocBuilder<StudentListBloc, StudentListState>(
+                        builder: (context, state) {
+                          return Container(
+                            margin: const EdgeInsets.symmetric(vertical: AppDimensions.medium),
+                            height: 40.0,
+                            child: CustomSearchBar(
+                              hint: 'Cari Siswa',
+                              onSubmit: (keyword) {
+                                // context.read<StudentListBloc>().add(FetchStudents(status: PaymentStatus.accept, name: keyword, type: targetGrade));
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                      
+                      // Container(
+                      //   child: BlocConsumer<StudentListBloc, StudentListState>(
+                      //     listener: (context, state) {},
+                      //     builder: (context, state) {
+                      //       if (state is StudentListLoading) {
+                      //         return const LoadingPage(isList: true);
+                      //       } else if (state is StudentListLoaded) {
+                      //         final _data = state.data;
+
+                      //         return ListView.builder(
+                      //           shrinkWrap: true,
+                      //           itemCount: _data.length,
+                      //           itemBuilder: (context, index) {
+                      //             final _student = _data[index];
+                      //             return ListTile(
+                      //               onTap: () {},
+                      //               dense: true,
+                      //               title: Text(_student.name),
+                      //             );
+                      //           },
+                      //         );
+                      //       }
+                      //       return const SizedBox.shrink();
+                      //     },
+                      //   ),
+                      // )
+                    ],
+                  )
+                : const SizedBox.shrink(),
             isExtend != null
                 ? Visibility(
                     visible: !isExtend!,

@@ -61,6 +61,28 @@ extension StringTransformation on String {
       return Gender.female;
     }
   }
+
+  GradeType get gradeType {
+    if (this == 'TK_A') {
+      return GradeType.tkA;
+    } else if (this == 'TK_B') {
+      return GradeType.tkB;
+    } else {
+      return GradeType.playgroup;
+    }
+  }
+
+  PaymentStatus get paymentStatus {
+    if (this == 'DIPROSES') {
+      return PaymentStatus.process;
+    } else if (this == 'DRAFT') {
+      return PaymentStatus.draft;
+    } else if (this == 'DITERIMA') {
+      return PaymentStatus.accept;
+    } else {
+      return PaymentStatus.reject;
+    }
+  }
 }
 
 extension AccountTypeTransformation on AccountType {
@@ -96,6 +118,7 @@ extension GradeTypeTransformation on GradeType {
         return 'TK B';
     }
   }
+
   String get postValue {
     switch (this) {
       case GradeType.playgroup:
@@ -104,6 +127,21 @@ extension GradeTypeTransformation on GradeType {
         return 'TK_A';
       case GradeType.tkB:
         return 'TK_B';
+    }
+  }
+}
+
+extension PaymentStatusTransformation on PaymentStatus {
+  String get postValue {
+    switch (this) {
+      case PaymentStatus.process:
+        return 'DIPROSES';
+      case PaymentStatus.accept:
+        return 'DITERIMA';
+      case PaymentStatus.reject:
+        return 'DITOLAK';
+      case PaymentStatus.draft:
+        return 'DRAFT';
     }
   }
 }

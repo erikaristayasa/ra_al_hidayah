@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../core/shared/presentation/blocs/student/student_list_bloc.dart';
 import '../../../../core/shared/presentation/widgets/bottom_sheet_confirmation.dart';
 import '../../../../core/shared/presentation/widgets/custom_app_bar.dart';
 import '../../../../core/shared/presentation/widgets/page_description.dart';
@@ -36,9 +37,11 @@ class StudentRegistrationFormPage extends StatefulWidget {
 }
 
 class _StudentRegistrationFormPageState extends State<StudentRegistrationFormPage> {
+  final _studentListBloc = locator<StudentListBloc>();
   final _createBloc = locator<StudentRegistrationBloc>();
   final _pageCubit = StudentRegistrationPageCubit();
   final _pageController = PageController();
+
   final ReceivePort _port = ReceivePort();
 
   Gender? _gender;
@@ -65,6 +68,27 @@ class _StudentRegistrationFormPageState extends State<StudentRegistrationFormPag
         onConfirm: () {
           Navigator.pop(context);
           Navigator.pop(context);
+          // _createBloc.add(Submit(
+          //   registrationPeriodId: widget.period.id,
+          //   studentId: null,
+          //   type: widget.gradeType.postValue,
+          //   name: _studentNameController.text,
+          //   gender: _gender?.text,
+          //   birthPlace: _birthPlaceController.text,
+          //   birthDate: _birthDateController.text,
+          //   nik: _nikController.text,
+          //   religion: _religionController.text,
+          //   childNumber: _childNumberController.text,
+          //   fatherName: _fatherNameController.text,
+          //   motherName: _motherNameController.text,
+          //   parentJob: _parentJobController.text,
+          //   address: _addressController.text,
+          //   phone: _phoneController.text,
+          //   birthDocumentFile: _birthDoc,
+          //   registrationFormFile: _registerFormDoc,
+          //   availabilityFile: _availabilityDoc,
+          //   profOfPaymentFile: _profPayment,
+          // ));
         },
       ),
     );
@@ -108,6 +132,9 @@ class _StudentRegistrationFormPageState extends State<StudentRegistrationFormPag
       providers: [
         BlocProvider(
           create: (context) => _pageCubit,
+        ),
+        BlocProvider(
+          create: (context) => _studentListBloc,
         ),
         BlocProvider(
           create: (context) => _createBloc,
@@ -154,6 +181,7 @@ class _StudentRegistrationFormPageState extends State<StudentRegistrationFormPag
                       physics: const NeverScrollableScrollPhysics(),
                       children: [
                         FirstForm(
+                          gradeType: widget.gradeType,
                           isPlaygroup: widget.gradeType == GradeType.playgroup,
                           studentNameController: _studentNameController,
                           birthPlaceController: _birthPlaceController,

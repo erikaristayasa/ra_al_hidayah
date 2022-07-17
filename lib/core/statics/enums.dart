@@ -21,3 +21,5 @@ enum Gender {
   male,
   female,
 }
+
+enum PaymentStatus { process, accept, reject, draft }
