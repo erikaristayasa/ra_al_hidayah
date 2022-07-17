@@ -61,24 +61,38 @@ class EmptyStudentsBottomSheet extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TextButton(
-                  onPressed: () {
+                RoundedButton(
+                  outline: true,
+                  onTap: () {
                     Navigator.pop(context);
                   },
-                  child: const Text(
+                  title: const Text(
                     'Nanti',
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
-                      fontSize: 14.0,
+                      fontSize: 10.0,
                       color: AppColors.textGrey,
                     ),
                   ),
+                  titleColor: AppColors.textGrey,
+                  color: AppColors.textGrey,
+                  width: 90.0,
+                  height: 30.0,
+                  radius: 5.0,
                 ),
                 RoundedButton(
                   onTap: onConfirm,
-                  title: 'Daftar',
+                  title: const Text(
+                    'Daftar',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 10.0,
+                      color: Colors.white,
+                    ),
+                  ),
                   width: 90.0,
                   height: 30.0,
+                  radius: 5.0,
                 )
               ],
             ),
