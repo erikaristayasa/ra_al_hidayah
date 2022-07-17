@@ -66,6 +66,12 @@ class AppHelpers {
     return String.fromCharCodes(Iterable.generate(length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
   }
 
+  static String getFormattedPrice(num price) {
+    final formatter = NumberFormat.currency(locale: Platform.localeName, symbol: 'Rp');
+    formatter.maximumFractionDigits = 0;
+    return formatter.format(price);
+  }
+
   static List<Widget> getImageBanner(List<en.Banner> banners) {
     return List<Widget>.from(
       banners.map(

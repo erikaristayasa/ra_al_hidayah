@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:ra_al_hidayah/core/shared/presentation/widgets/button_loading.dart';
 import 'package:ra_al_hidayah/core/shared/presentation/widgets/rounded_container.dart';
 import 'package:ra_al_hidayah/features/student_registration/presentation/pages/form/second_form.dart';
+import 'package:ra_al_hidayah/features/student_registration/presentation/widgets/payment_detail_dialog.dart';
 
 import '../../../../../core/shared/presentation/widgets/custom_photo_field.dart';
 import '../../../../../core/shared/presentation/widgets/notification_label.dart';
@@ -50,7 +51,9 @@ class _ThirdFormState extends State<ThirdForm> with AutomaticKeepAliveClientMixi
                   style: TextStyle(fontWeight: FontWeight.w700, fontSize: 10.0),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(context: context, builder: (context) => const PaymentDetailDialog());
+                  },
                   child: const Text(
                     'Lihat Rincian Pembayaran',
                     style: TextStyle(fontWeight: FontWeight.w600, fontSize: 10.0),
