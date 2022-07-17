@@ -33,6 +33,13 @@ import '../../features/registration/data/repositories/registration_repository_im
 import '../../features/registration/domain/repositories/registration_repository.dart';
 import '../../features/registration/domain/usecases/do_registration.dart';
 import '../../features/registration/presentation/bloc/registration_bloc.dart';
+import '../../features/student_registration/data/datasources/student_registration_data_source.dart';
+import '../../features/student_registration/data/repositories/student_registration_repository_implementation.dart';
+import '../../features/student_registration/domain/repositories/student_registration_repository.dart';
+import '../../features/student_registration/domain/usecases/do_student_registration.dart';
+import '../../features/student_registration/domain/usecases/get_registration_period.dart';
+import '../../features/student_registration/presentation/bloc/period/registration_period_bloc.dart';
+import '../../features/student_registration/presentation/bloc/student_registration_bloc.dart';
 import '../errors/failure.dart';
 import '../networks/networks.dart';
 import '../shared/data/datasources/banner_data_source.dart';

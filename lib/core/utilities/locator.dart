@@ -10,6 +10,8 @@ Future<void> locatorSetup() async {
   locator.registerFactory<OtpBloc>(() => OtpBloc(validateOtp: locator()));
   locator.registerFactory<ChangePasswordBloc>(() => ChangePasswordBloc(changePassword: locator()));
   locator.registerFactory<BannerBloc>(() => BannerBloc(getBanners: locator()));
+  locator.registerFactory<RegistrationPeriodBloc>(() => RegistrationPeriodBloc(getRegistrationPeriod: locator()));
+  locator.registerFactory<StudentRegistrationBloc>(() => StudentRegistrationBloc(doStudentRegistration: locator()));
 
   // use cases
   locator.registerLazySingleton<DoLogin>(() => DoLogin(repository: locator()));
@@ -18,6 +20,8 @@ Future<void> locatorSetup() async {
   locator.registerLazySingleton<ValidateOtp>(() => ValidateOtp(repository: locator()));
   locator.registerLazySingleton<ChangePassword>(() => ChangePassword(repository: locator()));
   locator.registerLazySingleton<GetBanners>(() => GetBanners(repository: locator()));
+  locator.registerLazySingleton<GetRegistrationPeriod>(() => GetRegistrationPeriod(repository: locator()));
+  locator.registerLazySingleton<DoStudentRegistration>(() => DoStudentRegistration(repository: locator()));
 
   // repositories
   locator.registerLazySingleton<LoginRepository>(() => LoginRepositoryImplementation(dataSource: locator(), connectivityInfo: locator()));
@@ -29,6 +33,8 @@ Future<void> locatorSetup() async {
   locator.registerLazySingleton<ChangePasswordRepository>(
       () => ChangePasswordRepositoryImplementation(dataSource: locator(), connectivityInfo: locator()));
   locator.registerLazySingleton<BannerRepository>(() => BannerRepositoryImplementation(dataSource: locator(), connectivityInfo: locator()));
+  locator.registerLazySingleton<StudentRegistrationRepository>(
+      () => StudentRegistrationRepositoryImplementation(dataSource: locator(), connectivityInfo: locator()));
 
   // data sources
   locator.registerLazySingleton<LoginDataSource>(() => LoginDataSourceImplementation(dio: locator()));
@@ -37,6 +43,7 @@ Future<void> locatorSetup() async {
   locator.registerLazySingleton<OtpDataSource>(() => OtpDataSourceImplementation(dio: locator()));
   locator.registerLazySingleton<ChangePasswordDataSource>(() => ChangePasswordDataSourceImplementation(dio: locator()));
   locator.registerLazySingleton<BannerDataSource>(() => BannerDataSourceImplementation(dio: locator()));
+  locator.registerLazySingleton<StudentRegistrationDataSource>(() => StudentRegistrationDataSourceImplementation(dio: locator()));
 
   // core
   locator.registerLazySingleton<Dio>(() => DioClient().dio);

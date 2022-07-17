@@ -2,12 +2,16 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:ra_al_hidayah/core/shared/presentation/pages/loading_page.dart';
+import 'package:ra_al_hidayah/features/registration/presentation/bloc/registration_bloc.dart';
 
 import '../../../../core/routes/routes.dart';
 import '../../../../core/shared/presentation/blocs/banner/banner_bloc.dart';
 import '../../../../core/shared/presentation/widgets/custom_app_bar.dart';
 import '../../../../core/statics/statics.dart';
 import '../../../../core/utilities/utilities.dart';
+import '../bloc/period/registration_period_bloc.dart';
 import '../widgets/grade_button.dart';
 import '../widgets/student_registration_warning_dialog.dart';
 
@@ -23,13 +27,15 @@ class _StudentRegistrationPageState extends State<StudentRegistrationPage> {
   int _current = 0;
   final CarouselController _controller = CarouselController();
 
-
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
           create: (context) => locator<BannerBloc>()..add(const Fetch(type: BannerType.homepage)),
+        ),
+        BlocProvider(
+          create: (context) => locator<RegistrationPeriodBloc>()..add(FetchPeriod()),
         ),
       ],
       child: Scaffold(
@@ -156,53 +162,114 @@ class _StudentRegistrationPageState extends State<StudentRegistrationPage> {
                 ),
               ),
               AppHelpers.largeVerticalSpacing(),
-              const Text(
-                'Periode Pendaftaran 16 Januari 2022',
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 12.0,
-                  color: AppColors.primary,
-                ),
-              ),
-              AppHelpers.largeVerticalSpacing(),
-              GradeButton(
-                onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) => const StudentRegistrationWarningDIalog(
-                            gradeType: GradeType.tkA,
-                          ));
+              BlocConsumer<RegistrationPeriodBloc, RegistrationPeriodState>(
+                listener: (context, state) {},
+                builder: (context, state) {
+                  if (state is RegistrationLoading) {
+                    return const LoadingPage(
+                      isList: true,
+                    );
+                  }
+                  if (state is RegistrationPeriodLoaded) {
+                    final _data = state.data;
+                    if (_data.isExpired) {
+                      return const Text(
+                        'Periode Pendaftaran Sudah Lewat.',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 12.0,
+                          color: AppColors.primary,
+                        ),
+                      );
+                    } else {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(
+                            'Periode Pendaftaran ${_data.startDate.toText(format: 'dd MMMM yyyy')} - ${_data.endDate.toText(format: 'dd MMMM yyyy')}',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 12.0,
+                              color: AppColors.primary,
+                            ),
+                          ),
+                          AppHelpers.largeVerticalSpacing(),
+                          GradeButton(
+                            onTap: () {
+                              if (_data.quotaTkA > 0) {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => const StudentRegistrationWarningDIalog(
+                                    gradeType: GradeType.tkA,
+                                  ),
+                                );
+                              } else {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => const AlertDialog(
+                                    title: Text('Kuota pendaftaran telah habis.'),
+                                  ),
+                                );
+                              }
+                            },
+                            quota: _data.quotaTkA,
+                            title: 'TK A',
+                            backgroundColor: AppColors.primary,
+                          ),
+                          AppHelpers.mediumVerticalSpacing(),
+                          GradeButton(
+                            onTap: () {
+                              if (_data.quotaTkB > 0) {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => const StudentRegistrationWarningDIalog(
+                                    gradeType: GradeType.tkB,
+                                  ),
+                                );
+                              } else {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => const SimpleDialog(
+                                    title: Text('Kuota pendaftaran telah habis.'),
+                                  ),
+                                );
+                              }
+                            },
+                            quota: _data.quotaTkB,
+                            title: 'TK B',
+                            backgroundColor: const Color(0xFFF39A1A),
+                          ),
+                          AppHelpers.mediumVerticalSpacing(),
+                          GradeButton(
+                            onTap: () {
+                              if (_data.quotaPlaygroup > 0) {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => const StudentRegistrationWarningDIalog(
+                                    gradeType: GradeType.playgroup,
+                                  ),
+                                );
+                              } else {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => const SimpleDialog(
+                                    title: Text('Kuota pendaftaran telah habis.'),
+                                  ),
+                                );
+                              }
+                            },
+                            quota: _data.quotaPlaygroup,
+                            title: 'Playgroup',
+                            backgroundColor: const Color(0xFF908CD6),
+                          ),
+                        ],
+                      );
+                    }
+                  }
+
+                  return Container();
                 },
-                quota: 10,
-                title: 'TK A',
-                backgroundColor: AppColors.primary,
-              ),
-              AppHelpers.mediumVerticalSpacing(),
-              GradeButton(
-                onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) => const StudentRegistrationWarningDIalog(
-                            gradeType: GradeType.tkB,
-                          ));
-                },
-                quota: 10,
-                title: 'TK B',
-                backgroundColor: const Color(0xFFF39A1A),
-              ),
-              AppHelpers.mediumVerticalSpacing(),
-              GradeButton(
-                onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) => const StudentRegistrationWarningDIalog(
-                            gradeType: GradeType.playgroup,
-                          ));
-                },
-                quota: 10,
-                title: 'Playgroup',
-                backgroundColor: const Color(0xFF908CD6),
-              ),
+              )
             ],
           ),
         ),
