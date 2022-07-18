@@ -10,6 +10,7 @@ class RoundedButton extends StatelessWidget {
   final double width;
   final Color color;
   final Color titleColor;
+  final Color outlineBodyColor;
   final dynamic title;
   final VoidCallback? onTap;
   const RoundedButton({
@@ -23,6 +24,7 @@ class RoundedButton extends StatelessWidget {
     required this.onTap,
     this.color = AppColors.primary,
     this.titleColor = Colors.white,
+    this.outlineBodyColor = Colors.white,
   }) : super(key: key);
 
   @override
@@ -32,7 +34,7 @@ class RoundedButton extends StatelessWidget {
       minimumSize: Size(width, height),
       primary: enable
           ? outline
-              ? Colors.white
+              ? outlineBodyColor
               : color
           : Colors.grey,
       shape: RoundedRectangleBorder(

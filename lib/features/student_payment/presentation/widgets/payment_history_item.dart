@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ra_al_hidayah/core/shared/presentation/widgets/rounded_button.dart';
 import 'package:ra_al_hidayah/core/shared/presentation/widgets/rounded_container.dart';
 import 'package:ra_al_hidayah/core/utilities/utilities.dart';
 
@@ -234,7 +235,33 @@ class _PaymentHistoryItemState extends State<PaymentHistoryItem> {
                   ),
                 ],
               ),
-            )
+            ),
+            widget.status == PaymentStatus.reject
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(vertical: AppDimensions.medium, horizontal: AppDimensions.large),
+                    child: Column(
+                      children: [
+                        const Text(
+                          'Terjadi kesalahan saat upload bukti transfer. Silahkan lakukan upload ulang.',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 10.0,
+                            color: AppColors.error,
+                          ),
+                        ),
+                        AppHelpers.mediumVerticalSpacing(),
+                        RoundedButton(
+                          radius: 5.0,
+                          outline: true,
+                          title: 'Upload Ulang',
+                          titleColor: AppColors.primary,
+                          outlineBodyColor: AppColors.bgGrey,
+                          onTap: () {},
+                        )
+                      ],
+                    ),
+                  )
+                : const SizedBox.shrink(),
           ],
         ),
       ),
@@ -310,7 +337,7 @@ class StatusLabel extends StatelessWidget {
         return const RoundedContainer(
           radius: 10.0,
           child: Text(
-            'BELUM DIBAYAR',
+            'DITOLAK',
             style: TextStyle(
               fontWeight: FontWeight.w700,
               fontSize: 10.0,
