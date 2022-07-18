@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ra_al_hidayah/core/shared/presentation/widgets/custom_app_bar.dart';
-import 'package:ra_al_hidayah/core/statics/statics.dart';
-import 'package:ra_al_hidayah/core/utilities/utilities.dart';
-import 'package:ra_al_hidayah/features/student_payment/presentation/widgets/payment_item.dart';
-import 'package:ra_al_hidayah/features/student_payment/presentation/widgets/payment_item_list.dart';
 
 import '../../../../core/shared/domain/entities/student_entity.dart';
+import '../../../../core/shared/presentation/widgets/custom_app_bar.dart';
+import '../../../../core/statics/statics.dart';
+import '../../../../core/utilities/utilities.dart';
+import '../widgets/payment_item_list.dart';
 
 class PaymentDetailPageRouteArguments {
   final Student student;
@@ -20,6 +19,7 @@ class PaymentDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: const CustomAppBar(
         title: 'Pembayaran Siswa',
         canBack: true,
