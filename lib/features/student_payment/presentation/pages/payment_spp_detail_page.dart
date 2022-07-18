@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:ra_al_hidayah/core/shared/presentation/widgets/rounded_container.dart';
 
 import '../../../../core/shared/domain/entities/payment_status_entity.dart';
 import '../../../../core/shared/domain/entities/student_entity.dart';
@@ -73,7 +75,68 @@ class _PaymentSppDetailPageState extends State<PaymentSppDetailPage> {
       body: SafeArea(
         child: SafeArea(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppDimensions.large,
+                  vertical: AppDimensions.medium,
+                ),
+                child: RoundedContainer(
+                  color: const Color(0xFFFFF7EB),
+                  padding: const EdgeInsets.all(AppDimensions.medium),
+                  radius: 10.0,
+                  child: Row(
+                    children: [
+                      SvgPicture.asset(
+                        AppAssets.iconWarning,
+                        color: const Color(0xFFF39A1A),
+                        width: 17.5,
+                        height: 17.5,
+                      ),
+                      AppHelpers.smallHorizontalSpacing(),
+                      const Expanded(
+                        child: Text(
+                          'Khusus pembayaran SPP dapat dirapel untuk beberapa bulan.',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 10.0,
+                            color: Color(0xFFF39A1A),
+                            height: 1.5,
+                          ),
+                          maxLines: 5,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppDimensions.large),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const Text(
+                      'Jadwal Pembayaran',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 10.0,
+                      ),
+                    ),
+                    AppHelpers.smallVerticalSpacing(),
+                    const Text(
+                      'Lihat update jadwal pembayaran bulanan di bawah ini dan pilih bulan untuk proses membayar.',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 10.0,
+                        color: AppColors.textGrey,
+                        height: 1.5,
+                      ),
+                    ),
+                    AppHelpers.mediumVerticalSpacing(),
+                  ],
+                ),
+              ),
               BlocBuilder<CartBloc, CartState>(
                 builder: (context, state) {
                   return Expanded(
