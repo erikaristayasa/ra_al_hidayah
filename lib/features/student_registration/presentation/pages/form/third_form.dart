@@ -2,24 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:ra_al_hidayah/core/shared/presentation/widgets/button_loading.dart';
-import 'package:ra_al_hidayah/core/shared/presentation/widgets/invoice_label.dart';
-import 'package:ra_al_hidayah/core/shared/presentation/widgets/rounded_container.dart';
-import 'package:ra_al_hidayah/features/student_registration/presentation/pages/form/second_form.dart';
-import 'package:ra_al_hidayah/features/student_registration/presentation/widgets/payment_detail_dialog.dart';
 
 import '../../../../../core/shared/presentation/widgets/custom_photo_field.dart';
+import '../../../../../core/shared/presentation/widgets/invoice_label.dart';
 import '../../../../../core/shared/presentation/widgets/notification_label.dart';
 import '../../../../../core/shared/presentation/widgets/rounded_button.dart';
 import '../../../../../core/statics/statics.dart';
 import '../../../../../core/utilities/utilities.dart';
 import '../../bloc/student_registration_bloc.dart';
 import '../../cubit/student_registration_page_cubit.dart';
+import '../../widgets/payment_detail_dialog.dart';
+import 'second_form.dart';
 
 class ThirdForm extends StatefulWidget {
+  final TextEditingController nameController;
+  final TextEditingController addressController;
+
   final Function(XFile? file) onFileSelected;
   final VoidCallback onSubmit;
-  const ThirdForm({Key? key, required this.onFileSelected, required this.onSubmit}) : super(key: key);
+  const ThirdForm({Key? key, required this.onFileSelected, required this.onSubmit, required this.nameController, required this.addressController})
+      : super(key: key);
 
   @override
   State<ThirdForm> createState() => _ThirdFormState();
@@ -71,8 +73,8 @@ class _ThirdFormState extends State<ThirdForm> with AutomaticKeepAliveClientMixi
               padding: const EdgeInsets.symmetric(horizontal: AppDimensions.large),
               child: InvoiceLabel(
                 nominal: 100000,
-                name: "student_name",
-                address: "address",
+                name: widget.nameController.text,
+                address: widget.addressController.text,
                 date: DateTime.now(),
               ),
               // child: RoundedContainer(

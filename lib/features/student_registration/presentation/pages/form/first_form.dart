@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:ra_al_hidayah/core/shared/presentation/pages/empty_page.dart';
-import 'package:ra_al_hidayah/core/shared/presentation/pages/loading_page.dart';
-import 'package:ra_al_hidayah/core/shared/presentation/widgets/custom_text_field.dart';
-import 'package:ra_al_hidayah/core/shared/presentation/widgets/rounded_button.dart';
-import 'package:ra_al_hidayah/core/utilities/utilities.dart';
 
+import '../../../../../core/shared/domain/entities/student_entity.dart';
 import '../../../../../core/shared/presentation/blocs/student/student_list_bloc.dart';
+import '../../../../../core/shared/presentation/pages/loading_page.dart';
 import '../../../../../core/shared/presentation/widgets/custom_drop_down.dart';
 import '../../../../../core/shared/presentation/widgets/custom_search_bar.dart';
+import '../../../../../core/shared/presentation/widgets/custom_text_field.dart';
+import '../../../../../core/shared/presentation/widgets/rounded_button.dart';
+import '../../../../../core/shared/presentation/widgets/rounded_container.dart';
 import '../../../../../core/statics/statics.dart';
+import '../../../../../core/utilities/utilities.dart';
+import '../../cubit/student_extends_cubit.dart';
 import '../../cubit/student_registration_page_cubit.dart';
 
 class FirstForm extends StatefulWidget {
   final bool isPlaygroup;
   final GradeType gradeType;
+  final TextEditingController studentIdController;
   final TextEditingController studentNameController;
   final TextEditingController birthPlaceController;
   final TextEditingController birthDateController;
@@ -32,6 +35,7 @@ class FirstForm extends StatefulWidget {
     Key? key,
     required this.gradeType,
     required this.isPlaygroup,
+    required this.studentIdController,
     required this.studentNameController,
     required this.birthPlaceController,
     required this.birthDateController,
@@ -70,6 +74,7 @@ class _FirstFormState extends State<FirstForm> with AutomaticKeepAliveClientMixi
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     AppHelpers.logMe('rebuild');
     if (widget.isPlaygroup) {
       return ListView(
@@ -126,38 +131,99 @@ class _FirstFormState extends State<FirstForm> with AutomaticKeepAliveClientMixi
                               hint: 'Cari Siswa',
                               onSubmit: (keyword) {
                                 // context.read<StudentListBloc>().add(FetchStudents(status: PaymentStatus.accept, name: keyword, type: targetGrade));
+                                context.read<StudentListBloc>().add(FetchStudents(status: null, name: keyword, type: null));
                               },
                             ),
                           );
                         },
                       ),
-                      
-                      // Container(
-                      //   child: BlocConsumer<StudentListBloc, StudentListState>(
-                      //     listener: (context, state) {},
-                      //     builder: (context, state) {
-                      //       if (state is StudentListLoading) {
-                      //         return const LoadingPage(isList: true);
-                      //       } else if (state is StudentListLoaded) {
-                      //         final _data = state.data;
+                      BlocConsumer<StudentListBloc, StudentListState>(
+                        listener: (context, state) {},
+                        builder: (context, state) {
+                          if (state is StudentListLoading) {
+                            return const LoadingPage(isList: true);
+                          } else if (state is StudentListLoaded) {
+                            final _data = state.data;
 
-                      //         return ListView.builder(
-                      //           shrinkWrap: true,
-                      //           itemCount: _data.length,
-                      //           itemBuilder: (context, index) {
-                      //             final _student = _data[index];
-                      //             return ListTile(
-                      //               onTap: () {},
-                      //               dense: true,
-                      //               title: Text(_student.name),
-                      //             );
-                      //           },
-                      //         );
-                      //       }
-                      //       return const SizedBox.shrink();
-                      //     },
-                      //   ),
-                      // )
+                            return BlocConsumer<StudentExtendsCubit, Student?>(
+                              listener: (context, state) {
+                                if (state != null) {
+                                  widget.studentIdController.text = state.id.toString();
+                                  widget.studentNameController.text = state.name;
+                                  widget.birthPlaceController.text = state.birthPlace;
+                                  widget.birthDateController.text = state.birthDate.toText(format: 'yyyy-MM-dd');
+                                  widget.nikController.text = state.nik;
+                                  widget.religionController.text = state.religion;
+                                  widget.childNumberController.text = state.childNumber;
+                                  widget.fatherNameController.text = state.fatherName;
+                                  widget.motherNameController.text = state.motherName;
+                                  widget.parentJobController.text = state.parentJob;
+                                  widget.addressController.text = state.address;
+                                  widget.phoneController.text = state.phone;
+                                  widget.onGenderSelected(state.gender);
+                                } else {
+                                  widget.studentIdController.text = '';
+                                  widget.studentNameController.text = '';
+                                  widget.birthPlaceController.text = '';
+                                  widget.birthDateController.text = '';
+                                  widget.nikController.text = '';
+                                  widget.religionController.text = '';
+                                  widget.childNumberController.text = '';
+                                  widget.fatherNameController.text = '';
+                                  widget.motherNameController.text = '';
+                                  widget.parentJobController.text = '';
+                                  widget.addressController.text = '';
+                                  widget.phoneController.text = '';
+                                  
+                                }
+                              },
+                              builder: (context, state) {
+                                return Column(
+                                  children: [
+                                    ListView.separated(
+                                      padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                                      shrinkWrap: true,
+                                      itemCount: _data.length,
+                                      separatorBuilder: (_, __) => AppHelpers.mediumVerticalSpacing(),
+                                      itemBuilder: (context, index) {
+                                        final _student = _data[index];
+                                        final _selected = _student == state;
+                                        return InkWell(
+                                          onTap: () {
+                                            context.read<StudentExtendsCubit>().onSelected(_student);
+                                          },
+                                          child: RoundedContainer(
+                                            shadow: true,
+                                            shadowBlurRadius: 8,
+                                            shadowSpreadRadius: 4,
+                                            shadowOffset: const Offset(0, 4),
+                                            shadowColor: Colors.grey.withOpacity(0.10),
+                                            color: _selected ? AppColors.primary : Colors.white,
+                                            child: Text(
+                                              _student.name,
+                                              style: TextStyle(
+                                                color: _selected ? Colors.white : Colors.black,
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                    state != null
+                                        ? RoundedButton(
+                                            title: 'Selanjutnya',
+                                            onTap: () {
+                                              context.read<StudentRegistrationPageCubit>().move(1);
+                                            })
+                                        : const SizedBox.shrink(),
+                                  ],
+                                );
+                              },
+                            );
+                          }
+                          return const SizedBox.shrink();
+                        },
+                      )
                     ],
                   )
                 : const SizedBox.shrink(),

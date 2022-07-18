@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ra_al_hidayah/core/utilities/utilities.dart';
 
 import '../../../../core/errors/failure.dart';
 import '../../domain/usecases/do_student_registration.dart';
@@ -13,6 +14,8 @@ class StudentRegistrationBloc extends Bloc<StudentRegistrationEvent, StudentRegi
   StudentRegistrationBloc({required this.doStudentRegistration}) : super(StudentRegistrationInitial()) {
     on<Submit>((event, emit) async {
       emit(StudentRegistrationLoading());
+
+      // AppHelpers.logMe(event);
 
       // await Future.delayed(const Duration(seconds: 2));
       // emit(StudentRegistrationSuccess());

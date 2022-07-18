@@ -14,6 +14,7 @@ import '../../../../core/shared/presentation/widgets/page_description.dart';
 import '../../../../core/statics/statics.dart';
 import '../../../../core/utilities/utilities.dart';
 import '../bloc/student_registration_bloc.dart';
+import '../cubit/student_extends_cubit.dart';
 import '../cubit/student_registration_page_cubit.dart';
 import '../widgets/student_registration_page_indicator.dart';
 import 'form/first_form.dart';
@@ -40,11 +41,13 @@ class _StudentRegistrationFormPageState extends State<StudentRegistrationFormPag
   final _studentListBloc = locator<StudentListBloc>();
   final _createBloc = locator<StudentRegistrationBloc>();
   final _pageCubit = StudentRegistrationPageCubit();
+  final _studentExtendsCubit = StudentExtendsCubit();
   final _pageController = PageController();
 
   final ReceivePort _port = ReceivePort();
 
   Gender? _gender;
+  final _studentIdController = TextEditingController();
   final _studentNameController = TextEditingController();
   final _birthPlaceController = TextEditingController();
   final _birthDateController = TextEditingController();
@@ -58,6 +61,7 @@ class _StudentRegistrationFormPageState extends State<StudentRegistrationFormPag
   final _phoneController = TextEditingController();
   XFile? _birthDoc, _registerFormDoc, _availabilityDoc, _profPayment;
 
+  
   backConfirmation() {
     showModalBottomSheet(
       backgroundColor: Colors.transparent,
@@ -68,27 +72,27 @@ class _StudentRegistrationFormPageState extends State<StudentRegistrationFormPag
         onConfirm: () {
           Navigator.pop(context);
           Navigator.pop(context);
-          // _createBloc.add(Submit(
-          //   registrationPeriodId: widget.period.id,
-          //   studentId: null,
-          //   type: widget.gradeType.postValue,
-          //   name: _studentNameController.text,
-          //   gender: _gender?.text,
-          //   birthPlace: _birthPlaceController.text,
-          //   birthDate: _birthDateController.text,
-          //   nik: _nikController.text,
-          //   religion: _religionController.text,
-          //   childNumber: _childNumberController.text,
-          //   fatherName: _fatherNameController.text,
-          //   motherName: _motherNameController.text,
-          //   parentJob: _parentJobController.text,
-          //   address: _addressController.text,
-          //   phone: _phoneController.text,
-          //   birthDocumentFile: _birthDoc,
-          //   registrationFormFile: _registerFormDoc,
-          //   availabilityFile: _availabilityDoc,
-          //   profOfPaymentFile: _profPayment,
-          // ));
+          _createBloc.add(Submit(
+            registrationPeriodId: widget.period.id,
+            studentId: _studentIdController.text.isNotEmpty ? int.parse(_studentIdController.text) : null,
+            type: widget.gradeType.postValue,
+            name: _studentNameController.text,
+            gender: _gender?.text,
+            birthPlace: _birthPlaceController.text,
+            birthDate: _birthDateController.text,
+            nik: _nikController.text,
+            religion: _religionController.text,
+            childNumber: _childNumberController.text,
+            fatherName: _fatherNameController.text,
+            motherName: _motherNameController.text,
+            parentJob: _parentJobController.text,
+            address: _addressController.text,
+            phone: _phoneController.text,
+            birthDocumentFile: _birthDoc,
+            registrationFormFile: _registerFormDoc,
+            availabilityFile: _availabilityDoc,
+            profOfPaymentFile: _profPayment,
+          ));
         },
       ),
     );
@@ -139,6 +143,10 @@ class _StudentRegistrationFormPageState extends State<StudentRegistrationFormPag
         BlocProvider(
           create: (context) => _createBloc,
         ),
+        BlocProvider(
+          create: (context) => _studentExtendsCubit,
+          child: Container(),
+        )
       ],
       child: WillPopScope(
         onWillPop: () async {
@@ -183,6 +191,7 @@ class _StudentRegistrationFormPageState extends State<StudentRegistrationFormPag
                         FirstForm(
                           gradeType: widget.gradeType,
                           isPlaygroup: widget.gradeType == GradeType.playgroup,
+                          studentIdController: _studentIdController,
                           studentNameController: _studentNameController,
                           birthPlaceController: _birthPlaceController,
                           birthDateController: _birthDateController,
@@ -210,13 +219,15 @@ class _StudentRegistrationFormPageState extends State<StudentRegistrationFormPag
                           availabilityDocDownloadUrl: widget.period.fileAvailability,
                         ),
                         ThirdForm(
+                          nameController: _studentNameController,
+                          addressController: _addressController,
                           onFileSelected: (XFile? file) {
                             _profPayment = file;
                           },
                           onSubmit: () async {
                             _createBloc.add(Submit(
                               registrationPeriodId: widget.period.id,
-                              studentId: null,
+                              studentId: _studentIdController.text.isNotEmpty ? int.parse(_studentIdController.text) : null,
                               type: widget.gradeType.postValue,
                               name: _studentNameController.text,
                               gender: _gender?.text,
