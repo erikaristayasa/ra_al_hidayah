@@ -13,6 +13,8 @@ Future<void> locatorSetup() async {
   locator.registerFactory<RegistrationPeriodBloc>(() => RegistrationPeriodBloc(getRegistrationPeriod: locator()));
   locator.registerFactory<StudentRegistrationBloc>(() => StudentRegistrationBloc(doStudentRegistration: locator()));
   locator.registerFactory<StudentListBloc>(() => StudentListBloc(getStudents: locator()));
+  locator.registerFactory<CreatePaymentBloc>(() => CreatePaymentBloc(createPayment: locator()));
+  locator.registerFactory<UpdatePaymentBloc>(() => UpdatePaymentBloc(updatePayment: locator()));
 
   // use cases
   locator.registerLazySingleton<DoLogin>(() => DoLogin(repository: locator()));
@@ -24,6 +26,8 @@ Future<void> locatorSetup() async {
   locator.registerLazySingleton<GetRegistrationPeriod>(() => GetRegistrationPeriod(repository: locator()));
   locator.registerLazySingleton<DoStudentRegistration>(() => DoStudentRegistration(repository: locator()));
   locator.registerLazySingleton<GetStudents>(() => GetStudents(repository: locator()));
+  locator.registerLazySingleton<CreatePayment>(() => CreatePayment(repository: locator()));
+  locator.registerLazySingleton<UpdatePayment>(() => UpdatePayment(repository: locator()));
 
   // repositories
   locator.registerLazySingleton<LoginRepository>(() => LoginRepositoryImplementation(dataSource: locator(), connectivityInfo: locator()));
@@ -38,6 +42,7 @@ Future<void> locatorSetup() async {
   locator.registerLazySingleton<StudentRegistrationRepository>(
       () => StudentRegistrationRepositoryImplementation(dataSource: locator(), connectivityInfo: locator()));
   locator.registerLazySingleton<StudentRepository>(() => StudentRepositoryImplementation(dataSource: locator(), connectivityInfo: locator()));
+  locator.registerLazySingleton<PaymentRepository>(() => PaymentRepositoryImplementation(dataSource: locator(), connectivityInfo: locator()));
 
   // data sources
   locator.registerLazySingleton<LoginDataSource>(() => LoginDataSourceImplementation(dio: locator()));
@@ -49,6 +54,7 @@ Future<void> locatorSetup() async {
   locator.registerLazySingleton<StudentRegistrationDataSource>(() => StudentRegistrationDataSourceImplementation(dio: locator()));
   locator.registerLazySingleton<DownloadDataSource>(() => DownloadDataSourceImplementation());
   locator.registerLazySingleton<StudentDataSource>(() => StudentDataSourceImplementation(dio: locator()));
+  locator.registerLazySingleton<PaymentDataSource>(() => PaymentDataSourceImplementation(dio: locator()));
 
   // core
   locator.registerLazySingleton<Dio>(() => DioClient().dio);

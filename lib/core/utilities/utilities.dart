@@ -35,6 +35,13 @@ import '../../features/registration/data/repositories/registration_repository_im
 import '../../features/registration/domain/repositories/registration_repository.dart';
 import '../../features/registration/domain/usecases/do_registration.dart';
 import '../../features/registration/presentation/bloc/registration_bloc.dart';
+import '../../features/student_payment/data/datasources/payment_data_source.dart';
+import '../../features/student_payment/data/repositories/payment_repository_implementation.dart';
+import '../../features/student_payment/domain/repositories/payment_repository.dart';
+import '../../features/student_payment/domain/usecases/create_payment.dart';
+import '../../features/student_payment/domain/usecases/update_payment.dart';
+import '../../features/student_payment/presentation/bloc/create/create_payment_bloc.dart';
+import '../../features/student_payment/presentation/bloc/update/update_payment_bloc.dart';
 import '../../features/student_registration/data/datasources/student_registration_data_source.dart';
 import '../../features/student_registration/data/repositories/student_registration_repository_implementation.dart';
 import '../../features/student_registration/domain/repositories/student_registration_repository.dart';
