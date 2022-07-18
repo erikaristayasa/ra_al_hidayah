@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../features/student_payment/presentation/pages/payment_history_spp_detail_page.dart';
 
 import '../../features/change_password/presentation/pages/change_password_page.dart';
 import '../../features/forgot_password/presentation/pages/forgot_password_page.dart';
@@ -68,6 +69,9 @@ class AppRoutes {
       case AppPaths.paymentHistoryDetail:
         final args = settings.arguments as PaymentHistoryDetailPageRouteArguments;
         return jumpTo(page: PaymentHistoryDetailPage(student: args.student));
+      case AppPaths.paymentHistorySppDetail:
+        final args = settings.arguments as PaymentHistorySppDetailPageRouteArguments;
+        return jumpTo(page: PaymentHistorySppDetailPage(student: args.student, nominal: args.nominal));
       default:
         return jumpTo(page: const NotFoundPage());
     }

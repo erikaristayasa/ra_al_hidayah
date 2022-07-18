@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ra_al_hidayah/core/routes/routes.dart';
 import 'package:ra_al_hidayah/core/shared/domain/entities/student_entity.dart';
 import 'package:ra_al_hidayah/core/shared/presentation/widgets/rounded_container.dart';
+import 'package:ra_al_hidayah/features/student_payment/presentation/pages/payment_history_spp_detail_page.dart';
 import 'package:ra_al_hidayah/features/student_payment/presentation/widgets/payment_history_item.dart';
 
 import '../../../../core/shared/domain/entities/payment_status_entity.dart';
@@ -117,7 +119,16 @@ class _PaymentHistoryItemListState extends State<PaymentHistoryItemList> {
                     color: Colors.white,
                   ),
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    AppPaths.paymentHistorySppDetail,
+                    arguments: PaymentHistorySppDetailPageRouteArguments(
+                      student: widget.student,
+                      nominal: _sppCost,
+                    ),
+                  );
+                },
               )
             ],
           ),
@@ -127,6 +138,12 @@ class _PaymentHistoryItemListState extends State<PaymentHistoryItemList> {
           title: PaymentType.uniform.title,
           nominal: _uniformCost,
           status: _paymentsStatus.uniform,
+        ),
+        AppHelpers.mediumVerticalSpacing(),
+        PaymentHistoryItem(
+          title: PaymentType.buildingMoney.title,
+          nominal: _buildingMoneyCost,
+          status: _paymentsStatus.buildingMoney,
         ),
         AppHelpers.mediumVerticalSpacing(),
         PaymentHistoryItem(
