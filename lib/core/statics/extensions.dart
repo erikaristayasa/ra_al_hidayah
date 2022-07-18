@@ -55,7 +55,7 @@ extension StringTransformation on String {
   }
 
   Gender get gender {
-    if (this == 'Laki-laki') {
+    if (this == 'Laki-Laki') {
       return Gender.male;
     } else {
       return Gender.female;
@@ -150,7 +150,7 @@ extension GenderTransformation on Gender {
   String get text {
     switch (this) {
       case Gender.male:
-        return 'Laki-laki';
+        return 'Laki-Laki';
       case Gender.female:
         return 'Perempuan';
     }

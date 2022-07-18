@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ra_al_hidayah/core/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:ra_al_hidayah/core/statics/statics.dart';
 import 'package:ra_al_hidayah/core/utilities/utilities.dart';
+import 'package:ra_al_hidayah/features/student_payment/presentation/widgets/payment_item.dart';
+import 'package:ra_al_hidayah/features/student_payment/presentation/widgets/payment_item_list.dart';
 
 import '../../../../core/shared/domain/entities/student_entity.dart';
 
@@ -61,7 +63,9 @@ class PaymentDetailPage extends StatelessWidget {
                   style: const TextStyle(color: AppColors.primary, fontSize: 12.0),
                 )
               ], style: const TextStyle(fontWeight: FontWeight.w400, fontSize: 10.0)),
-            )
+            ),
+            AppHelpers.mediumVerticalSpacing(),
+            PaymentItemList(student: student),
           ],
         ),
       ),
