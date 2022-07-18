@@ -4,10 +4,14 @@ import 'package:ra_al_hidayah/core/shared/domain/entities/payment_detail_entity.
 import 'package:ra_al_hidayah/core/shared/presentation/widgets/dash_line.dart';
 import 'package:ra_al_hidayah/core/utilities/utilities.dart';
 
+import '../../../../core/shared/domain/entities/payment_body_entity.dart';
+import '../../../../core/shared/domain/entities/student_entity.dart';
 import '../../../../core/statics/statics.dart';
 
 class BottomSheetPaymentDetail extends StatelessWidget {
-  const BottomSheetPaymentDetail({Key? key}) : super(key: key);
+  final PaymentBody? result;
+  final Student student;
+  const BottomSheetPaymentDetail({Key? key, required this.result, required this.student}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +54,7 @@ class BottomSheetPaymentDetail extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      AppHelpers.getFormattedPrice(300000),
+                      AppHelpers.getFormattedPrice(result?.total ?? 0),
                       style: const TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 20.0,
@@ -77,8 +81,7 @@ class BottomSheetPaymentDetail extends StatelessWidget {
                         LayoutBuilder(
                           builder: (context, state) {
                             final List<Widget> _children = [];
-                            final _data =
-                                List<PaymentDetail>.generate(6, (index) => PaymentDetail(type: PaymentType.spp, nominal: 150000, month: index + 1));
+                            final _data = result!.paymentDetails;
 
                             for (var item in _data) {
                               final _row = Padding(
@@ -122,7 +125,7 @@ class BottomSheetPaymentDetail extends StatelessWidget {
                                 ),
                                 AppHelpers.smallVerticalSpacing(),
                                 Text(
-                                  AppHelpers.getFormattedPrice(300000),
+                                  AppHelpers.getFormattedPrice(result?.total ?? 0),
                                   style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 10.0, height: 1.5),
                                 )
                               ],
@@ -138,7 +141,7 @@ class BottomSheetPaymentDetail extends StatelessWidget {
                         ),
                         AppHelpers.smallVerticalSpacing(),
                         Text(
-                          'STUDENT_NAME',
+                          student.name,
                           style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 10.0, height: 1.5),
                         ),
                         AppHelpers.mediumVerticalSpacing(),
