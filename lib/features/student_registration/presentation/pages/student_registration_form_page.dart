@@ -6,13 +6,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../core/shared/domain/entities/registration_period_entity.dart';
 import '../../../../core/shared/presentation/blocs/student/student_list_bloc.dart';
 import '../../../../core/shared/presentation/widgets/bottom_sheet_confirmation.dart';
 import '../../../../core/shared/presentation/widgets/custom_app_bar.dart';
 import '../../../../core/shared/presentation/widgets/page_description.dart';
 import '../../../../core/statics/statics.dart';
 import '../../../../core/utilities/utilities.dart';
-import '../../domain/entities/registration_period_entity.dart';
 import '../bloc/student_registration_bloc.dart';
 import '../cubit/student_registration_page_cubit.dart';
 import '../widgets/student_registration_page_indicator.dart';

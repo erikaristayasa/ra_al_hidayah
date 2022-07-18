@@ -3,7 +3,8 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../../core/errors/failure.dart';
 import '../../../../core/networks/networks.dart';
-import '../../domain/entities/registration_period_entity.dart';
+
+import '../../../../core/shared/domain/entities/registration_period_entity.dart';
 import '../../domain/repositories/student_registration_repository.dart';
 import '../datasources/student_registration_data_source.dart';
 

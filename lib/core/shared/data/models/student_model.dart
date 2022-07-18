@@ -1,6 +1,7 @@
 import '../../../statics/statics.dart';
 import '../../domain/entities/student_entity.dart';
 import 'payments_status_model.dart';
+import 'registration_period_model.dart';
 
 class StudentModel extends Student {
   const StudentModel({
@@ -28,6 +29,7 @@ class StudentModel extends Student {
     required String rejectNote,
     required DateTime endPaymentDate,
     required PaymentsStatusModel paymentsStatus,
+    required RegistrationPeriodModel? registrationPeriod,
   }) : super(
           id: id,
           parentId: parentId,
@@ -53,6 +55,7 @@ class StudentModel extends Student {
           rejectNote: rejectNote,
           endPaymentDate: endPaymentDate,
           paymentsStatus: paymentsStatus,
+          registrationPeriod: registrationPeriod,
         );
 
   factory StudentModel.fromJson(Map<String, dynamic> json) => StudentModel(
@@ -80,5 +83,6 @@ class StudentModel extends Student {
         rejectNote: json['keterangan_ditolak'] ?? '',
         endPaymentDate: DateTime.parse(json['tanggal_terakhir_pembayaran']),
         paymentsStatus: PaymentsStatusModel.fromJson(json['status_pembayaran']),
+        registrationPeriod: json['jadwal_pendaftaran'] != null ? RegistrationPeriodModel.fromJson(json['jadwal_pendaftaran']) : null,
       );
 }

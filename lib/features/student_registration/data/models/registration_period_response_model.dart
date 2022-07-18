@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import 'registration_period_model.dart';
+import '../../../../core/shared/data/models/registration_period_model.dart';
 
 class RegistrationPeriodResponseModel extends Equatable {
   final String message;

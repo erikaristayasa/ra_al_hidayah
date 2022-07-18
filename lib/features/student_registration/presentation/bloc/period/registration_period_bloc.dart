@@ -2,7 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../../core/errors/failure.dart';
-import '../../../domain/entities/registration_period_entity.dart';
+
+import '../../../../../core/shared/domain/entities/registration_period_entity.dart';
 import '../../../domain/usecases/get_registration_period.dart';
 
 part 'registration_period_event.dart';

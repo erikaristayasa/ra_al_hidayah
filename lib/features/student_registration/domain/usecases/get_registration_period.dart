@@ -1,7 +1,8 @@
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/errors/failure.dart';
-import '../entities/registration_period_entity.dart';
+
+import '../../../../core/shared/domain/entities/registration_period_entity.dart';
 import '../repositories/student_registration_repository.dart';
 
 abstract class RegistrationPeriodUseCase<Type> {

@@ -1,4 +1,5 @@
 import '../../domain/entities/registration_period_entity.dart';
+import 're_registration_model.dart';
 
 class RegistrationPeriodModel extends RegistrationPeriod {
   const RegistrationPeriodModel({
@@ -13,6 +14,7 @@ class RegistrationPeriodModel extends RegistrationPeriod {
     required String fileRegistrationForm,
     required String fileAvailability,
     required bool status,
+    required ReRegistrationModel reRegistration,
   }) : super(
           id: id,
           title: title,
@@ -25,6 +27,7 @@ class RegistrationPeriodModel extends RegistrationPeriod {
           fileRegistrationForm: fileRegistrationForm,
           fileAvailability: fileAvailability,
           status: status,
+          reRegistration: reRegistration,
         );
 
   factory RegistrationPeriodModel.fromJson(Map<String, dynamic> json) => RegistrationPeriodModel(
@@ -39,5 +42,6 @@ class RegistrationPeriodModel extends RegistrationPeriod {
         fileRegistrationForm: json['file_berkas_form_pendaftaran'] ?? '',
         fileAvailability: json['file_berkas_lembar_kesediaan'] ?? '',
         status: json['status'],
+        reRegistration: ReRegistrationModel.fromJson(json['pendaftaran_ulang']),
       );
 }

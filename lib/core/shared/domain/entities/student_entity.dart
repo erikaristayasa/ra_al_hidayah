@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:ra_al_hidayah/core/shared/domain/entities/registration_period_entity.dart';
 
 import '../../../statics/statics.dart';
 import 'payment_status_entity.dart';
@@ -28,6 +29,7 @@ class Student extends Equatable {
   final String rejectNote;
   final DateTime endPaymentDate;
   final PaymentsStatus paymentsStatus;
+  final RegistrationPeriod? registrationPeriod;
 
   const Student({
     required this.id,
@@ -54,6 +56,7 @@ class Student extends Equatable {
     required this.rejectNote,
     required this.endPaymentDate,
     required this.paymentsStatus,
+    required this.registrationPeriod,
   });
 
   @override
@@ -82,5 +85,6 @@ class Student extends Equatable {
         rejectNote,
         endPaymentDate,
         paymentsStatus,
+        registrationPeriod,
       ];
 }

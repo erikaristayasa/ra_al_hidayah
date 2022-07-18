@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:ra_al_hidayah/core/shared/domain/entities/re_registration_entity.dart';
 
 class RegistrationPeriod extends Equatable {
   final int id;
@@ -13,6 +14,7 @@ class RegistrationPeriod extends Equatable {
   final String fileRegistrationForm;
   final String fileAvailability;
   final bool status;
+  final ReRegistration reRegistration;
 
   const RegistrationPeriod({
     required this.id,
@@ -26,6 +28,7 @@ class RegistrationPeriod extends Equatable {
     required this.fileRegistrationForm,
     required this.fileAvailability,
     required this.status,
+    required this.reRegistration,
   });
 
   bool get isExpired => DateUtils.dateOnly(DateTime.now()).isAfter(endDate);
@@ -43,5 +46,6 @@ class RegistrationPeriod extends Equatable {
         fileRegistrationForm,
         fileAvailability,
         status,
+        reRegistration,
       ];
 }
