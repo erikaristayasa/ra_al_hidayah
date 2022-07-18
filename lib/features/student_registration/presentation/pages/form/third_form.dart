@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ra_al_hidayah/core/shared/presentation/widgets/button_loading.dart';
+import 'package:ra_al_hidayah/core/shared/presentation/widgets/invoice_label.dart';
 import 'package:ra_al_hidayah/core/shared/presentation/widgets/rounded_container.dart';
 import 'package:ra_al_hidayah/features/student_registration/presentation/pages/form/second_form.dart';
 import 'package:ra_al_hidayah/features/student_registration/presentation/widgets/payment_detail_dialog.dart';
@@ -68,80 +69,86 @@ class _ThirdFormState extends State<ThirdForm> with AutomaticKeepAliveClientMixi
             AppHelpers.mediumVerticalSpacing(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppDimensions.large),
-              child: RoundedContainer(
-                padding: const EdgeInsets.all(AppDimensions.medium),
-                color: const Color(0xFFE8FFFC),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'INVOICE UNTUK',
-                            style: TextStyle(
-                              fontSize: 8.0,
-                              fontWeight: FontWeight.w700,
-                              color: AppColors.primary,
-                            ),
-                          ),
-                          FutureBuilder<String>(
-                            future: AppHelpers.getUserNameFromSession(),
-                            builder: (context, snap) => Text(
-                              snap.data ?? '',
-                              style: const TextStyle(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                          FutureBuilder<String>(
-                            future: AppHelpers.getUserAddressFromSession(),
-                            builder: (context, snap) => Text(
-                              snap.data ?? '',
-                              style: TextStyle(fontSize: 8.0, fontWeight: FontWeight.w500, color: AppColors.textGrey),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'HARUS DIBAYAR',
-                            style: TextStyle(
-                              fontSize: 8.0,
-                              fontWeight: FontWeight.w700,
-                              color: AppColors.primary,
-                            ),
-                          ),
-                          const Text(
-                            'Rp100.000',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                DateTime.now().toText(format: 'dd MMMM yyyy'),
-                                style: const TextStyle(fontSize: 8.0, fontWeight: FontWeight.w500, color: AppColors.textGrey),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+              child: InvoiceLabel(
+                nominal: 100000,
+                name: "student_name",
+                address: "address",
+                date: DateTime.now(),
               ),
+              // child: RoundedContainer(
+              //   padding: const EdgeInsets.all(AppDimensions.medium),
+              //   color: const Color(0xFFE8FFFC),
+              //   child: Row(
+              //     children: [
+              //       Expanded(
+              //         child: Column(
+              //           crossAxisAlignment: CrossAxisAlignment.start,
+              //           children: [
+              //             const Text(
+              //               'INVOICE UNTUK',
+              //               style: TextStyle(
+              //                 fontSize: 8.0,
+              //                 fontWeight: FontWeight.w700,
+              //                 color: AppColors.primary,
+              //               ),
+              //             ),
+              //             FutureBuilder<String>(
+              //               future: AppHelpers.getUserNameFromSession(),
+              //               builder: (context, snap) => Text(
+              //                 snap.data ?? '',
+              //                 style: const TextStyle(
+              //                   fontSize: 10.0,
+              //                   fontWeight: FontWeight.w600,
+              //                 ),
+              //               ),
+              //             ),
+              //             FutureBuilder<String>(
+              //               future: AppHelpers.getUserAddressFromSession(),
+              //               builder: (context, snap) => Text(
+              //                 snap.data ?? '',
+              //                 style: TextStyle(fontSize: 8.0, fontWeight: FontWeight.w500, color: AppColors.textGrey),
+              //                 maxLines: 2,
+              //                 overflow: TextOverflow.ellipsis,
+              //               ),
+              //             ),
+              //           ],
+              //         ),
+              //       ),
+              //       Expanded(
+              //         child: Column(
+              //           crossAxisAlignment: CrossAxisAlignment.start,
+              //           children: [
+              //             const Text(
+              //               'HARUS DIBAYAR',
+              //               style: TextStyle(
+              //                 fontSize: 8.0,
+              //                 fontWeight: FontWeight.w700,
+              //                 color: AppColors.primary,
+              //               ),
+              //             ),
+              //             const Text(
+              //               'Rp100.000',
+              //               style: TextStyle(
+              //                 fontSize: 18.0,
+              //                 fontWeight: FontWeight.w500,
+              //               ),
+              //             ),
+              //             Row(
+              //               children: [
+              //                 Text(
+              //                   DateTime.now().toText(format: 'dd MMMM yyyy'),
+              //                   style: const TextStyle(fontSize: 8.0, fontWeight: FontWeight.w500, color: AppColors.textGrey),
+              //                   maxLines: 1,
+              //                   overflow: TextOverflow.ellipsis,
+              //                 ),
+              //               ],
+              //             )
+              //           ],
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
             ),
             AppHelpers.smallVerticalSpacing(),
             Container(

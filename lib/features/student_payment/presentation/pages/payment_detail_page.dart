@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ra_al_hidayah/core/shared/presentation/widgets/rounded_button.dart';
 import 'package:ra_al_hidayah/features/student_payment/presentation/bloc/cart/cart_bloc.dart';
+import 'package:ra_al_hidayah/features/student_payment/presentation/widgets/order_overview.dart';
 
 import '../../../../core/shared/domain/entities/student_entity.dart';
 import '../../../../core/shared/presentation/widgets/custom_app_bar.dart';
@@ -84,14 +86,22 @@ class _PaymentDetailPageState extends State<PaymentDetailPage> {
                 student: widget.student,
                 cartBloc: _cartBloc,
               ),
+              OrderOverview(
+                student: widget.student,
+              ),
+              AppHelpers.mediumVerticalSpacing(),
               BlocConsumer<CartBloc, CartState>(
                 listener: (context, state) {
                   AppHelpers.logMe(state.paymentDetails);
                 },
                 builder: (context, state) {
-                  return Container();
+                  return RoundedButton(
+                    title: 'Lanjutkan Pembayaran',
+                    onTap: () {},
+                  );
                 },
-              )
+              ),
+              AppHelpers.mediumVerticalSpacing(),
             ],
           ),
         ),

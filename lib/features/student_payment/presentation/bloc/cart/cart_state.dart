@@ -1,17 +1,19 @@
 part of 'cart_bloc.dart';
 
 abstract class CartState extends Equatable {
-  // final PaymentDetail activity;
-  // final PaymentDetail uniform;
-  // final PaymentDetail spp;
-  // final PaymentDetail activity;
-  // final PaymentDetail activity;
-  // final List<int> selectedMonth;
   final List<PaymentDetail> paymentDetails;
   const CartState({required this.paymentDetails});
 
   @override
   List<Object> get props => [paymentDetails];
+
+  int get total {
+    int _total = 0;
+    for (var item in paymentDetails) {
+      _total += item.nominal;
+    }
+    return _total;
+  }
 }
 
 class CartInitial extends CartState {
