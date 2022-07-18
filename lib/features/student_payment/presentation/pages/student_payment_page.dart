@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ra_al_hidayah/core/routes/routes.dart';
-import 'package:ra_al_hidayah/core/shared/presentation/blocs/student/student_list_bloc.dart';
-import 'package:ra_al_hidayah/core/shared/presentation/pages/empty_page.dart';
-import 'package:ra_al_hidayah/core/shared/presentation/pages/loading_page.dart';
-import 'package:ra_al_hidayah/core/shared/presentation/widgets/custom_app_bar.dart';
-import 'package:ra_al_hidayah/core/shared/presentation/widgets/custom_search_bar.dart';
-import 'package:ra_al_hidayah/core/statics/statics.dart';
-import 'package:ra_al_hidayah/core/utilities/utilities.dart';
-import 'package:ra_al_hidayah/features/student_payment/presentation/pages/payment_detail_page.dart';
-import 'package:ra_al_hidayah/features/student_payment/presentation/widgets/empty_students_bottom_sheet.dart';
-import 'package:ra_al_hidayah/features/student_payment/presentation/widgets/student_item.dart';
 
+import '../../../../core/routes/routes.dart';
+import '../../../../core/shared/presentation/blocs/student/student_list_bloc.dart';
 import '../../../../core/shared/presentation/cubits/navbar_cubit.dart';
+import '../../../../core/shared/presentation/pages/empty_page.dart';
+import '../../../../core/shared/presentation/pages/loading_page.dart';
+import '../../../../core/shared/presentation/widgets/custom_app_bar.dart';
+import '../../../../core/shared/presentation/widgets/custom_search_bar.dart';
+import '../../../../core/statics/statics.dart';
+import '../../../../core/utilities/utilities.dart';
+import '../widgets/empty_students_bottom_sheet.dart';
+import '../widgets/student_item.dart';
+import 'payment_detail_page.dart';
 
 class StudentPaymentPage extends StatefulWidget {
   final NavbarCubit navbarCubit;
@@ -89,7 +89,9 @@ class _StudentPaymentPageState extends State<StudentPaymentPage> {
                             return StudentItem(
                               data: _student,
                               onTap: () {
-                                Navigator.pushNamed(context, AppPaths.paymentDetail, arguments: PaymentDetailPageRouteArguments(student: _student));
+                                if (_student.status == PaymentStatus.accept) {
+                                  Navigator.pushNamed(context, AppPaths.paymentDetail, arguments: PaymentDetailPageRouteArguments(student: _student));
+                                }
                               },
                             );
                           },

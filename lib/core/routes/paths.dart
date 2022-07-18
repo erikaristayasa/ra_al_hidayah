@@ -12,4 +12,5 @@ class AppPaths {
   static const String paymentDetail = '/payment_detail';
   static const String paymentSppDetail = '/payment_spp_detail';
   static const String paymentMethod = '/payment_method';
+  static const String paymentHistoryDetail = '/payment_history_detail';
 }

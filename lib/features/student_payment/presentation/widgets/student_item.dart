@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ra_al_hidayah/core/utilities/utilities.dart';
 import '../../../../core/shared/domain/entities/student_entity.dart';
 import '../../../../core/shared/presentation/widgets/rounded_button.dart';
 import '../../../../core/shared/presentation/widgets/rounded_container.dart';
@@ -7,7 +8,8 @@ import '../../../../core/statics/statics.dart';
 class StudentItem extends StatelessWidget {
   final Student data;
   final VoidCallback onTap;
-  const StudentItem({Key? key, required this.data, required this.onTap}) : super(key: key);
+  final bool isHistory;
+  const StudentItem({Key? key, required this.data, required this.onTap, this.isHistory = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +59,11 @@ class StudentItem extends StatelessWidget {
                   flex: 1,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: AppDimensions.medium),
-                    child: ActionButton(onTap: onTap, status: data.status),
+                    child: ActionButton(
+                      onTap: onTap,
+                      status: data.status,
+                      isHistory: isHistory,
+                    ),
                   ),
                 ),
                 Expanded(
@@ -130,10 +136,36 @@ class ErrorLabel extends StatelessWidget {
 class ActionButton extends StatelessWidget {
   final VoidCallback onTap;
   final PaymentStatus status;
-  const ActionButton({Key? key, required this.onTap, required this.status}) : super(key: key);
+  final bool isHistory;
+  const ActionButton({Key? key, required this.onTap, required this.status, required this.isHistory}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    if (isHistory) {
+      return RoundedButton(
+        radius: 5.0,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(
+              Icons.remove_red_eye,
+              color: Colors.white,
+              size: 14.0,
+            ),
+            AppHelpers.smallHorizontalSpacing(),
+            const Text(
+              'Lihat',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 10.0,
+              ),
+            ),
+          ],
+        ),
+        onTap: onTap,
+      );
+    }
+    ;
     switch (status) {
       case PaymentStatus.draft:
       case PaymentStatus.process:

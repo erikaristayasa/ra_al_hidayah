@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ra_al_hidayah/features/student_payment/presentation/pages/payment_history_page.dart';
 
 import '../../../../features/student_payment/presentation/pages/student_payment_page.dart';
 import '../../../../features/student_registration/presentation/pages/student_registration_page.dart';
@@ -28,13 +29,9 @@ class _MainPageState extends State<MainPage> {
               if (state == 0) {
                 return const StudentRegistrationPage();
               } else if (state == 1) {
-                return StudentPaymentPage(navbarCubit: _navbarCubit
-                );
+                return StudentPaymentPage(navbarCubit: _navbarCubit);
               } else if (state == 2) {
-                return const ColoredBox(
-                  color: Colors.yellow,
-                  child: SizedBox.expand(),
-                );
+                return const PaymentHistoryPage();
               } else {
                 return const NotFoundPage();
               }

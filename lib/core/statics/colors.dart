@@ -8,6 +8,7 @@ class AppColors {
   static const Color textFieldGrey = Color(0xFFF4F4F4);
   static const Color success = Color(0xFF019267);
   static const Color error = Color(0xFFBF0303);
+  static const Color process = Color(0xFFF39A1A);
   static const Color indicatorGrey = Color(0xFFE0E0E0);
   static const Color downloadSuccess = Color(0xFFDBEEE8);
 
