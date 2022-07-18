@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ra_al_hidayah/core/shared/presentation/widgets/rounded_button.dart';
-import 'package:ra_al_hidayah/features/student_payment/presentation/bloc/cart/cart_bloc.dart';
-import 'package:ra_al_hidayah/features/student_payment/presentation/widgets/order_overview.dart';
 
+import '../../../../core/routes/routes.dart';
 import '../../../../core/shared/domain/entities/student_entity.dart';
 import '../../../../core/shared/presentation/widgets/custom_app_bar.dart';
+import '../../../../core/shared/presentation/widgets/rounded_button.dart';
 import '../../../../core/statics/statics.dart';
 import '../../../../core/utilities/utilities.dart';
+import '../bloc/cart/cart_bloc.dart';
+import '../widgets/order_overview.dart';
 import '../widgets/payment_item_list.dart';
+import 'payment_method_page.dart';
 
 class PaymentDetailPageRouteArguments {
   final Student student;
@@ -97,7 +99,10 @@ class _PaymentDetailPageState extends State<PaymentDetailPage> {
                 builder: (context, state) {
                   return RoundedButton(
                     title: 'Lanjutkan Pembayaran',
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushReplacementNamed(context, AppPaths.paymentMethod,
+                          arguments: PaymentMethodPageRouteArguments(result: null, paymentId: 0));
+                    },
                   );
                 },
               ),

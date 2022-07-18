@@ -6,6 +6,7 @@ import '../../features/login/presentation/pages/login_page.dart';
 import '../../features/otp/presentation/pages/otp_page.dart';
 import '../../features/registration/presentation/pages/registration_page.dart';
 import '../../features/student_payment/presentation/pages/payment_detail_page.dart';
+import '../../features/student_payment/presentation/pages/payment_method_page.dart';
 import '../../features/student_payment/presentation/pages/payment_spp_detail_page.dart';
 import '../../features/student_registration/presentation/pages/student_registration_form_page.dart';
 import '../shared/presentation/pages/main_page.dart';
@@ -53,6 +54,11 @@ class AppRoutes {
             student: args.student,
             nominal: args.nominal,
           ),
+        );
+      case AppPaths.paymentMethod:
+        final args = settings.arguments as PaymentMethodPageRouteArguments;
+        return jumpTo(
+          page: PaymentMethodPage(result: args.result, paymentId: args.paymentId),
         );
       default:
         return jumpTo(page: const NotFoundPage());

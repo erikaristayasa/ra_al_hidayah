@@ -102,7 +102,7 @@ class _PaymentSppDetailPageState extends State<PaymentSppDetailPage> {
                             fontWeight: FontWeight.w500,
                             fontSize: 10.0,
                             color: Color(0xFFF39A1A),
-                            height: 1.5,
+                            height: 2,
                           ),
                           maxLines: 5,
                         ),
