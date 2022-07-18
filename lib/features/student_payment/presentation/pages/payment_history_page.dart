@@ -45,9 +45,7 @@ class _PaymentHistoryPageState extends State<PaymentHistoryPage> {
                 listener: (context, state) {},
                 builder: (context, state) {
                   if (state is StudentListLoading) {
-                    return const LoadingPage(
-                      isList: true,
-                    );
+                    
                   } else if (state is StudentListLoaded) {
                     final _data = state.data.takeWhile((value) => value.status == PaymentStatus.draft).toList();
 
