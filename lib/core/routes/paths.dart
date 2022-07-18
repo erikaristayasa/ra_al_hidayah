@@ -10,4 +10,5 @@ class AppPaths {
   static const String main = '/main';
   static const String studentRegistrationForm = '/student_registration_form';
   static const String paymentDetail = '/payment_detail';
+  static const String paymentSppDetail = '/payment_spp_detail';
 }

@@ -1,32 +1,29 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/shared/presentation/widgets/rounded_button.dart';
 import '../../../../core/shared/presentation/widgets/rounded_container.dart';
 import '../../../../core/statics/statics.dart';
 import '../../../../core/utilities/utilities.dart';
 
-class PaymentItem extends StatefulWidget {
+class SppItem extends StatefulWidget {
   final String title;
   final int nominal;
-  final VoidCallback? onTap;
   final VoidCallback? onChecked;
   final PaymentStatus? status;
   final bool checked;
-  const PaymentItem({
+  const SppItem({
     Key? key,
     required this.title,
     required this.nominal,
-    required this.onTap,
     required this.status,
     required this.onChecked,
     this.checked = false,
   }) : super(key: key);
 
   @override
-  State<PaymentItem> createState() => _PaymentItemState();
+  State<SppItem> createState() => _SppItemState();
 }
 
-class _PaymentItemState extends State<PaymentItem> {
+class _SppItemState extends State<SppItem> {
   bool isChecked = false;
 
   @override
@@ -60,14 +57,12 @@ class _PaymentItemState extends State<PaymentItem> {
             value: _alreadyPaid ? true : isChecked,
             onChanged: _alreadyPaid
                 ? null
-                : widget.onChecked != null
-                    ? (bool? value) {
+                : (bool? value) {
                     setState(() {
                       isChecked = value!;
                     });
-                        widget.onChecked!();
-                      }
-                    : null,
+                    widget.onChecked!();
+                  },
           ),
           Expanded(
             child: Column(
@@ -91,7 +86,6 @@ class _PaymentItemState extends State<PaymentItem> {
                     widget.nominal != 0
                         ? ActionButton(
                             status: widget.status,
-                            onTap: widget.onTap,
                           )
                         : const SizedBox.shrink()
                   ],
@@ -107,32 +101,10 @@ class _PaymentItemState extends State<PaymentItem> {
 
 class ActionButton extends StatelessWidget {
   final PaymentStatus? status;
-  final VoidCallback? onTap;
-  const ActionButton({Key? key, required this.status, this.onTap}) : super(key: key);
+  const ActionButton({Key? key, required this.status}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (onTap != null) {
-      return InkWell(
-        onTap: onTap,
-        child: const RoundedContainer(
-          padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
-          // height: 20.0,
-          radius: 5.0,
-          color: AppColors.success,
-          child: Center(
-            child: Text(
-              'Pilih Bulan',
-              style: TextStyle(
-                fontSize: 9.0,
-                fontWeight: FontWeight.w700,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ),
-      );
-    }
     if (status == null) {
       return const RoundedContainer(
         padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 4.0),

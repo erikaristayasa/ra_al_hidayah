@@ -59,6 +59,36 @@ class SPP extends Equatable {
     required this.december,
   });
 
+  PaymentStatus? getAt(int month) {
+    switch (month) {
+      case 1:
+        return january;
+      case 2:
+        return february;
+      case 3:
+        return march;
+      case 4:
+        return april;
+      case 5:
+        return may;
+      case 6:
+        return june;
+      case 7:
+        return july;
+      case 8:
+        return august;
+      case 9:
+        return september;
+      case 10:
+        return october;
+      case 11:
+        return november;
+      case 12:
+      default:
+        return december;
+    }
+  }
+
   @override
   List<Object?> get props => [
         january,

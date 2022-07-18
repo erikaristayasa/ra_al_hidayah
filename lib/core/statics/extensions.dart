@@ -21,6 +21,36 @@ extension IntTransformation on int {
       return AccountType.lecturer;
     }
   }
+
+  String get monthName {
+    switch (this) {
+      case 1:
+        return 'Januari';
+      case 2:
+        return 'Februari';
+      case 3:
+        return 'Maret';
+      case 4:
+        return 'April';
+      case 5:
+        return 'Mei';
+      case 6:
+        return 'Juni';
+      case 7:
+        return 'Juli';
+      case 8:
+        return 'Agustus';
+      case 9:
+        return 'September';
+      case 10:
+        return 'Oktober';
+      case 11:
+        return 'November';
+      case 12:
+      default:
+        return 'Desember';
+    }
+  }
 }
 
 extension StringTransformation on String {
@@ -81,6 +111,25 @@ extension StringTransformation on String {
       return PaymentStatus.accept;
     } else {
       return PaymentStatus.reject;
+    }
+  }
+}
+
+extension PaymentTypeTransformation on PaymentType {
+  String get text {
+    switch (this) {
+      case PaymentType.activity:
+        return 'KEGIATAN';
+      case PaymentType.stationary:
+        return 'ALAT_TULIS_DAN_BUKU_PAKET';
+      case PaymentType.uniform:
+        return 'SERAGAM_5_STEL';
+      case PaymentType.hood:
+        return 'KERUDUNG';
+      case PaymentType.spp:
+        return 'SPP';
+      case PaymentType.buildingMoney:
+        return 'UANG_BANGUNAN';
     }
   }
 }

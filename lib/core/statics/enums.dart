@@ -22,4 +22,17 @@ enum Gender {
   female,
 }
 
-enum PaymentStatus { process, accept, reject, draft }
+enum PaymentStatus {
+  process,
+  accept,
+  reject,
+  draft,
+}
+enum PaymentType {
+  activity,
+  stationary,
+  uniform,
+  hood,
+  spp,
+  buildingMoney,
+}
