@@ -17,7 +17,7 @@ class CreatePaymentBloc extends Bloc<CreatePaymentEvent, CreatePaymentState> {
       final result = await createPayment(event.body);
       result.fold(
         (failure) => emit(CreatePaymentFailure(failure: failure)),
-        (id) => emit(CreatePaymentCreated(id: id)),
+        (id) => emit(CreatePaymentCreated(id: id, result: event.body)),
       );
     });
   }

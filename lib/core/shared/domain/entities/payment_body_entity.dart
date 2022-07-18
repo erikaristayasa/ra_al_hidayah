@@ -19,6 +19,6 @@ class PaymentBody extends Equatable {
   Map<String, dynamic> toJson() => {
         'siswa_id': studentId,
         'total': total,
-        'rincian_pembayaran': paymentDetails.map((e) => e.toJson()),
+        'rincian_pembayaran': paymentDetails.map((e) => e.toJson()).toList()
       };
 }

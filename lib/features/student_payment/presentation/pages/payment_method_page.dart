@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../core/shared/domain/entities/payment_body_entity.dart';
+import '../../../../core/shared/domain/entities/student_entity.dart';
 import '../../../../core/shared/presentation/widgets/custom_app_bar.dart';
 import '../../../../core/shared/presentation/widgets/custom_photo_field.dart';
 import '../../../../core/shared/presentation/widgets/rekening_info.dart';
@@ -15,14 +16,25 @@ import '../widgets/bottom_sheet_payment_detail.dart';
 class PaymentMethodPageRouteArguments {
   final PaymentBody? result;
   final int paymentId;
+  final Student student;
 
-  PaymentMethodPageRouteArguments({required this.result, required this.paymentId});
+  PaymentMethodPageRouteArguments({
+    required this.result,
+    required this.paymentId,
+    required this.student,
+  });
 }
 
 class PaymentMethodPage extends StatefulWidget {
   final PaymentBody? result;
   final int paymentId;
-  const PaymentMethodPage({Key? key, required this.result, required this.paymentId}) : super(key: key);
+  final Student student;
+  const PaymentMethodPage({
+    Key? key,
+    required this.result,
+    required this.paymentId,
+    required this.student,
+  }) : super(key: key);
 
   @override
   State<PaymentMethodPage> createState() => _PaymentMethodPageState();

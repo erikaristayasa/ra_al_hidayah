@@ -58,7 +58,11 @@ class AppRoutes {
       case AppPaths.paymentMethod:
         final args = settings.arguments as PaymentMethodPageRouteArguments;
         return jumpTo(
-          page: PaymentMethodPage(result: args.result, paymentId: args.paymentId),
+          page: PaymentMethodPage(
+            result: args.result,
+            paymentId: args.paymentId,
+            student: args.student,
+          ),
         );
       default:
         return jumpTo(page: const NotFoundPage());

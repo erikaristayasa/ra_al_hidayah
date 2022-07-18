@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ra_al_hidayah/core/statics/statics.dart';
+import 'package:ra_al_hidayah/core/utilities/utilities.dart';
 
 import '../../../../core/shared/domain/entities/payment_body_entity.dart';
 import '../models/create_payment_response_model.dart';
@@ -19,7 +21,9 @@ class PaymentDataSourceImplementation implements PaymentDataSource {
   Future<CreatePaymentResponseModel> create(PaymentBody body) async {
     const path = 'api/orang-tua/pembayaran/create';
     try {
+      dio.withToken();
       final response = await dio.post(path, data: body.toJson());
+      AppHelpers.logMe(response.data);
       return CreatePaymentResponseModel.fromJson(response.data);
     } catch (e) {
       rethrow;
@@ -33,6 +37,7 @@ class PaymentDataSourceImplementation implements PaymentDataSource {
       'file_bukti_pembayaran': await MultipartFile.fromFile(file.path),
     });
     try {
+      dio.withToken();
       final response = await dio.post(path, data: data);
       return UpdatePaymentResponseModel.fromJson(response.data);
     } catch (e) {
