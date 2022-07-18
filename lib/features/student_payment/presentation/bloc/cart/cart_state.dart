@@ -14,6 +14,16 @@ abstract class CartState extends Equatable {
     }
     return _total;
   }
+
+  int get sppTotal {
+    int _total = 0;
+    for (var item in paymentDetails) {
+      if (item.type == PaymentType.spp) {
+        _total += item.nominal;
+      }
+    }
+    return _total;
+  }
 }
 
 class CartInitial extends CartState {

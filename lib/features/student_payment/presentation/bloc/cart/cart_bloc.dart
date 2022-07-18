@@ -30,6 +30,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     on<AddSppMonths>((event, emit) async {
       List<PaymentDetail> _items = List<PaymentDetail>.from(state.paymentDetails);
       final _months = event.months;
+      _items.removeWhere((element) => element.type == PaymentType.spp);
       for (var month in _months) {
         final _newItem = PaymentDetail(
           type: PaymentType.spp,

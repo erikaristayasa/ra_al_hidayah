@@ -132,6 +132,23 @@ extension PaymentTypeTransformation on PaymentType {
         return 'UANG_BANGUNAN';
     }
   }
+
+  String get title {
+    switch (this) {
+      case PaymentType.activity:
+        return 'Pembayaran Kegiatan';
+      case PaymentType.stationary:
+        return 'Pembayaran Alat Tulis & Buku Paket';
+      case PaymentType.uniform:
+        return 'Pembayaran Seragam 5 Stel';
+      case PaymentType.hood:
+        return 'Pembayaran Kerudung';
+      case PaymentType.spp:
+        return 'Pembayaran SPP/Bulan';
+      case PaymentType.buildingMoney:
+        return 'Pembayaran Uang Bangunan';
+    }
+  }
 }
 
 extension AccountTypeTransformation on AccountType {
