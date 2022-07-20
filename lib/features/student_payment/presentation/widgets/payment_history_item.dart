@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ra_al_hidayah/core/shared/presentation/widgets/custom_photo_field.dart';
+import 'package:ra_al_hidayah/features/student_payment/presentation/widgets/re_upload_payment_dialog.dart';
 
 import '../../../../core/shared/domain/entities/payment_data_entity.dart';
 import '../../../../core/shared/presentation/widgets/rounded_button.dart';
@@ -258,7 +260,18 @@ class _PaymentHistoryItemState extends State<PaymentHistoryItem> {
                           titleColor: AppColors.primary,
                           outlineBodyColor: AppColors.bgGrey,
                           onTap: () {
-                            AppHelpers.logMe('paymentId: ${widget.status?.paymentId}');
+                            final _paymentId = widget.status?.paymentId;
+                            AppHelpers.logMe('paymentId: $_paymentId');
+                            if (_paymentId != null) {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return ReUploadPaymentDialog(
+                                    paymentId: _paymentId,
+                                  );
+                                },
+                              );
+                            }
                           },
                         )
                       ],
