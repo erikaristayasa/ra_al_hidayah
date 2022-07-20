@@ -27,5 +27,6 @@ abstract class StudentRegistrationRepository {
     required XFile? availabilityFile,
     required XFile? profOfPaymentFile,
     required bool isDraft,
+    required bool isUpdate,
   });
 }

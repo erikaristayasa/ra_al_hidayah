@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ra_al_hidayah/core/shared/domain/entities/payment_status_entity.dart';
+import 'package:ra_al_hidayah/core/shared/domain/entities/student_entity.dart';
+import 'package:ra_al_hidayah/features/student_registration/presentation/pages/student_registration_form_page.dart';
 
 import '../../../../core/routes/routes.dart';
 import '../../../../core/shared/presentation/blocs/student/student_list_bloc.dart';
@@ -53,10 +55,10 @@ class _PaymentHistoryPageState extends State<PaymentHistoryPage> {
                         isList: true,
                       );
                     } else if (state is StudentListLoaded) {
-                      final _data = List.from(state.data);
+                      final _data = List<Student>.from(state.data);
                       // _data.clear();
                       _data.removeWhere((element) => element.status == PaymentStatus.draft);
-                      final _drafts = List.from(state.data);
+                      final _drafts = List<Student>.from(state.data);
                       // _drafts.clear();
                       _drafts.removeWhere((element) => element.status != PaymentStatus.draft);
 
@@ -107,7 +109,13 @@ class _PaymentHistoryPageState extends State<PaymentHistoryPage> {
                                     data: _student,
                                     isHistory: true,
                                     onTap: () {
-                                      // Navigator.pushNamed(context, AppPaths.paymentDetail, arguments: PaymentDetailPageRouteArguments(student: _student));
+                                      Navigator.pushNamed(context, AppPaths.studentRegistrationForm,
+                                          arguments: StudentRegistrationFormPageRouteArguments(
+                                            period: _student.registrationPeriod!,
+                                            gradeType: _student.type,
+                                            fromDraft: true,
+                                            student: _student,
+                                          ));
                                     },
                                   );
                                 },

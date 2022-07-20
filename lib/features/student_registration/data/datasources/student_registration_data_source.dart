@@ -29,6 +29,7 @@ abstract class StudentRegistrationDataSource {
     required XFile? availabilityFile,
     required XFile? profOfPaymentFile,
     required bool isDraft,
+    required bool isUpdate,
   });
 }
 
@@ -71,8 +72,15 @@ class StudentRegistrationDataSourceImplementation implements StudentRegistration
     required XFile? availabilityFile,
     required XFile? profOfPaymentFile,
     required bool isDraft,
+    required bool isUpdate,
   }) async {
-    const path = 'api/orang-tua/pendaftaran-siswa/create';
+    String path = '';
+    if (isUpdate) {
+      path = 'api/orang-tua/pendaftaran-siswa/update/$studentId';
+    } else {
+      path = 'api/orang-tua/pendaftaran-siswa/create';
+    }
+    
     final body = {
       'jadwal_pendaftaran_id': registrationPeriodId,
       if (studentId != null) 'siswa_id': studentId,

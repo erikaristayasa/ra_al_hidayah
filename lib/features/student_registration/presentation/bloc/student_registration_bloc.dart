@@ -41,6 +41,7 @@ class StudentRegistrationBloc extends Bloc<StudentRegistrationEvent, StudentRegi
         availabilityFile: event.availabilityFile,
         profOfPaymentFile: event.profOfPaymentFile,
         isDraft: event.isDraft,
+        isUpdate: event.isUpdate,
       );
       result.fold(
         (failure) => emit(StudentRegistrationFailure(failure: failure)),

@@ -28,6 +28,7 @@ class Submit extends StudentRegistrationEvent {
   final XFile? availabilityFile;
   final XFile? profOfPaymentFile;
   final bool isDraft;
+  final bool isUpdate;
 
   const Submit({
     required this.registrationPeriodId,
@@ -50,6 +51,7 @@ class Submit extends StudentRegistrationEvent {
     required this.availabilityFile,
     required this.profOfPaymentFile,
     this.isDraft = false,
+    this.isUpdate = false,
   });
 
   @override
@@ -74,5 +76,6 @@ class Submit extends StudentRegistrationEvent {
         availabilityFile,
         profOfPaymentFile,
         isDraft,
+        isUpdate,
       ];
 }

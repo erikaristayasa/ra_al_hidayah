@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../../core/routes/routes.dart';
 import '../../../../core/shared/domain/entities/registration_period_entity.dart';
+import '../../../../core/shared/domain/entities/student_entity.dart';
 import '../../../../core/shared/presentation/blocs/student/student_list_bloc.dart';
 import '../../../../core/shared/presentation/widgets/bottom_sheet_confirmation.dart';
 import '../../../../core/shared/presentation/widgets/custom_app_bar.dart';
@@ -26,14 +27,29 @@ import 'form/third_form.dart';
 class StudentRegistrationFormPageRouteArguments {
   final GradeType gradeType;
   final RegistrationPeriod period;
+  final bool fromDraft;
+  final Student? student;
 
-  StudentRegistrationFormPageRouteArguments({required this.period, required this.gradeType});
+  StudentRegistrationFormPageRouteArguments({
+    required this.period,
+    required this.gradeType,
+    this.fromDraft = false,
+    this.student,
+  });
 }
 
 class StudentRegistrationFormPage extends StatefulWidget {
   final GradeType gradeType;
   final RegistrationPeriod period;
-  const StudentRegistrationFormPage({Key? key, required this.period, required this.gradeType}) : super(key: key);
+  final bool fromDraft;
+  final Student? student;
+  const StudentRegistrationFormPage({
+    Key? key,
+    required this.period,
+    required this.gradeType,
+    this.fromDraft = false,
+    this.student,
+  }) : super(key: key);
 
   @override
   State<StudentRegistrationFormPage> createState() => _StudentRegistrationFormPageState();
@@ -85,7 +101,7 @@ class _StudentRegistrationFormPageState extends State<StudentRegistrationFormPag
         title: 'Yakin Ingin Kembali?',
         message: 'Anda yakin akan kembali dan hapus semua form yang terisi?',
         onConfirm: () {
-          if (checkIfControllerIsNotEmpty()) {
+          if (checkIfControllerIsNotEmpty() && !(widget.fromDraft)) {
             _createBloc.add(Submit(
               registrationPeriodId: widget.period.id,
               studentId: _studentIdController.text.isNotEmpty ? int.parse(_studentIdController.text) : null,
@@ -186,9 +202,30 @@ class _StudentRegistrationFormPageState extends State<StudentRegistrationFormPag
     IsolateNameServer.removePortNameMapping('downloader_send_port');
   }
 
+  setUpController() {
+    if (widget.fromDraft && widget.student != null) {
+      final _student = widget.student!;
+      AppHelpers.logMe(_student.id.toString());
+      _studentIdController.text = _student.id.toString();
+      _studentNameController.text = _student.name;
+      _birthPlaceController.text = _student.birthPlace;
+      _birthDateController.text = _student.birthDate.toText(format: 'yyyy-MM-dd');
+      _nikController.text = _student.nik;
+      _religionController.text = _student.religion;
+      _childNumberController.text = _student.childNumber;
+      _fatherNameController.text = _student.fatherName;
+      _motherNameController.text = _student.motherName;
+      _parentJobController.text = _student.parentJob;
+      _addressController.text = _student.address;
+      _phoneController.text = _student.phone;
+      _gender = _student.gender;
+    }
+  }
+
   @override
   void initState() {
     _bindBackgroundIsolate();
+    setUpController();
     super.initState();
   }
 
@@ -313,6 +350,7 @@ class _StudentRegistrationFormPageState extends State<StudentRegistrationFormPag
                               registrationFormFile: _registerFormDoc,
                               availabilityFile: _availabilityDoc,
                               profOfPaymentFile: _profPayment,
+                              isUpdate: widget.fromDraft,
                             ));
                           },
                         ),

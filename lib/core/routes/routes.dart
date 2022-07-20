@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../features/student_payment/presentation/pages/payment_history_spp_detail_page.dart';
 
 import '../../features/change_password/presentation/pages/change_password_page.dart';
 import '../../features/forgot_password/presentation/pages/forgot_password_page.dart';
@@ -8,6 +7,7 @@ import '../../features/otp/presentation/pages/otp_page.dart';
 import '../../features/registration/presentation/pages/registration_page.dart';
 import '../../features/student_payment/presentation/pages/payment_detail_page.dart';
 import '../../features/student_payment/presentation/pages/payment_history_detail_page.dart';
+import '../../features/student_payment/presentation/pages/payment_history_spp_detail_page.dart';
 import '../../features/student_payment/presentation/pages/payment_method_page.dart';
 import '../../features/student_payment/presentation/pages/payment_spp_detail_page.dart';
 import '../../features/student_registration/presentation/pages/student_registration_form_page.dart';
@@ -44,6 +44,8 @@ class AppRoutes {
           page: StudentRegistrationFormPage(
             gradeType: args.gradeType,
             period: args.period,
+            fromDraft: args.fromDraft,
+            student: args.student,
           ),
         );
       case AppPaths.paymentDetail:

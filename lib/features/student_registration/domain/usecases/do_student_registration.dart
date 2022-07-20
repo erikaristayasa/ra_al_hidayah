@@ -26,6 +26,7 @@ abstract class RegistrationUseCase<Type> {
     required XFile? availabilityFile,
     required XFile? profOfPaymentFile,
     required bool isDraft,
+    required bool isUpdate,
   });
 }
 
@@ -55,7 +56,8 @@ class DoStudentRegistration implements RegistrationUseCase<bool> {
     required XFile? registrationFormFile,
     required XFile? availabilityFile,
     required XFile? profOfPaymentFile,
-      required bool isDraft
+    required bool isDraft,
+    required bool isUpdate,
   }) async {
     return await repository.create(
       registrationPeriodId: registrationPeriodId,
@@ -78,6 +80,7 @@ class DoStudentRegistration implements RegistrationUseCase<bool> {
       availabilityFile: availabilityFile,
       profOfPaymentFile: profOfPaymentFile,
       isDraft: isDraft,
+      isUpdate: isUpdate,
     );
   }
 }
