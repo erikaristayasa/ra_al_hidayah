@@ -212,13 +212,15 @@ extension PaymentStatusTransformation on PaymentStatus {
   }
 }
 
-extension GenderTransformation on Gender {
+extension GenderTransformation on Gender? {
   String get text {
     switch (this) {
       case Gender.male:
         return 'Laki-Laki';
       case Gender.female:
         return 'Perempuan';
+      default:
+        return '';
     }
   }
 }

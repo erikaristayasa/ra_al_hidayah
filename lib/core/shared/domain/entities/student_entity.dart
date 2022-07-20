@@ -10,9 +10,9 @@ class Student extends Equatable {
   final int periodId;
   final GradeType type;
   final String name;
-  final Gender gender;
+  final Gender? gender;
   final String birthPlace;
-  final DateTime birthDate;
+  final DateTime? birthDate;
   final String nik;
   final String religion;
   final String childNumber;
@@ -27,7 +27,7 @@ class Student extends Equatable {
   final String fileProfOfPayment;
   final PaymentStatus status;
   final String rejectNote;
-  final DateTime endPaymentDate;
+  final DateTime? endPaymentDate;
   final PaymentsStatus paymentsStatus;
   final RegistrationPeriod? registrationPeriod;
 

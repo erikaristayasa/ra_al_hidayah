@@ -51,6 +51,7 @@ class _StudentPaymentPageState extends State<StudentPaymentPage> {
                   listener: (context, state) {
                     if (state is StudentListLoaded) {
                       final _data = state.data;
+                      _data.removeWhere((element) => element.status == PaymentStatus.draft);
                       if (_data.isEmpty && _firstLoad) {
                         showModalBottomSheet(
                           context: context,
@@ -74,6 +75,7 @@ class _StudentPaymentPageState extends State<StudentPaymentPage> {
                       );
                     } else if (state is StudentListLoaded) {
                       final _data = state.data;
+                      _data.removeWhere((element) => element.status == PaymentStatus.draft);
                       if (_data.isEmpty) {
                         return const EmptyPage(
                           title: 'Tidak ada data siswa.',
@@ -89,7 +91,7 @@ class _StudentPaymentPageState extends State<StudentPaymentPage> {
                             return StudentItem(
                               data: _student,
                               onTap: () {
-                                if (_student.status == PaymentStatus.accept) {
+                                if (_student.status != PaymentStatus.accept) {
                                   Navigator.pushNamed(context, AppPaths.paymentDetail, arguments: PaymentDetailPageRouteArguments(student: _student));
                                 }
                               },

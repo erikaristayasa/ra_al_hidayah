@@ -30,7 +30,7 @@ class FirstForm extends StatefulWidget {
   final TextEditingController parentJobController;
   final TextEditingController addressController;
   final TextEditingController phoneController;
-  final Function(Gender gender) onGenderSelected;
+  final Function(Gender? gender) onGenderSelected;
   const FirstForm({
     Key? key,
     required this.gradeType,
