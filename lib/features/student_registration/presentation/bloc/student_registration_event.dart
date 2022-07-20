@@ -27,9 +27,9 @@ class Submit extends StudentRegistrationEvent {
   final XFile? registrationFormFile;
   final XFile? availabilityFile;
   final XFile? profOfPaymentFile;
+  final bool isDraft;
 
-  const Submit(
-  {
+  const Submit({
     required this.registrationPeriodId,
     required this.studentId,
     required this.type,
@@ -49,8 +49,8 @@ class Submit extends StudentRegistrationEvent {
     required this.registrationFormFile,
     required this.availabilityFile,
     required this.profOfPaymentFile,
-  }
-  );
+    this.isDraft = false,
+  });
 
   @override
   List<Object?> get props => [
@@ -73,5 +73,6 @@ class Submit extends StudentRegistrationEvent {
         registrationFormFile,
         availabilityFile,
         profOfPaymentFile,
+        isDraft,
       ];
 }

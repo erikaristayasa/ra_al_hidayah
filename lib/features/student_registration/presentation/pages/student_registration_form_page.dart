@@ -4,8 +4,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../core/routes/routes.dart';
 import '../../../../core/shared/domain/entities/registration_period_entity.dart';
 import '../../../../core/shared/presentation/blocs/student/student_list_bloc.dart';
 import '../../../../core/shared/presentation/widgets/bottom_sheet_confirmation.dart';
@@ -61,7 +63,20 @@ class _StudentRegistrationFormPageState extends State<StudentRegistrationFormPag
   final _phoneController = TextEditingController();
   XFile? _birthDoc, _registerFormDoc, _availabilityDoc, _profPayment;
 
-  
+  bool checkIfControllerIsNotEmpty() {
+    return _studentNameController.text.isNotEmpty ||
+        _birthPlaceController.text.isNotEmpty ||
+        _birthDateController.text.isNotEmpty ||
+        _nikController.text.isNotEmpty ||
+        _religionController.text.isNotEmpty ||
+        _childNumberController.text.isNotEmpty ||
+        _fatherNameController.text.isNotEmpty ||
+        _motherNameController.text.isNotEmpty ||
+        _parentJobController.text.isNotEmpty ||
+        _addressController.text.isEmpty ||
+        _phoneController.text.isNotEmpty;
+  }
+
   backConfirmation() {
     showModalBottomSheet(
       backgroundColor: Colors.transparent,
@@ -70,29 +85,82 @@ class _StudentRegistrationFormPageState extends State<StudentRegistrationFormPag
         title: 'Yakin Ingin Kembali?',
         message: 'Anda yakin akan kembali dan hapus semua form yang terisi?',
         onConfirm: () {
-          Navigator.pop(context);
-          Navigator.pop(context);
-          _createBloc.add(Submit(
-            registrationPeriodId: widget.period.id,
-            studentId: _studentIdController.text.isNotEmpty ? int.parse(_studentIdController.text) : null,
-            type: widget.gradeType.postValue,
-            name: _studentNameController.text,
-            gender: _gender?.text,
-            birthPlace: _birthPlaceController.text,
-            birthDate: _birthDateController.text,
-            nik: _nikController.text,
-            religion: _religionController.text,
-            childNumber: _childNumberController.text,
-            fatherName: _fatherNameController.text,
-            motherName: _motherNameController.text,
-            parentJob: _parentJobController.text,
-            address: _addressController.text,
-            phone: _phoneController.text,
-            birthDocumentFile: _birthDoc,
-            registrationFormFile: _registerFormDoc,
-            availabilityFile: _availabilityDoc,
-            profOfPaymentFile: _profPayment,
-          ));
+          if (checkIfControllerIsNotEmpty()) {
+            _createBloc.add(Submit(
+              registrationPeriodId: widget.period.id,
+              studentId: _studentIdController.text.isNotEmpty ? int.parse(_studentIdController.text) : null,
+              type: widget.gradeType.postValue,
+              name: _studentNameController.text,
+              gender: _gender?.text,
+              birthPlace: _birthPlaceController.text,
+              birthDate: _birthDateController.text,
+              nik: _nikController.text,
+              religion: _religionController.text,
+              childNumber: _childNumberController.text,
+              fatherName: _fatherNameController.text,
+              motherName: _motherNameController.text,
+              parentJob: _parentJobController.text,
+              address: _addressController.text,
+              phone: _phoneController.text,
+              birthDocumentFile: _birthDoc,
+              registrationFormFile: _registerFormDoc,
+              availabilityFile: _availabilityDoc,
+              profOfPaymentFile: _profPayment,
+              isDraft: true,
+            ));
+
+            Fluttertoast.showToast(msg: 'Simpan sebagai Draft.');
+
+            _createBloc.stream.listen((state) {
+              AppHelpers.logMe(state);
+              if (state is StudentRegistrationSuccess) {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text('Berhasil'),
+                    content: const Text('Draft Berhasil Disimpan'),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(context, AppPaths.main);
+                        },
+                        child: const Text(
+                          'OK',
+                          style: TextStyle(
+                            color: AppColors.primary,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              } else if (state is StudentRegistrationFailure) {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text('Gagal Menyimpan Draft'),
+                    content: Text(AppHelpers.getErrorMessage(state.failure)),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text(
+                          'OK',
+                          style: TextStyle(
+                            color: AppColors.primary,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }
+            });
+          } else {
+            Navigator.pop(context);
+            Navigator.pop(context);
+          }
         },
       ),
     );

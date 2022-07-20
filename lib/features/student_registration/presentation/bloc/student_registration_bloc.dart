@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:ra_al_hidayah/core/utilities/utilities.dart';
 
 import '../../../../core/errors/failure.dart';
 import '../../domain/usecases/do_student_registration.dart';
@@ -41,6 +40,7 @@ class StudentRegistrationBloc extends Bloc<StudentRegistrationEvent, StudentRegi
         registrationFormFile: event.registrationFormFile,
         availabilityFile: event.availabilityFile,
         profOfPaymentFile: event.profOfPaymentFile,
+        isDraft: event.isDraft,
       );
       result.fold(
         (failure) => emit(StudentRegistrationFailure(failure: failure)),

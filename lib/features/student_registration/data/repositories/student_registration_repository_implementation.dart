@@ -53,6 +53,7 @@ class StudentRegistrationRepositoryImplementation implements StudentRegistration
     required XFile? registrationFormFile,
     required XFile? availabilityFile,
     required XFile? profOfPaymentFile,
+    required bool isDraft,
   }) async {
     if (await connectivityInfo.isConnected) {
       try {
@@ -76,6 +77,7 @@ class StudentRegistrationRepositoryImplementation implements StudentRegistration
           registrationFormFile: registrationFormFile,
           availabilityFile: availabilityFile,
           profOfPaymentFile: profOfPaymentFile,
+          isDraft: isDraft,
         );
         if (result.message == 'OK') {
           return const Right(true);

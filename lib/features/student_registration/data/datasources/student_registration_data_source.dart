@@ -28,6 +28,7 @@ abstract class StudentRegistrationDataSource {
     required XFile? registrationFormFile,
     required XFile? availabilityFile,
     required XFile? profOfPaymentFile,
+    required bool isDraft,
   });
 }
 
@@ -69,6 +70,7 @@ class StudentRegistrationDataSourceImplementation implements StudentRegistration
     required XFile? registrationFormFile,
     required XFile? availabilityFile,
     required XFile? profOfPaymentFile,
+    required bool isDraft,
   }) async {
     const path = 'api/orang-tua/pendaftaran-siswa/create';
     final body = {
@@ -91,6 +93,7 @@ class StudentRegistrationDataSourceImplementation implements StudentRegistration
       if (registrationFormFile != null) 'file_berkas_form_pendaftaran': await MultipartFile.fromFile(registrationFormFile.path),
       if (availabilityFile != null) 'file_berkas_lembar_kesediaan': await MultipartFile.fromFile(availabilityFile.path),
       if (profOfPaymentFile != null) 'file_bukti_pembayaran': await MultipartFile.fromFile(profOfPaymentFile.path),
+      'status': isDraft ? 'DRAFT' : 'DIPROSES'
     };
 
     AppHelpers.logMe(body);
