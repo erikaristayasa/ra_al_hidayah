@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ra_al_hidayah/core/shared/domain/entities/payment_status_entity.dart';
 
 import '../../../../core/routes/routes.dart';
 import '../../../../core/shared/presentation/blocs/student/student_list_bloc.dart';
@@ -34,6 +35,7 @@ class _PaymentHistoryPageState extends State<PaymentHistoryPage> {
         ),
         body: SafeArea(
           child: Column(
+            mainAxisSize: MainAxisSize.max,
             children: [
               Padding(
                 padding: const EdgeInsets.all(AppDimensions.large),
@@ -41,94 +43,8 @@ class _PaymentHistoryPageState extends State<PaymentHistoryPage> {
                   _listBloc.add(FetchStudents(status: null, name: keyword, type: null));
                 }),
               ),
-              BlocConsumer<StudentListBloc, StudentListState>(
-                listener: (context, state) {},
-                builder: (context, state) {
-                  if (state is StudentListLoading) {
-                    
-                  } else if (state is StudentListLoaded) {
-                    final _data = state.data.takeWhile((value) => value.status == PaymentStatus.draft).toList();
-
-                    if (_data.isEmpty) {
-                    } else {
-                      return Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: AppDimensions.large),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                const Text(
-                                  'Draft Pendaftaran Siswa',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 10.0,
-                                  ),
-                                ),
-                                AppHelpers.smallVerticalSpacing(),
-                                const Text(
-                                  'Berisi form pendaftaran siswa yang sudah terisi sebelumnya.',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 10.0,
-                                    color: AppColors.textGrey,
-                                    height: 1.5,
-                                  ),
-                                ),
-                                AppHelpers.mediumVerticalSpacing(),
-                              ],
-                            ),
-                          ),
-                          ListView.separated(
-                            padding: const EdgeInsets.symmetric(horizontal: AppDimensions.large),
-                            shrinkWrap: true,
-                            itemCount: _data.length,
-                            itemBuilder: (context, index) {
-                              final _student = _data[index];
-                              return StudentItem(
-                                data: _student,
-                                isHistory: true,
-                                onTap: () {
-                                  // Navigator.pushNamed(context, AppPaths.paymentDetail, arguments: PaymentDetailPageRouteArguments(student: _student));
-                                },
-                              );
-                            },
-                            separatorBuilder: (_, __) => AppHelpers.mediumVerticalSpacing(),
-                          ),
-                        ],
-                      );
-                    }
-                  }
-                  return const SizedBox.shrink();
-                },
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppDimensions.large),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const Text(
-                      'Riwayat Pembayaran Siswa',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 10.0,
-                      ),
-                    ),
-                    AppHelpers.smallVerticalSpacing(),
-                    const Text(
-                      'Berisi form pendaftaran siswa yang sudah terisi sebelumnya.',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 10.0,
-                        color: AppColors.textGrey,
-                        height: 1.5,
-                      ),
-                    ),
-                    AppHelpers.mediumVerticalSpacing(),
-                  ],
-                ),
-              ),
               Expanded(
+                flex: 1,
                 child: BlocConsumer<StudentListBloc, StudentListState>(
                   listener: (context, state) {},
                   builder: (context, state) {
@@ -137,30 +53,113 @@ class _PaymentHistoryPageState extends State<PaymentHistoryPage> {
                         isList: true,
                       );
                     } else if (state is StudentListLoaded) {
-                      final _data = state.data.skipWhile((value) => value.status == PaymentStatus.draft).toList();
+                      final _data = List.from(state.data);
+                      // _data.clear();
+                      _data.removeWhere((element) => element.status == PaymentStatus.draft);
+                      final _drafts = List.from(state.data);
+                      // _drafts.clear();
+                      _drafts.removeWhere((element) => element.status != PaymentStatus.draft);
 
-                      if (_data.isEmpty) {
+                      if (_data.isEmpty && _drafts.isEmpty) {
                         return const EmptyPage(
                           title: 'Tidak ada data siswa.',
                           center: true,
                         );
                       } else {
-                        return ListView.separated(
-                          padding: const EdgeInsets.symmetric(horizontal: AppDimensions.large),
-                          shrinkWrap: true,
-                          itemCount: _data.length,
-                          itemBuilder: (context, index) {
-                            final _student = _data[index];
-                            return StudentItem(
-                              data: _student,
-                              isHistory: true,
-                              onTap: () {
-                                Navigator.pushNamed(context, AppPaths.paymentHistoryDetail,
-                                    arguments: PaymentHistoryDetailPageRouteArguments(student: _student));
-                              },
-                            );
-                          },
-                          separatorBuilder: (_, __) => AppHelpers.mediumVerticalSpacing(),
+                        return SingleChildScrollView(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: AppDimensions.large),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  children: [
+                                    const Text(
+                                      'Draft Pendaftaran Siswa',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 10.0,
+                                      ),
+                                    ),
+                                    AppHelpers.smallVerticalSpacing(),
+                                    const Text(
+                                      'Berisi form pendaftaran siswa yang sudah terisi sebelumnya.',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 10.0,
+                                        color: AppColors.textGrey,
+                                        height: 1.5,
+                                      ),
+                                    ),
+                                    AppHelpers.mediumVerticalSpacing(),
+                                  ],
+                                ),
+                              ),
+                              ListView.separated(
+                                padding: const EdgeInsets.symmetric(horizontal: AppDimensions.large),
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: _drafts.length,
+                                itemBuilder: (context, index) {
+                                  final _student = _drafts[index];
+                                  return StudentItem(
+                                    data: _student,
+                                    isHistory: true,
+                                    onTap: () {
+                                      // Navigator.pushNamed(context, AppPaths.paymentDetail, arguments: PaymentDetailPageRouteArguments(student: _student));
+                                    },
+                                  );
+                                },
+                                separatorBuilder: (_, __) => AppHelpers.mediumVerticalSpacing(),
+                              ),
+                              AppHelpers.mediumVerticalSpacing(),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: AppDimensions.large),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  children: [
+                                    const Text(
+                                      'Riwayat Pembayaran Siswa',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 10.0,
+                                      ),
+                                    ),
+                                    AppHelpers.smallVerticalSpacing(),
+                                    const Text(
+                                      'Berisi form pendaftaran siswa yang sudah terisi sebelumnya.',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 10.0,
+                                        color: AppColors.textGrey,
+                                        height: 1.5,
+                                      ),
+                                    ),
+                                    AppHelpers.mediumVerticalSpacing(),
+                                  ],
+                                ),
+                              ),
+                              ListView.separated(
+                                padding: const EdgeInsets.symmetric(horizontal: AppDimensions.large),
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: _data.length,
+                                itemBuilder: (context, index) {
+                                  final _student = _data[index];
+                                  return StudentItem(
+                                    data: _student,
+                                    isHistory: true,
+                                    onTap: () {
+                                      Navigator.pushNamed(context, AppPaths.paymentHistoryDetail,
+                                          arguments: PaymentHistoryDetailPageRouteArguments(student: _student));
+                                    },
+                                  );
+                                },
+                                separatorBuilder: (_, __) => AppHelpers.mediumVerticalSpacing(),
+                              ),
+                            ],
+                          ),
                         );
                       }
                     }
