@@ -91,7 +91,11 @@ class _StudentPaymentPageState extends State<StudentPaymentPage> {
                             return StudentItem(
                               data: _student,
                               onTap: () {
-                                if (_student.status != PaymentStatus.accept) {
+                                // debug:
+                                // if (_student.status != PaymentStatus.accept) {
+
+                                // real:
+                                if (_student.status == PaymentStatus.accept) {
                                   Navigator.pushNamed(context, AppPaths.paymentDetail, arguments: PaymentDetailPageRouteArguments(student: _student));
                                 }
                               },
