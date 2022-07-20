@@ -23,7 +23,12 @@ class AppRoutes {
       case AppPaths.splashScreen:
         return jumpTo(page: const SplashScreenPage());
       case AppPaths.main:
-        return jumpTo(page: const MainPage());
+        final args = settings.arguments as MainPageRouteArgument?;
+        return jumpTo(
+          page: MainPage(
+            page: args?.page ?? 0,
+          ),
+        );
       case AppPaths.login:
         return jumpTo(page: const LoginPage());
       case AppPaths.register:

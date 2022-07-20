@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ra_al_hidayah/features/student_payment/presentation/pages/payment_history_page.dart';
+import '../../../../features/student_payment/presentation/pages/payment_history_page.dart';
 
 import '../../../../features/student_payment/presentation/pages/student_payment_page.dart';
 import '../../../../features/student_registration/presentation/pages/student_registration_page.dart';
@@ -8,15 +8,29 @@ import '../cubits/navbar_cubit.dart';
 import '../widgets/custom_bottom_navigation.dart';
 import 'not_found_page.dart';
 
+class MainPageRouteArgument {
+  final int page;
+
+  MainPageRouteArgument({this.page = 0});
+}
+
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+  final int page;
+  const MainPage({Key? key, this.page = 0}) : super(key: key);
 
   @override
   State<MainPage> createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-  final _navbarCubit = NavbarCubit(0);
+  late NavbarCubit _navbarCubit;
+
+  @override
+  void initState() {
+    _navbarCubit = NavbarCubit(widget.page);
+    super.initState();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

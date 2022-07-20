@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ra_al_hidayah/core/routes/routes.dart';
+import 'package:ra_al_hidayah/core/shared/presentation/pages/main_page.dart';
 
 import '../../../../../core/shared/presentation/widgets/custom_photo_field.dart';
 import '../../../../../core/shared/presentation/widgets/invoice_label.dart';
@@ -10,6 +11,7 @@ import '../../../../../core/shared/presentation/widgets/notification_label.dart'
 import '../../../../../core/shared/presentation/widgets/rounded_button.dart';
 import '../../../../../core/statics/statics.dart';
 import '../../../../../core/utilities/utilities.dart';
+import '../../../../student_payment/presentation/pages/payment_detail_page.dart';
 import '../../bloc/student_registration_bloc.dart';
 import '../../cubit/student_registration_page_cubit.dart';
 import '../../widgets/payment_detail_dialog.dart';
@@ -215,7 +217,12 @@ class _ThirdFormState extends State<ThirdForm> with AutomaticKeepAliveClientMixi
                       actions: [
                         TextButton(
                           onPressed: () {
-                            Navigator.pushReplacementNamed(context, AppPaths.main);
+                            Navigator.pushReplacementNamed(
+                              context,
+                              AppPaths.main,
+                              arguments: MainPageRouteArgument(page: 1),
+                            );
+                            
                           },
                           child: const Text(
                             'OK',
