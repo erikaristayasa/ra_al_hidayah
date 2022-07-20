@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ra_al_hidayah/core/routes/routes.dart';
 
 import '../../../../../core/shared/presentation/widgets/custom_photo_field.dart';
 import '../../../../../core/shared/presentation/widgets/invoice_label.dart';
@@ -208,17 +209,43 @@ class _ThirdFormState extends State<ThirdForm> with AutomaticKeepAliveClientMixi
                 if (state is StudentRegistrationSuccess) {
                   showDialog(
                     context: context,
-                    builder: (context) => const AlertDialog(
-                      title: Text('Berhasil'),
-                      content: Text('Data Berhasil Ditambahkan'),
+                    builder: (context) => AlertDialog(
+                      title: const Text('Berhasil'),
+                      content: const Text('Data Berhasil Ditambahkan'),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pushReplacementNamed(context, AppPaths.main);
+                          },
+                          child: const Text(
+                            'OK',
+                            style: TextStyle(
+                              color: AppColors.primary,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   );
                 } else if (state is StudentRegistrationFailure) {
                   showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
-                      title: Text('Gagal'),
+                      title: const Text('Gagal'),
                       content: Text(AppHelpers.getErrorMessage(state.failure)),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text(
+                            'OK',
+                            style: TextStyle(
+                              color: AppColors.primary,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   );
                 }
