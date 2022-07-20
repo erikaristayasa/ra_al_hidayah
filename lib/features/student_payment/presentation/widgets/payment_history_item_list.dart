@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:ra_al_hidayah/core/routes/routes.dart';
-import 'package:ra_al_hidayah/core/shared/domain/entities/student_entity.dart';
-import 'package:ra_al_hidayah/core/shared/presentation/widgets/rounded_container.dart';
-import 'package:ra_al_hidayah/features/student_payment/presentation/pages/payment_history_spp_detail_page.dart';
-import 'package:ra_al_hidayah/features/student_payment/presentation/widgets/payment_history_item.dart';
 
+import '../../../../core/routes/routes.dart';
 import '../../../../core/shared/domain/entities/payment_status_entity.dart';
+import '../../../../core/shared/domain/entities/student_entity.dart';
 import '../../../../core/shared/presentation/widgets/rounded_button.dart';
+import '../../../../core/shared/presentation/widgets/rounded_container.dart';
 import '../../../../core/statics/statics.dart';
 import '../../../../core/utilities/utilities.dart';
+import '../pages/payment_history_spp_detail_page.dart';
+import 'payment_history_item.dart';
 
 class PaymentHistoryItemList extends StatefulWidget {
   final Student student;
@@ -137,7 +137,7 @@ class _PaymentHistoryItemListState extends State<PaymentHistoryItemList> {
         PaymentHistoryItem(
           title: PaymentType.uniform.title,
           nominal: _uniformCost,
-          status: _paymentsStatus.uniform,
+          status: _paymentsStatus.uniform
         ),
         AppHelpers.mediumVerticalSpacing(),
         PaymentHistoryItem(
@@ -149,7 +149,7 @@ class _PaymentHistoryItemListState extends State<PaymentHistoryItemList> {
         PaymentHistoryItem(
           title: PaymentType.hood.title,
           nominal: _hoodCost,
-          status: _paymentsStatus.hood,
+          status: _paymentsStatus.hood
         ),
         AppHelpers.mediumVerticalSpacing(),
       ],

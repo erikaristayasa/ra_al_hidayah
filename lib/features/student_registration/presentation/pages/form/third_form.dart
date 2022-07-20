@@ -31,6 +31,7 @@ class _ThirdFormState extends State<ThirdForm> with AutomaticKeepAliveClientMixi
   XFile? _profPayment;
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Form(
       child: SingleChildScrollView(
         child: Column(
@@ -202,7 +203,26 @@ class _ThirdFormState extends State<ThirdForm> with AutomaticKeepAliveClientMixi
               ),
             ),
             AppHelpers.largeVerticalSpacing(),
-            BlocBuilder<StudentRegistrationBloc, StudentRegistrationState>(
+            BlocConsumer<StudentRegistrationBloc, StudentRegistrationState>(
+              listener: (context, state) {
+                if (state is StudentRegistrationSuccess) {
+                  showDialog(
+                    context: context,
+                    builder: (context) => const AlertDialog(
+                      title: Text('Berhasil'),
+                      content: Text('Data Berhasil Ditambahkan'),
+                    ),
+                  );
+                } else if (state is StudentRegistrationFailure) {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text('Gagal'),
+                      content: Text(AppHelpers.getErrorMessage(state.failure)),
+                    ),
+                  );
+                }
+              },
               builder: (context, state) {
                 if (state is StudentRegistrationSuccess) {
                   return const NotificationLabel(isSuccess: true, message: 'Data Berhasil Ditambahkan');

@@ -1,13 +1,13 @@
 import '../../domain/entities/payment_status_entity.dart';
-import '../../../statics/statics.dart';
+import 'payment_data_model.dart';
 
 class PaymentsStatusModel extends PaymentsStatus {
   const PaymentsStatusModel({
-    required PaymentStatus? activity,
-    required PaymentStatus? stationary,
-    required PaymentStatus? uniform,
-    required PaymentStatus? hood,
-    required PaymentStatus? buildingMoney,
+    required PaymentDataModel? activity,
+    required PaymentDataModel? stationary,
+    required PaymentDataModel? uniform,
+    required PaymentDataModel? hood,
+    required PaymentDataModel? buildingMoney,
     required SPPModel spp,
   }) : super(
           activity: activity,
@@ -18,29 +18,29 @@ class PaymentsStatusModel extends PaymentsStatus {
           spp: spp,
         );
   factory PaymentsStatusModel.fromJson(Map<String, dynamic> json) => PaymentsStatusModel(
-        activity: json['kegiatan'] != null ? (json['kegiatan'] as String).paymentStatus : null,
-        stationary: json['alat_tulis_dan_buku_paket'] != null ? (json['alat_tulis_dan_buku_paket'] as String).paymentStatus : null,
-        uniform: json['seragam_5_stel'] != null ? (json['seragam_5_stel'] as String).paymentStatus : null,
-        hood: json['kerudung'] != null ? (json['kerudung'] as String).paymentStatus : null,
-        buildingMoney: json['uang_bangunan'] != null ? (json['uang_bangunan'] as String).paymentStatus : null,
+        activity: json['kegiatan'] != null ? PaymentDataModel.fromJson(json['kegiatan']) : null,
+        stationary: json['alat_tulis_dan_buku_paket'] != null ? PaymentDataModel.fromJson(json['alat_tulis_dan_buku_paket']) : null,
+        uniform: json['seragam_5_stel'] != null ? PaymentDataModel.fromJson(json['seragam_5_stel']) : null,
+        hood: json['kerudung'] != null ? PaymentDataModel.fromJson(json['kerudung']) : null,
+        buildingMoney: json['uang_bangunan'] != null ? PaymentDataModel.fromJson(json['uang_bangunan']) : null,
         spp: SPPModel.fromJson(json['spp']),
       );
 }
 
 class SPPModel extends SPP {
   const SPPModel({
-    required PaymentStatus? january,
-    required PaymentStatus? february,
-    required PaymentStatus? march,
-    required PaymentStatus? april,
-    required PaymentStatus? may,
-    required PaymentStatus? june,
-    required PaymentStatus? july,
-    required PaymentStatus? august,
-    required PaymentStatus? september,
-    required PaymentStatus? october,
-    required PaymentStatus? november,
-    required PaymentStatus? december,
+    required PaymentDataModel? january,
+    required PaymentDataModel? february,
+    required PaymentDataModel? march,
+    required PaymentDataModel? april,
+    required PaymentDataModel? may,
+    required PaymentDataModel? june,
+    required PaymentDataModel? july,
+    required PaymentDataModel? august,
+    required PaymentDataModel? september,
+    required PaymentDataModel? october,
+    required PaymentDataModel? november,
+    required PaymentDataModel? december,
   }) : super(
           january: january,
           february: february,
@@ -56,17 +56,17 @@ class SPPModel extends SPP {
           december: december,
         );
   factory SPPModel.fromJson(Map<String, dynamic> json) => SPPModel(
-        january: json['januari'] != null ? (json['januari'] as String).paymentStatus : null,
-        february: json['februari'] != null ? (json['februari'] as String).paymentStatus : null,
-        march: json['maret'] != null ? (json['maret'] as String).paymentStatus : null,
-        april: json['april'] != null ? (json['april'] as String).paymentStatus : null,
-        may: json['mei'] != null ? (json['mei'] as String).paymentStatus : null,
-        june: json['juni'] != null ? (json['juni'] as String).paymentStatus : null,
-        july: json['juli'] != null ? (json['juli'] as String).paymentStatus : null,
-        august: json['agustus'] != null ? (json['agustus'] as String).paymentStatus : null,
-        september: json['september'] != null ? (json['september'] as String).paymentStatus : null,
-        october: json['oktober'] != null ? (json['oktober'] as String).paymentStatus : null,
-        november: json['november'] != null ? (json['november'] as String).paymentStatus : null,
-        december: json['desember'] != null ? (json['desember'] as String).paymentStatus : null,
+        january: json['januari'] != null ? PaymentDataModel.fromJson(json['januari']) : null,
+        february: json['februari'] != null ? PaymentDataModel.fromJson(json['februari']) : null,
+        march: json['maret'] != null ? PaymentDataModel.fromJson(json['maret']) : null,
+        april: json['april'] != null ? PaymentDataModel.fromJson(json['april']) : null,
+        may: json['mei'] != null ? PaymentDataModel.fromJson(json['mei']) : null,
+        june: json['juni'] != null ? PaymentDataModel.fromJson(json['juni']) : null,
+        july: json['juli'] != null ? PaymentDataModel.fromJson(json['juli']) : null,
+        august: json['agustus'] != null ? PaymentDataModel.fromJson(json['agustus']) : null,
+        september: json['september'] != null ? PaymentDataModel.fromJson(json['september']) : null,
+        october: json['oktober'] != null ? PaymentDataModel.fromJson(json['oktober']) : null,
+        november: json['november'] != null ? PaymentDataModel.fromJson(json['november']) : null,
+        december: json['desember'] != null ? PaymentDataModel.fromJson(json['desember']) : null,
       );
 }

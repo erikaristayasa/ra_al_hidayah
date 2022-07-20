@@ -1,7 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:ra_al_hidayah/core/statics/statics.dart';
-
 
 import '../../../../core/errors/failure.dart';
 import '../../../../core/shared/domain/entities/registration_period_entity.dart';

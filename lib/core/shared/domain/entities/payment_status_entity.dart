@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../statics/statics.dart';
+import 'payment_data_entity.dart';
 
 class PaymentsStatus extends Equatable {
-  final PaymentStatus? activity;
-  final PaymentStatus? stationary;
-  final PaymentStatus? uniform;
-  final PaymentStatus? hood;
-  final PaymentStatus? buildingMoney;
+  final PaymentData? activity;
+  final PaymentData? stationary;
+  final PaymentData? uniform;
+  final PaymentData? hood;
+  final PaymentData? buildingMoney;
   final SPP spp;
 
   const PaymentsStatus({
@@ -31,18 +31,18 @@ class PaymentsStatus extends Equatable {
 }
 
 class SPP extends Equatable {
-  final PaymentStatus? january;
-  final PaymentStatus? february;
-  final PaymentStatus? march;
-  final PaymentStatus? april;
-  final PaymentStatus? may;
-  final PaymentStatus? june;
-  final PaymentStatus? july;
-  final PaymentStatus? august;
-  final PaymentStatus? september;
-  final PaymentStatus? october;
-  final PaymentStatus? november;
-  final PaymentStatus? december;
+  final PaymentData? january;
+  final PaymentData? february;
+  final PaymentData? march;
+  final PaymentData? april;
+  final PaymentData? may;
+  final PaymentData? june;
+  final PaymentData? july;
+  final PaymentData? august;
+  final PaymentData? september;
+  final PaymentData? october;
+  final PaymentData? november;
+  final PaymentData? december;
 
   const SPP({
     required this.january,
@@ -59,7 +59,7 @@ class SPP extends Equatable {
     required this.december,
   });
 
-  PaymentStatus? getAt(int month) {
+  PaymentData? getAt(int month) {
     switch (month) {
       case 1:
         return january;

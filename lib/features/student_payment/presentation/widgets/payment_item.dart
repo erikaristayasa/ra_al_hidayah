@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/shared/presentation/widgets/rounded_button.dart';
 import '../../../../core/shared/presentation/widgets/rounded_container.dart';
 import '../../../../core/statics/statics.dart';
 import '../../../../core/utilities/utilities.dart';

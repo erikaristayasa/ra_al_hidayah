@@ -8,7 +8,6 @@ import '../../../utilities/utilities.dart';
 import '../blocs/image_picker/image_picker_bloc.dart';
 import 'bottom_sheet_image_source.dart';
 import 'rounded_button.dart';
-import 'rounded_container.dart';
 
 class CustomPhotoField extends StatefulWidget {
   final String bottomDescription;

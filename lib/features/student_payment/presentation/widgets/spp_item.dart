@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ra_al_hidayah/core/shared/domain/entities/payment_data_entity.dart';
 
 import '../../../../core/shared/presentation/widgets/rounded_container.dart';
 import '../../../../core/statics/statics.dart';
@@ -8,7 +9,7 @@ class SppItem extends StatefulWidget {
   final String title;
   final int nominal;
   final VoidCallback? onChecked;
-  final PaymentStatus? status;
+  final PaymentData? status;
   final bool checked;
   const SppItem({
     Key? key,
@@ -85,7 +86,7 @@ class _SppItemState extends State<SppItem> {
                   children: [
                     widget.nominal != 0
                         ? ActionButton(
-                            status: widget.status,
+                            status: widget.status?.status,
                           )
                         : const SizedBox.shrink()
                   ],

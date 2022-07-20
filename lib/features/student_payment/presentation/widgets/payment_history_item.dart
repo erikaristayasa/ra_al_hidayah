@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:ra_al_hidayah/core/shared/presentation/widgets/rounded_button.dart';
-import 'package:ra_al_hidayah/core/shared/presentation/widgets/rounded_container.dart';
-import 'package:ra_al_hidayah/core/utilities/utilities.dart';
 
+import '../../../../core/shared/domain/entities/payment_data_entity.dart';
+import '../../../../core/shared/presentation/widgets/rounded_button.dart';
+import '../../../../core/shared/presentation/widgets/rounded_container.dart';
 import '../../../../core/statics/statics.dart';
+import '../../../../core/utilities/utilities.dart';
 
 class PaymentHistoryItem extends StatefulWidget {
   final String title;
   final int nominal;
 
-  final PaymentStatus? status;
+  final PaymentData? status;
   const PaymentHistoryItem({Key? key, required this.title, required this.nominal, this.status}) : super(key: key);
 
   @override
@@ -25,7 +26,7 @@ class _PaymentHistoryItemState extends State<PaymentHistoryItem> {
       _color = Colors.grey;
       return;
     }
-    switch (widget.status) {
+    switch (widget.status?.status) {
       case PaymentStatus.draft:
       case PaymentStatus.process:
         _color = AppColors.process;
@@ -50,7 +51,7 @@ class _PaymentHistoryItemState extends State<PaymentHistoryItem> {
 
   @override
   Widget build(BuildContext context) {
-    final _alreadyPaid = widget.status == PaymentStatus.accept || widget.status == PaymentStatus.process;
+    final _alreadyPaid = widget.status?.status == PaymentStatus.accept || widget.status?.status == PaymentStatus.process;
     return RoundedContainer(
       radius: 10.0,
       color: AppColors.textFieldGrey,
@@ -223,7 +224,7 @@ class _PaymentHistoryItemState extends State<PaymentHistoryItem> {
                               Padding(
                                 padding: const EdgeInsets.symmetric(vertical: AppDimensions.medium),
                                 child: StatusLabel(
-                                  status: widget.status,
+                                  status: widget.status?.status,
                                   skip: widget.nominal == 0,
                                 ),
                               ),
@@ -236,7 +237,7 @@ class _PaymentHistoryItemState extends State<PaymentHistoryItem> {
                 ],
               ),
             ),
-            widget.status == PaymentStatus.reject
+            widget.status?.status == PaymentStatus.reject
                 ? Padding(
                     padding: const EdgeInsets.symmetric(vertical: AppDimensions.medium, horizontal: AppDimensions.large),
                     child: Column(
@@ -256,7 +257,9 @@ class _PaymentHistoryItemState extends State<PaymentHistoryItem> {
                           title: 'Upload Ulang',
                           titleColor: AppColors.primary,
                           outlineBodyColor: AppColors.bgGrey,
-                          onTap: () {},
+                          onTap: () {
+                            AppHelpers.logMe('paymentId: ${widget.status?.paymentId}');
+                          },
                         )
                       ],
                     ),

@@ -76,7 +76,7 @@ class _PaymentItemListState extends State<PaymentItemList> {
           title: 'Pembayaran Kegiatan',
           nominal: _activityCost,
           onTap: null,
-          status: _paymentsStatus.activity,
+          status: _paymentsStatus.activity?.status,
           onChecked: () {
             final _item = PaymentDetail(type: PaymentType.activity, nominal: _activityCost);
             widget.cartBloc.add(InsertItem(data: _item));
@@ -87,7 +87,7 @@ class _PaymentItemListState extends State<PaymentItemList> {
           title: 'Pembayaran Alat Tulis & Buku Paket',
           nominal: _stationaryCost,
           onTap: null,
-          status: _paymentsStatus.stationary,
+          status: _paymentsStatus.stationary?.status,
           onChecked: () {
             final _item = PaymentDetail(type: PaymentType.stationary, nominal: _stationaryCost);
             widget.cartBloc.add(InsertItem(data: _item));
@@ -123,7 +123,7 @@ class _PaymentItemListState extends State<PaymentItemList> {
           title: 'Pembayaran Seragam 5 Stel',
           nominal: _uniformCost,
           onTap: null,
-          status: _paymentsStatus.uniform,
+          status: _paymentsStatus.uniform?.status,
           onChecked: () {
             final _item = PaymentDetail(type: PaymentType.uniform, nominal: _uniformCost);
             widget.cartBloc.add(InsertItem(data: _item));
@@ -134,7 +134,7 @@ class _PaymentItemListState extends State<PaymentItemList> {
           title: 'Pembayaran Uang Bangunan',
           nominal: _buildingMoneyCost,
           onTap: null,
-          status: _paymentsStatus.buildingMoney,
+          status: _paymentsStatus.buildingMoney?.status,
           onChecked: () {
             final _item = PaymentDetail(type: PaymentType.buildingMoney, nominal: _buildingMoneyCost);
             widget.cartBloc.add(InsertItem(data: _item));
@@ -145,7 +145,7 @@ class _PaymentItemListState extends State<PaymentItemList> {
           title: 'Pembayaran Kerudung',
           nominal: _hoodCost,
           onTap: null,
-          status: _paymentsStatus.hood,
+          status: _paymentsStatus.hood?.status,
           onChecked: () {
             final _item = PaymentDetail(type: PaymentType.hood, nominal: _hoodCost);
             widget.cartBloc.add(InsertItem(data: _item));
