@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:intl/intl.dart';
 
+import '../utilities/utilities.dart';
+
 part 'assets.dart';
 part 'colors.dart';
 part 'configs.dart';

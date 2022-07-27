@@ -228,6 +228,7 @@ extension GenderTransformation on Gender? {
 extension DynamicHeader on Dio {
   Dio withToken({String? token}) {
     if (token != null) {
+      AppHelpers.logMe('set token: $token');
       return this..options.headers.addAll({'Authorization': 'Bearer ' + token});
     }
     return this..options.headers.addAll({'token': true});

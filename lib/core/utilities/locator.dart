@@ -57,7 +57,7 @@ Future<void> locatorSetup() async {
   locator.registerLazySingleton<PaymentDataSource>(() => PaymentDataSourceImplementation(dio: locator()));
 
   // core
-  locator.registerLazySingleton<Dio>(() => DioClient().dio);
+  locator.registerFactory<Dio>(() => DioClient().dio);
   locator.registerLazySingleton<ConnectivityInfo>(() => ConnectivityInfoImplementation(connectivity: Connectivity()));
 
   // external
