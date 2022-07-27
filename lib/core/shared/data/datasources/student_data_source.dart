@@ -20,6 +20,7 @@ class StudentDataSourceImplementation implements StudentDataSource {
       if (name != null) 'nama_lengkap': name,
     };
     try {
+      dio.withToken();
       final response = await dio.get(path, queryParameters: param);
       return StudentListResponseModel.fromJson(response.data);
     } catch (e) {
