@@ -1,7 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_picker/image_picker.dart';
 
 import '../../../../../core/shared/data/datasources/download_data_source.dart';
 import '../../../../../core/shared/presentation/widgets/custom_photo_field.dart';
@@ -11,9 +12,9 @@ import '../../../../../core/utilities/utilities.dart';
 import '../../cubit/student_registration_page_cubit.dart';
 
 class SecondForm extends StatefulWidget {
-  final Function(XFile? file) onBirthDocSelected;
-  final Function(XFile? file) onRegisterFormSelected;
-  final Function(XFile? file) onAvailabilitySelected;
+  final Function(File? file) onBirthDocSelected;
+  final Function(File? file) onRegisterFormSelected;
+  final Function(File? file) onAvailabilitySelected;
   final String registerFormDownloadUrl;
   final String availabilityDocDownloadUrl;
   const SecondForm({
@@ -30,7 +31,7 @@ class SecondForm extends StatefulWidget {
 }
 
 class _SecondFormState extends State<SecondForm> with AutomaticKeepAliveClientMixin {
-  XFile? _birthDoc, _registerFormDoc, _availabilityDoc;
+  File? _birthDoc, _registerFormDoc, _availabilityDoc;
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -40,12 +41,15 @@ class _SecondFormState extends State<SecondForm> with AutomaticKeepAliveClientMi
             AppHelpers.mediumVerticalSpacing(),
             const LabelInfo(title: 'Upload Akte Kelahiran'),
             CustomPhotoField(
-                outlineStyle: true,
-                bottomDescription: 'Format file: jpg/jpeg/pdf',
-                onPicked: (file) {
-                  _birthDoc = file;
-                  widget.onBirthDocSelected(file);
-                }),
+              outlineStyle: true,
+              bottomDescription: 'Format file: jpg/jpeg/pdf',
+              isFile: true,
+              onPickedFile: (file) {
+                _birthDoc = file;
+                widget.onBirthDocSelected(file);
+              },
+              onPicked: (_) {},
+            ),
             AppHelpers.mediumVerticalSpacing(),
             LabelInfo(
               title: 'Upload Berkas Form Pendaftaran',
@@ -59,12 +63,15 @@ class _SecondFormState extends State<SecondForm> with AutomaticKeepAliveClientMi
               },
             ),
             CustomPhotoField(
-                outlineStyle: true,
-                bottomDescription: 'Format file: jpg/jpeg/pdf',
-                onPicked: (file) {
-                  _registerFormDoc = file;
-                  widget.onRegisterFormSelected(file);
-                }),
+              outlineStyle: true,
+              bottomDescription: 'Format file: jpg/jpeg/pdf',
+              isFile: true,
+              onPickedFile: (file) {
+                _registerFormDoc = file;
+                widget.onRegisterFormSelected(file);
+              },
+              onPicked: (_) {},
+            ),
             AppHelpers.mediumVerticalSpacing(),
             LabelInfo(
               title: 'Upload Berkas Lembar Kesediaan',
@@ -78,12 +85,15 @@ class _SecondFormState extends State<SecondForm> with AutomaticKeepAliveClientMi
               },
             ),
             CustomPhotoField(
-                outlineStyle: true,
-                bottomDescription: 'Format file: jpg/jpeg/pdf',
-                onPicked: (file) {
-                  _availabilityDoc = file;
-                  widget.onAvailabilitySelected(file);
-                }),
+              outlineStyle: true,
+              bottomDescription: 'Format file: jpg/jpeg/pdf',
+              isFile: true,
+              onPickedFile: (file) {
+                _availabilityDoc = file;
+                widget.onAvailabilitySelected(file);
+              },
+              onPicked: (_) {},
+            ),
             AppHelpers.mediumVerticalSpacing(),
             RoundedButton(
               title: 'Selanjutnya',

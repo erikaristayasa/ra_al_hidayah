@@ -23,10 +23,10 @@ class Submit extends StudentRegistrationEvent {
   final String? parentJob;
   final String? address;
   final String? phone;
-  final XFile? birthDocumentFile;
-  final XFile? registrationFormFile;
-  final XFile? availabilityFile;
-  final XFile? profOfPaymentFile;
+  final File? birthDocumentFile;
+  final File? registrationFormFile;
+  final File? availabilityFile;
+  final File? profOfPaymentFile;
   final bool isDraft;
   final bool isUpdate;
 

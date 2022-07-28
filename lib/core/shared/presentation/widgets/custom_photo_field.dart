@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -12,14 +15,18 @@ import 'rounded_button.dart';
 class CustomPhotoField extends StatefulWidget {
   final String bottomDescription;
   final Function(XFile? file) onPicked;
+  final Function(File? file)? onPickedFile;
   final bool showDeleteButton;
   final bool outlineStyle;
+  final bool isFile;
   const CustomPhotoField({
     Key? key,
     required this.bottomDescription,
     required this.onPicked,
+    this.onPickedFile,
     this.showDeleteButton = false,
     this.outlineStyle = false,
+    this.isFile = false,
   }) : super(key: key);
 
   @override
@@ -29,6 +36,28 @@ class CustomPhotoField extends StatefulWidget {
 class _CustomPhotoFieldState extends State<CustomPhotoField> {
   final _imagePicker = ImagePicker();
   final _bloc = ImagePickerBloc();
+  File? _file;
+  String? _fileName;
+
+  Future<void> pickFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+    if (result != null) {
+      setState(() {
+        _file = File(result.files.single.path!);
+        _fileName = result.files.single.name;
+        widget.onPickedFile!(_file);
+      });
+    }
+  }
+
+  removeFile() {
+    setState(() {
+      _file = null;
+      _fileName = null;
+      widget.onPickedFile!(_file);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,45 +94,37 @@ class _CustomPhotoFieldState extends State<CustomPhotoField> {
                     ),
                   ),
                   onTap: () async {
-                    await showModalBottomSheet(
-                      context: context,
-                      builder: (ctx) => BottomSheetImageSource(
-                        selectCamera: () async {
-                          Navigator.pop(context);
-                          _bloc.add(PickingImage(
-                            context: context,
-                            imagePicker: _imagePicker,
-                            imageSource: ImageSource.camera,
-                          ));
-                        },
-                        selectGallery: () async {
-                          Navigator.pop(context);
-                          _bloc.add(PickingImage(
-                            context: context,
-                            imagePicker: _imagePicker,
-                            imageSource: ImageSource.gallery,
-                          ));
-                        },
-                      ),
-                    );
+                    if (widget.isFile) {
+                      await pickFile();
+                    } else {
+                      await showModalBottomSheet(
+                        context: context,
+                        builder: (ctx) => BottomSheetImageSource(
+                          selectCamera: () async {
+                            Navigator.pop(context);
+                            _bloc.add(PickingImage(
+                              context: context,
+                              imagePicker: _imagePicker,
+                              imageSource: ImageSource.camera,
+                            ));
+                          },
+                          selectGallery: () async {
+                            Navigator.pop(context);
+                            _bloc.add(PickingImage(
+                              context: context,
+                              imagePicker: _imagePicker,
+                              imageSource: ImageSource.gallery,
+                            ));
+                          },
+                        ),
+                      );
+                    }
                   },
                 ),
                 AppHelpers.smallHorizontalSpacing(),
-                Expanded(
-                  child: BlocConsumer<ImagePickerBloc, ImagePickerState>(
-                    listener: (context, state) {
-                      if (state is ImagePickerLoaded) {
-                        widget.onPicked(state.file);
-                      } else {
-                        widget.onPicked(null);
-                      }
-                    },
-                    builder: (context, state) {
-                      String? _fileName;
-                      if (state is ImagePickerLoaded) {
-                        _fileName = state.file?.name;
-                      }
-                      return Text(
+                widget.isFile
+                    ? Expanded(
+                        child: Text(
                         _fileName ?? 'Belum ada file yang dipilih',
                         style: const TextStyle(
                           fontWeight: FontWeight.w600,
@@ -112,15 +133,45 @@ class _CustomPhotoFieldState extends State<CustomPhotoField> {
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                      );
-                    },
-                  ),
-                ),
+                      ))
+                    : Expanded(
+                        child: BlocConsumer<ImagePickerBloc, ImagePickerState>(
+                          listener: (context, state) {
+                            if (state is ImagePickerLoaded) {
+                              widget.onPicked(state.file);
+                            } else {
+                              widget.onPicked(null);
+                            }
+                          },
+                          builder: (context, state) {
+                            String? _fileName;
+                            if (state is ImagePickerLoaded) {
+                              _fileName = state.file?.name;
+                            }
+                            return Text(
+                              _fileName ?? 'Belum ada file yang dipilih',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 10.0,
+                                color: AppColors.textGrey,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            );
+                          },
+                        ),
+                      ),
                 widget.showDeleteButton
                     ? IconButton(
                         splashRadius: 20.0,
                         padding: const EdgeInsets.all(0),
-                        onPressed: () => _bloc.add(Clear()),
+                        onPressed: () {
+                          if (widget.isFile) {
+                            removeFile();
+                          } else {
+                            _bloc.add(Clear());
+                          }
+                        },
                         icon: SvgPicture.asset(
                           AppAssets.iconDelete,
                           width: 14.0,

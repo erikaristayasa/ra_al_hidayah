@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -21,7 +23,7 @@ class ThirdForm extends StatefulWidget {
   final TextEditingController nameController;
   final TextEditingController addressController;
 
-  final Function(XFile? file) onFileSelected;
+  final Function(File? file) onFileSelected;
   final VoidCallback onSubmit;
   const ThirdForm({Key? key, required this.onFileSelected, required this.onSubmit, required this.nameController, required this.addressController})
       : super(key: key);
@@ -31,7 +33,7 @@ class ThirdForm extends StatefulWidget {
 }
 
 class _ThirdFormState extends State<ThirdForm> with AutomaticKeepAliveClientMixin {
-  XFile? _profPayment;
+  File? _profPayment;
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -45,10 +47,13 @@ class _ThirdFormState extends State<ThirdForm> with AutomaticKeepAliveClientMixi
             CustomPhotoField(
                 outlineStyle: true,
                 bottomDescription: 'Format file: jpg/jpeg/pdf',
-                onPicked: (file) {
+              isFile: true,
+              onPickedFile: (file) {
                   _profPayment = file;
                   widget.onFileSelected(file);
-                }),
+              },
+              onPicked: (_) {},
+            ),
             AppHelpers.mediumVerticalSpacing(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -22,10 +24,10 @@ abstract class StudentRegistrationRepository {
     required String? parentJob,
     required String? address,
     required String? phone,
-    required XFile? birthDocumentFile,
-    required XFile? registrationFormFile,
-    required XFile? availabilityFile,
-    required XFile? profOfPaymentFile,
+    required File? birthDocumentFile,
+    required File? registrationFormFile,
+    required File? availabilityFile,
+    required File? profOfPaymentFile,
     required bool isDraft,
     required bool isUpdate,
   });

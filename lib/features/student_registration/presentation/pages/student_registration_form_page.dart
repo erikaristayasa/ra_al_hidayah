@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
 
@@ -5,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_picker/image_picker.dart';
 
 import '../../../../core/routes/routes.dart';
 import '../../../../core/shared/domain/entities/registration_period_entity.dart';
@@ -77,7 +77,7 @@ class _StudentRegistrationFormPageState extends State<StudentRegistrationFormPag
   final _parentJobController = TextEditingController();
   final _addressController = TextEditingController();
   final _phoneController = TextEditingController();
-  XFile? _birthDoc, _registerFormDoc, _availabilityDoc, _profPayment;
+  File? _birthDoc, _registerFormDoc, _availabilityDoc, _profPayment;
 
   bool checkIfControllerIsNotEmpty() {
     return _studentNameController.text.isNotEmpty ||
@@ -311,13 +311,13 @@ class _StudentRegistrationFormPageState extends State<StudentRegistrationFormPag
                           onGenderSelected: (gender) => _gender = gender,
                         ),
                         SecondForm(
-                          onAvailabilitySelected: (XFile? file) {
+                          onAvailabilitySelected: (File? file) {
                             _availabilityDoc = file;
                           },
-                          onBirthDocSelected: (XFile? file) {
+                          onBirthDocSelected: (File? file) {
                             _birthDoc = file;
                           },
-                          onRegisterFormSelected: (XFile? file) {
+                          onRegisterFormSelected: (File? file) {
                             _registerFormDoc = file;
                           },
                           registerFormDownloadUrl: widget.period.fileRegistrationForm,
@@ -326,7 +326,7 @@ class _StudentRegistrationFormPageState extends State<StudentRegistrationFormPag
                         ThirdForm(
                           nameController: _studentNameController,
                           addressController: _addressController,
-                          onFileSelected: (XFile? file) {
+                          onFileSelected: (File? file) {
                             _profPayment = file;
                           },
                           onSubmit: () async {

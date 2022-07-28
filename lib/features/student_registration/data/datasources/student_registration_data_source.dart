@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ra_al_hidayah/core/utilities/utilities.dart';
@@ -24,10 +26,10 @@ abstract class StudentRegistrationDataSource {
     required String? parentJob,
     required String? address,
     required String? phone,
-    required XFile? birthDocumentFile,
-    required XFile? registrationFormFile,
-    required XFile? availabilityFile,
-    required XFile? profOfPaymentFile,
+    required File? birthDocumentFile,
+    required File? registrationFormFile,
+    required File? availabilityFile,
+    required File? profOfPaymentFile,
     required bool isDraft,
     required bool isUpdate,
   });
@@ -67,10 +69,10 @@ class StudentRegistrationDataSourceImplementation implements StudentRegistration
     required String? parentJob,
     required String? address,
     required String? phone,
-    required XFile? birthDocumentFile,
-    required XFile? registrationFormFile,
-    required XFile? availabilityFile,
-    required XFile? profOfPaymentFile,
+    required File? birthDocumentFile,
+    required File? registrationFormFile,
+    required File? availabilityFile,
+    required File? profOfPaymentFile,
     required bool isDraft,
     required bool isUpdate,
   }) async {
