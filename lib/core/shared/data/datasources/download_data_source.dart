@@ -22,7 +22,8 @@ class DownloadDataSourceImplementation implements DownloadDataSource {
 
     final directory = (await getExternalStorageDirectories(type: StorageDirectory.downloads))?.first;
     String dirPath = directory!.path;
-    final fileName = name + '.jpg';
+    final fileName = name;
+    // final fileName = name + '.pdf';
     final savePath = '$dirPath/$fileName';
     final savedDir = Directory(savePath);
 

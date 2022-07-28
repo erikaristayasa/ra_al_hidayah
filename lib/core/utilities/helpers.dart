@@ -72,6 +72,10 @@ class AppHelpers {
     return formatter.format(price);
   }
 
+  static String getFileName(String url) {
+    return url.replaceAll('${AppConfigs.baseUrl}files/', '');
+  }
+
   static List<Widget> getImageBanner(List<en.Banner> banners) {
     return List<Widget>.from(
       banners.map(

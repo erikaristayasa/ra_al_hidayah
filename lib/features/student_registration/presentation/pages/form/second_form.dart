@@ -51,7 +51,11 @@ class _SecondFormState extends State<SecondForm> with AutomaticKeepAliveClientMi
               title: 'Upload Berkas Form Pendaftaran',
               downloadUrl: "",
               onDownload: () {
-                locator<DownloadDataSource>().downloadFile(widget.registerFormDownloadUrl, name: "Berkas Form Pendaftaran");
+                // locator<DownloadDataSource>().downloadFile(widget.registerFormDownloadUrl, name: "Berkas Form Pendaftaran");
+                locator<DownloadDataSource>().downloadFile(
+                  widget.registerFormDownloadUrl,
+                  name: AppHelpers.getFileName(widget.registerFormDownloadUrl),
+                );
               },
             ),
             CustomPhotoField(
@@ -66,7 +70,11 @@ class _SecondFormState extends State<SecondForm> with AutomaticKeepAliveClientMi
               title: 'Upload Berkas Lembar Kesediaan',
               downloadUrl: "",
               onDownload: () {
-                locator<DownloadDataSource>().downloadFile(widget.availabilityDocDownloadUrl, name: "Berkas Lembar Kesediaan");
+                // locator<DownloadDataSource>().downloadFile(widget.availabilityDocDownloadUrl, name: "Berkas Lembar Kesediaan");
+                locator<DownloadDataSource>().downloadFile(
+                  widget.availabilityDocDownloadUrl,
+                  name: AppHelpers.getFileName(widget.availabilityDocDownloadUrl),
+                );
               },
             ),
             CustomPhotoField(
